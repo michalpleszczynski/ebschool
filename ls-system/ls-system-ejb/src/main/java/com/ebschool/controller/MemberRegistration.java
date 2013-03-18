@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import com.ebschool.model.Member;
+import com.ebschool.model.BasicUser;
 
 // The @Stateful annotation eliminates the need for manual transaction demarcation
 @Stateful
@@ -22,32 +22,32 @@ import com.ebschool.model.Member;
 @Model
 public class MemberRegistration {
 
-   @Inject
-   private Logger log;
+    @Inject
+    private Logger log;
 
-   @Inject
-   private EntityManager em;
+    @Inject
+    private EntityManager em;
 
-   @Inject
-   private Event<Member> memberEventSrc;
+    @Inject
+    private Event<BasicUser> memberEventSrc;
 
-   private Member newMember;
+    private BasicUser newBasicUser;
 
-   @Produces
-   @Named
-   public Member getNewMember() {
-      return newMember;
-   }
+    @Produces
+    @Named
+    public BasicUser getNewBasicUser() {
+        return newBasicUser;
+    }
 
-   public void register() throws Exception {
-      log.info("Registering " + newMember.getName());
-      em.persist(newMember);
-      memberEventSrc.fire(newMember);
-      initNewMember();
-   }
+    public void register() throws Exception {
+        log.info("Registering " + newBasicUser.getName());
+        em.persist(newBasicUser);
+        memberEventSrc.fire(newBasicUser);
+        initNewMember();
+    }
 
-   @PostConstruct
-   public void initNewMember() {
-      newMember = new Member();
-   }
+    @PostConstruct
+    public void initNewMember() {
+        newBasicUser = new BasicUser();
+    }
 }

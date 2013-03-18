@@ -16,34 +16,36 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.ebschool.controller.MemberRegistration;
-import com.ebschool.model.Member;
+import com.ebschool.model.BasicUser;
 import com.ebschool.util.Resources;
 
 @RunWith(Arquillian.class)
 public class MemberRegistrationTest {
-   @Deployment
-   public static Archive<?> createTestArchive() {
-      return ShrinkWrap.create(WebArchive.class, "test.war")
-            .addClasses(Member.class, MemberRegistration.class, Resources.class)
-            .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-   }
+    @Deployment
+    public static Archive<?> createTestArchive() {
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+                .addClasses(BasicUser.class, MemberRegistration.class, Resources.class)
+                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
-   @Inject
-   MemberRegistration memberRegistration;
+    @Inject
+    MemberRegistration memberRegistration;
 
-   @Inject
-   Logger log;
+    @Inject
+    Logger log;
 
-   @Test
-   public void testRegister() throws Exception {
-      Member newMember = memberRegistration.getNewMember();
-      newMember.setName("Jane Doe");
-      newMember.setEmail("jane@mailinator.com");
-      newMember.setPhoneNumber("2125551234");
-      memberRegistration.register();
-      assertNotNull(newMember.getId());
-      log.info(newMember.getName() + " was persisted with id " + newMember.getId());
-   }
-   
+    @Test
+    public void testRegister() throws Exception {
+        BasicUser newBasicUser = memberRegistration.getNewBasicUser();
+        newBasicUser.setLogin("jane_doe_32");
+        newBasicUser.setFirstName("Jane");
+        newBasicUser.setLastName("Doe");
+        newBasicUser.setEmail("jane@mailinator.com");
+        newBasicUser.setPhoneNumber("2125551234");
+        memberRegistration.register();
+        assertNotNull(newBasicUser.getId());
+        log.info(newBasicUser.getLogin() + " was persisted with id " + newBasicUser.getId());
+    }
+
 }

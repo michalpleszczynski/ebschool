@@ -1,9 +1,7 @@
 package com.ebschool.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * User: michau
@@ -11,6 +9,7 @@ import javax.persistence.OneToOne;
  * Time: 9:20 PM
  */
 @Entity
+@Table(name = "student")
 public class Student extends User {
 
     private Address address;
@@ -18,5 +17,12 @@ public class Student extends User {
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "info_id", nullable = false, unique = true)
     private DetailedInfo detailedInfo;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "level_id", nullable = false)
+    private Level level;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<Grade> grades;
 
 }

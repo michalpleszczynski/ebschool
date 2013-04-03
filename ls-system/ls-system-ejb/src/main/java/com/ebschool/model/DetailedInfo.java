@@ -10,6 +10,7 @@ import javax.persistence.*;
  * Time: 8:13 PM
  */
 @Entity
+@Table(name = "detailed_info", uniqueConstraints = @UniqueConstraint(columnNames = "pesel"))
 public class DetailedInfo{
 
     @Id

@@ -13,9 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class User {
 
     @Id
     @GeneratedValue

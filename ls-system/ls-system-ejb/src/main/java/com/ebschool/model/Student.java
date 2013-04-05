@@ -22,7 +22,38 @@ public class Student extends User {
     @JoinColumn(name = "level_id", nullable = false)
     private Level level;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "student")
     private Set<Grade> grades;
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public DetailedInfo getDetailedInfo() {
+        return detailedInfo;
+    }
+
+    public void setDetailedInfo(DetailedInfo detailedInfo) {
+        this.detailedInfo = detailedInfo;
+    }
+
+    public Set<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<Grade> grades) {
+        this.grades = grades;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
 }

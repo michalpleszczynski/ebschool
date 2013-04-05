@@ -22,4 +22,55 @@ public class Grade {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Test test;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public byte getPrecentage() {
+        return precentage;
+    }
+
+    public void setPrecentage(byte precentage) {
+        this.precentage = precentage;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
+    public byte getWeight() {
+        return weight;
+    }
+
+    public void setWeight(byte weight) {
+        this.weight = weight;
+    }
 }

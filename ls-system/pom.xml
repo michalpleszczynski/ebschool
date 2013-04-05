@@ -16,6 +16,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <shared.resources.dir>${project.build.directory}/shared-resources</shared.resources.dir>
+        <hibernate.version>4.1.0.Final</hibernate.version>
+        <hibernate.maven.plugin.version>3.6.10.Final</hibernate.maven.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -73,6 +76,12 @@
                         <artifactId>slf4j-api</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
             </dependency>
 
             <!-- Joda-time easier Date handling -->

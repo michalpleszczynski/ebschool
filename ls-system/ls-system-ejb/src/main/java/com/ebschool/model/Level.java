@@ -21,4 +21,27 @@ public class Level {
     @OneToMany(mappedBy = "level", fetch = FetchType.LAZY, orphanRemoval = false, cascade = CascadeType.ALL)
     private Set<Class> classes;
 
+    public Set<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Set<Class> classes) {
+        this.classes = classes;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

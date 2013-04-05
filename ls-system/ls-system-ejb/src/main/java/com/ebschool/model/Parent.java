@@ -1,9 +1,6 @@
 package com.ebschool.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -16,6 +13,8 @@ import java.util.Set;
 public class Parent extends User {
 
     @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(joinColumns = @JoinColumn(name = "parent_id"),
+                inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> childrenAccounts;
 
     public Set<Student> getChildrenAccounts(){

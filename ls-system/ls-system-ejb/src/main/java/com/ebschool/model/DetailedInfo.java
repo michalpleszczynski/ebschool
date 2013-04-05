@@ -1,8 +1,7 @@
 package com.ebschool.model;
 
-import org.joda.time.LocalDateTime;
-
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 /**
  * User: michau
@@ -10,7 +9,7 @@ import javax.persistence.*;
  * Time: 8:13 PM
  */
 @Entity
-@Table(name = "detailed_info", uniqueConstraints = @UniqueConstraint(columnNames = "pesel"))
+@Table(name = "detailed_info", uniqueConstraints = @UniqueConstraint(columnNames = "pin"))
 public class DetailedInfo{
 
     @Id
@@ -18,30 +17,39 @@ public class DetailedInfo{
     private long id;
 
     @Column(name = "date_of_birth", nullable = false)
-    private LocalDateTime dateOfBirth;
+    private long dateOfBirth;
 
     @Column(name = "date_joined", nullable = false)
-    private LocalDateTime dateJoined;
+    private long dateJoined;
 
     @Embedded
     private Address address;
 
-    @Column(unique = true, nullable = false)
-    private String pesel;
+    @Column(unique = true, name = "pin")
+    @Pattern(regexp = "[A-Z0-9]*", message = "must contain only digits and capital letters")
+    private String identificationNumber;
 
-    public LocalDateTime getDateOfBirth() {
+    public long getId(){
+        return this.id;
+    }
+
+    public void setId(long id){
+        this.id = id;
+    }
+
+    public long getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(long dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public LocalDateTime getDateJoined() {
+    public long getDateJoined() {
         return dateJoined;
     }
 
-    public void setDateJoined(LocalDateTime dateJoined) {
+    public void setDateJoined(long dateJoined) {
         this.dateJoined = dateJoined;
     }
 
@@ -53,11 +61,11 @@ public class DetailedInfo{
         this.address = address;
     }
 
-    public String getPesel() {
-        return pesel;
+    public String getIdentificationNumber() {
+        return identificationNumber;
     }
 
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
+    public void setIdentificationNumber(String identificationNumber) {
+        this.identificationNumber = identificationNumber;
     }
 }

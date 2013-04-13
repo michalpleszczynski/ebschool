@@ -1,5 +1,7 @@
 package com.ebschool.model;
 
+import com.ebschool.utils.Identifiable;
+
 import javax.persistence.*;
 
 /**
@@ -9,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "grade")
-public class Grade {
+public class Grade  implements Identifiable {
 
     @Id
     @GeneratedValue

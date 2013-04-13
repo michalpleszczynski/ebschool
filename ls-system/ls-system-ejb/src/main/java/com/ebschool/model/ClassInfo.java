@@ -1,5 +1,7 @@
 package com.ebschool.model;
 
+import com.ebschool.utils.Identifiable;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "class")
-public class Class {
+public class ClassInfo implements Identifiable {
 
     @Id
     @GeneratedValue

@@ -1,5 +1,7 @@
 package com.ebschool.model;
 
+import com.ebschool.utils.Identifiable;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
@@ -10,7 +12,7 @@ import javax.validation.constraints.Pattern;
  */
 @Entity
 @Table(name = "detailed_info", uniqueConstraints = @UniqueConstraint(columnNames = "pin"))
-public class DetailedInfo{
+public class DetailedInfo implements Identifiable {
 
     @Id
     @GeneratedValue

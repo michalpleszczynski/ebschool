@@ -1,5 +1,7 @@
 package com.ebschool.model;
 
+import com.ebschool.utils.Identifiable;
+
 import javax.persistence.*;
 
 /**
@@ -9,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "test")
-public class Test {
+public class Test implements Identifiable {
 
     @Id
     @GeneratedValue
@@ -22,7 +24,7 @@ public class Test {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id")
-    private Class aClass;
+    private ClassInfo classInfo;
 
     public String getDescription() {
         return description;
@@ -48,12 +50,12 @@ public class Test {
         this.when = when;
     }
 
-    public Class getaClass() {
-        return aClass;
+    public ClassInfo getClassInfo() {
+        return classInfo;
     }
 
-    public void setaClass(Class aClass) {
-        this.aClass = aClass;
+    public void setClassInfo(ClassInfo classInfo) {
+        this.classInfo = classInfo;
     }
 
 }

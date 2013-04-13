@@ -1,19 +1,18 @@
 package com.ebschool.model;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.ebschool.utils.Identifiable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "login"}))
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public class User  implements Identifiable {
 
     @Id
     @GeneratedValue
@@ -44,7 +43,7 @@ public class User {
     @Column(name = "phone_number", length = 12, nullable = false)
     private String phoneNumber;
 
-    @Size(min = 32, max = 32)
+    @Size(min = 40, max = 40)
     @Column(nullable = false, length = 32)
     private String password;
 

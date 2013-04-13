@@ -17,7 +17,7 @@ public class Teacher extends User {
     @Lob
     private byte[] avatar;
 
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "info_id", nullable = false, unique = true)
     private DetailedInfo detailedInfo;
 
@@ -25,6 +25,37 @@ public class Teacher extends User {
     @JoinTable(name = "teacher_class",
         joinColumns = @JoinColumn(name = "teacher_id"),
         inverseJoinColumns = @JoinColumn(name = "class_id"))
-    private Set<Class> classes;
+    private Set<ClassInfo> classes;
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
+    public Set<ClassInfo> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Set<ClassInfo> classes) {
+        this.classes = classes;
+    }
+
+    public DetailedInfo getDetailedInfo() {
+        return detailedInfo;
+    }
+
+    public void setDetailedInfo(DetailedInfo detailedInfo) {
+        this.detailedInfo = detailedInfo;
+    }
 }

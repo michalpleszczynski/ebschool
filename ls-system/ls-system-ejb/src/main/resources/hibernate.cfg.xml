@@ -10,16 +10,6 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.pool_size">5</property>
         <property name="hibernate.show_sql">false</property>
-        <!--<mapping class="com.ebschool.model.Class" />-->
-        <!--<mapping class="com.ebschool.model.DetailedInfo" />-->
-        <!--<mapping class="com.ebschool.model.Level" />-->
-        <!--<mapping class="com.ebschool.model.Student" />-->
-        <!--<mapping class="com.ebschool.model.Teacher" />-->
-        <!--<mapping class="com.ebschool.model.Test" />-->
-        <!--<mapping class="com.ebschool.model.Address" />-->
-        <!--<mapping class="com.ebschool.model.Grade" />-->
-        <!--<mapping class="com.ebschool.model.Parent" />-->
-        <!--<mapping class="com.ebschool.model.User" />-->
         <mapping package="com.ebschool.model" />
     </session-factory>
 </hibernate-configuration>

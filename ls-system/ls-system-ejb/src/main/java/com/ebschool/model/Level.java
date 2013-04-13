@@ -1,5 +1,7 @@
 package com.ebschool.model;
 
+import com.ebschool.utils.Identifiable;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "level")
-public class Level {
+public class Level  implements Identifiable {
 
     @Id
     @GeneratedValue
@@ -19,13 +21,13 @@ public class Level {
     private String name;
 
     @OneToMany(mappedBy = "level", fetch = FetchType.LAZY, orphanRemoval = false, cascade = CascadeType.ALL)
-    private Set<Class> classes;
+    private Set<ClassInfo> classes;
 
-    public Set<Class> getClasses() {
+    public Set<ClassInfo> getClasses() {
         return classes;
     }
 
-    public void setClasses(Set<Class> classes) {
+    public void setClasses(Set<ClassInfo> classes) {
         this.classes = classes;
     }
 

@@ -3,6 +3,11 @@ package com.ebschool.repo;
 import com.ebschool.utils.Identifiable;
 import org.apache.commons.lang.ArrayUtils;
 
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.HashSet;
@@ -13,10 +18,14 @@ import java.util.Set;
  * Date: 4/13/13
  * Time: 2:49 PM
  */
+@Stateless
+@LocalBean
+//@RolesAllowed({"RegisteredUsers"})
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GenericRepositoryImpl<T extends Identifiable, PK> implements GenericRepository<T, PK> {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     private Class<T> clazz;
 

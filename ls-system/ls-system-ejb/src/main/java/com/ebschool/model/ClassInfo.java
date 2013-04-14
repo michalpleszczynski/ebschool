@@ -18,18 +18,14 @@ public class ClassInfo implements Identifiable {
     @GeneratedValue
     private long id;
 
-    private String when;
-    private String where;
+    private String whenAndWhere;
     private String description;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "level_id")
     private Level level;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "class_student",
-        joinColumns = @JoinColumn(name = "class_id"),
-        inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "classes")
     private Set<Student> students;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "classes")
@@ -86,19 +82,11 @@ public class ClassInfo implements Identifiable {
         this.tests = tests;
     }
 
-    public String getWhen() {
-        return when;
+    public String getWhenAndWhere() {
+        return whenAndWhere;
     }
 
-    public void setWhen(String when) {
-        this.when = when;
-    }
-
-    public String getWhere() {
-        return where;
-    }
-
-    public void setWhere(String where) {
-        this.where = where;
+    public void setWhenAndWhere(String whenAndWhere) {
+        this.whenAndWhere = whenAndWhere;
     }
 }

@@ -22,6 +22,12 @@ public class Student extends User {
     @JoinColumn(name = "level_id", nullable = false)
     private Level level;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "class_student",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id"))
+    private Set<Student> classes;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "student")
     private Set<Grade> grades;
 
@@ -55,5 +61,13 @@ public class Student extends User {
 
     public void setLevel(Level level) {
         this.level = level;
+    }
+
+    public Set<Student> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Set<Student> classes) {
+        this.classes = classes;
     }
 }

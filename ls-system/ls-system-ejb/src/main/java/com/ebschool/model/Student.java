@@ -12,8 +12,6 @@ import java.util.Set;
 @Table(name = "student")
 public class Student extends User {
 
-    private Address address;
-
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "info_id", nullable = false, unique = true)
     private DetailedInfo detailedInfo;
@@ -30,14 +28,6 @@ public class Student extends User {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "student")
     private Set<Grade> grades;
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public DetailedInfo getDetailedInfo() {
         return detailedInfo;

@@ -12,8 +12,6 @@ import java.util.Set;
 @Table(name = "teacher")
 public class Teacher extends User {
 
-    private Address address;
-
     @Lob
     private byte[] avatar;
 
@@ -26,14 +24,6 @@ public class Teacher extends User {
         joinColumns = @JoinColumn(name = "teacher_id"),
         inverseJoinColumns = @JoinColumn(name = "class_id"))
     private Set<ClassInfo> classes;
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 
     public byte[] getAvatar() {
         return avatar;

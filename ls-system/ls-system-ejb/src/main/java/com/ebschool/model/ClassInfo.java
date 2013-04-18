@@ -11,14 +11,16 @@ import java.util.Set;
  * Time: 7:23 PM
  */
 @Entity
-@Table(name = "class")
+@Table(name = "class_info")
 public class ClassInfo implements Identifiable {
 
     @Id
     @GeneratedValue
     private long id;
 
-    private String whenAndWhere;
+    private String where;
+    private long when;
+
     private String description;
 
     @ManyToOne(optional = false)
@@ -31,7 +33,7 @@ public class ClassInfo implements Identifiable {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "classes")
     private Set<Teacher> teachers;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "aClass")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "classInfo")
     private Set<Test> tests;
 
     public String getDescription() {
@@ -82,11 +84,20 @@ public class ClassInfo implements Identifiable {
         this.tests = tests;
     }
 
-    public String getWhenAndWhere() {
-        return whenAndWhere;
+    public long getWhen() {
+        return when;
     }
 
-    public void setWhenAndWhere(String whenAndWhere) {
-        this.whenAndWhere = whenAndWhere;
+    public void setWhen(long when) {
+        this.when = when;
     }
+
+    public String getWhere() {
+        return where;
+    }
+
+    public void setWhere(String where) {
+        this.where = where;
+    }
+
 }

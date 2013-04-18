@@ -47,6 +47,9 @@ public class User  implements Identifiable {
     @Column(nullable = false, length = 32)
     private String password;
 
+    @Column(nullable = false)
+    private boolean active;
+
     public long getId() {
         return id;
     }
@@ -101,5 +104,13 @@ public class User  implements Identifiable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

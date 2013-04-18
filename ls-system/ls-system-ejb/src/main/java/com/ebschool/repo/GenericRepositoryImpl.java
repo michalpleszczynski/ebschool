@@ -29,6 +29,11 @@ public class GenericRepositoryImpl<T extends Identifiable, PK> implements Generi
 
     private Class<T> clazz;
 
+    // needed for DI
+    public GenericRepositoryImpl(){
+
+    }
+
     public GenericRepositoryImpl(Class<T> clazz){
         this.clazz = clazz;
     }
@@ -61,13 +66,13 @@ public class GenericRepositoryImpl<T extends Identifiable, PK> implements Generi
 
     @Override
     public void deleteAll(){
-        if ((Long)entityManager.createQuery("select count(*) from " + clazz.getSimpleName()).getSingleResult() > 0){
-            entityManager.createQuery("delete * from " + clazz.getSimpleName()).executeUpdate();
+        if ((Long)entityManager.createNativeQuery("SELECT COUNT(*) FROM " + clazz.getSimpleName()).getSingleResult() > 0){
+            entityManager.createNativeQuery("DELETE FROM " + clazz.getSimpleName()).executeUpdate();
         }
     }
 
     @Override
     public Set<T> getAll() {
-        return new HashSet<T>(entityManager.createQuery("from " + clazz.getSimpleName() + " c").getResultList());
+        return new HashSet<T>(entityManager.createQuery("From " + clazz.getSimpleName() + " c").getResultList());
     }
 }

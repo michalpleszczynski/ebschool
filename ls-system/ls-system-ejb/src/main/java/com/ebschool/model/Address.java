@@ -22,7 +22,7 @@ public class Address {
     @Column(length = 40, nullable = false)
     private String street;
 
-    @Column(length = 6, nullable = false)
+    @Column(length = 6, nullable = false, name = "zip_code")
     private String zipCode;
 
     public String getCountry() {

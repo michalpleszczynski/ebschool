@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+    <basic_user id="1" email="some@email.com" first_name="name" last_name="last_name" login="login"
+          password='ff12bbd8c907af067070211d87bdf098be17375b' phone_number="111222333" active="true"/>
+
+    <basic_user id="2" email="someother@email.com" first_name="other_name" last_name="other_lastname" login="other_login"
+                password='ff12bbd8c907aa067070211d47bdf098be17375b' phone_number="333222111" active="true"/>
+
+    <basic_user id="3" email="some12@email.com" first_name="nameParent" last_name="last_nameParent" login="loginParent"
+                password='bb12bbd8c907af067070211d87bdf098be17375b' phone_number="111222333" active="true"/>
+
+    <student id="1" level_id="1" info_id="1" />
+
+    <teacher id="2" info_id="2" avatar="[null]" />
+
+    <parent id="3" />
+
+    <detailed_info id="1" street="Virginia Rd" zip_code="13733NY" city="Oxford"
+                   country="USA" date_joined="345345345" date_of_bith="25644543" pin="123123123"/>
+
+    <detailed_info id="2" street="Lewis St" zip_code="13733NY" city="Bainbridge"
+                   country="USA" date_joined="345435345" date_of_bith="25641111" pin="3456546DC"/>
+
+    <grade id="1" comment="this is a comment" percentage="76" weight="3" student_id="1" test_id="1" />
+
+    <class_info id="1" description="this is a description" when="45756757" where="room 103" level_id="1"/>
+
+    <test id="1" description="this is a test" when="456546456" class_id="1"/>
+
+    <level id="1" name="advanced" />
+
+    <class_student student_id="1" class_id="1" />
+
+    <teacher_class teacher_id="2" class_id="1" />
+
+    <parent_student parent_id="3" student_id="1" />
+
+</dataset>

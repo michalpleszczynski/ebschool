@@ -18,7 +18,10 @@ public class ClassInfo implements Identifiable {
     @GeneratedValue
     private long id;
 
+    @Column(name = "where_")
     private String where;
+
+    @Column(name = "when_")
     private long when;
 
     private String description;

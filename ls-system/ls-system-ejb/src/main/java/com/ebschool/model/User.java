@@ -44,7 +44,7 @@ public class User  implements Identifiable {
     private String phoneNumber;
 
     @Size(min = 40, max = 40)
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 32, name = "password_")
     private String password;
 
     @Column(nullable = false)

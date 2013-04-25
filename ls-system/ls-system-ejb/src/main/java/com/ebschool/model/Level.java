@@ -18,6 +18,7 @@ public class Level  implements Identifiable {
     @GeneratedValue
     private long id;
 
+    @Column(name = "name_")
     private String name;
 
     @OneToMany(mappedBy = "level", fetch = FetchType.LAZY, orphanRemoval = false, cascade = CascadeType.ALL)

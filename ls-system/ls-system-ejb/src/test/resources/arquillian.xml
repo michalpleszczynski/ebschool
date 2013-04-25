@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/arquillian-1.0"
+            xsi:schemaLocation="http://jboss.org/arquillian-1.0 http://jboss.org/schema/arquillian/arquillian-1.0.xsd">
+    <container qualifier="jbossas" default="true">
+        <configuration>
+            <property name="javaVmArguments">-Xms128m -Xmx1024m -XX:MaxPermSize=512m</property>
+            <property name="userTransactionJndi">java:jboss/UserTransaction</property>
+        </configuration>
+    </container>
+    <extension qualifier="persistence">
+        <property name="defaultDataSource">java:jboss/datasources/TestDS</property>
+        <!--<property name="scriptsToExecuteBeforeTest">sql-scripts/init.sql</property>-->
+        <!--<property name="scriptsToExecuteAfterTest">init-scripts/init.sql</property>-->
+        <property name="userTransactionJndi">java:jboss/UserTransaction</property>
+    </extension>
+</arquillian>

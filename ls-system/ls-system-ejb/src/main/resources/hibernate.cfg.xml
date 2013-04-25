@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">pass</property>
+        <property name="hibernate.connection.password">testit</property>
         <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/ebuisness_database</property>
-        <property name="hibernate.connection.username">ebuisness_user</property>
+        <property name="hibernate.connection.username">testit_user</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.pool_size">5</property>
         <property name="hibernate.show_sql">false</property>
-        <mapping package="com.ebschool.model" />
+        <!--<mapping package="com.ebschool.model" />-->
+        <mapping class="com.ebschool.model.Level" />
+        <mapping class="com.ebschool.model.Parent" />
+        <mapping class="com.ebschool.model.Grade" />
+        <mapping class="com.ebschool.model.Address" />
+        <mapping class="com.ebschool.model.ClassInfo" />
+        <mapping class="com.ebschool.model.DetailedInfo" />
+        <mapping class="com.ebschool.model.Student" />
+        <mapping class="com.ebschool.model.Teacher" />
+        <mapping class="com.ebschool.model.Test" />
+        <mapping class="com.ebschool.model.User" />
     </session-factory>
 </hibernate-configuration>

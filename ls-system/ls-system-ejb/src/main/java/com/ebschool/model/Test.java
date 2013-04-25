@@ -19,7 +19,7 @@ public class Test implements Identifiable {
 
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "when_")
     private long when;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -17,8 +17,10 @@ public class Grade  implements Identifiable {
     @GeneratedValue
     private long id;
 
-    private byte precentage;
+    private byte percentage;
     private byte weight;
+
+    @Column(name = "comment_")
     private String comment;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -44,12 +46,12 @@ public class Grade  implements Identifiable {
         this.id = id;
     }
 
-    public byte getPrecentage() {
-        return precentage;
+    public byte getPercentage() {
+        return percentage;
     }
 
-    public void setPrecentage(byte precentage) {
-        this.precentage = precentage;
+    public void setPercentage(byte percentage) {
+        this.percentage = percentage;
     }
 
     public Student getStudent() {

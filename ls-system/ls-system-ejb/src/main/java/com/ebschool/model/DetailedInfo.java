@@ -15,7 +15,7 @@ import javax.validation.constraints.Pattern;
 public class DetailedInfo implements Identifiable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "date_of_birth", nullable = false)

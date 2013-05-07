@@ -7,8 +7,6 @@
     <persistence-unit name="test">
         <jta-data-source>java:jboss/datasources/TestDS</jta-data-source>
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
-            <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.ejb.cfgfile" value="/test-hibernate.cfg.xml"/>
         </properties>
     </persistence-unit>

@@ -1,6 +1,7 @@
 package com.ebschool.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,6 +17,10 @@ public class Parent extends User {
     @JoinTable(joinColumns = @JoinColumn(name = "parent_id"),
                 inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> childrenAccounts;
+
+    public Parent(){
+        childrenAccounts = new HashSet<Student>();
+    }
 
     public Set<Student> getChildrenAccounts(){
         return childrenAccounts;

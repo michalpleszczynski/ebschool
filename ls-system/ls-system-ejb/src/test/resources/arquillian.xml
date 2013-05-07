@@ -14,4 +14,5 @@
         <!--<property name="scriptsToExecuteAfterTest">init-scripts/init.sql</property>-->
         <property name="userTransactionJndi">java:jboss/UserTransaction</property>
     </extension>
+    <!--<defaultProtocol type="Servlet 3.0" />-->
 </arquillian>

@@ -3,6 +3,7 @@ package com.ebschool.model;
 import com.ebschool.utils.Identifiable;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,14 +16,18 @@ import java.util.Set;
 public class Level  implements Identifiable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name_")
     private String name;
 
-    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY, orphanRemoval = false, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY, orphanRemoval = false)
     private Set<ClassInfo> classes;
+
+    public Level(){
+        classes = new HashSet<ClassInfo>();
+    }
 
     public Set<ClassInfo> getClasses() {
         return classes;

@@ -9,17 +9,18 @@ import com.ebschool.utils.Identifiable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+//TODO: add hashing of the password at some level
 @Entity
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "login"}))
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User  implements Identifiable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Size(min = 3, max = 25)
-    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    @Pattern(regexp = "[A-Za-z0-9]*", message = "must contain only letters and digits")
     @Column(length = 25, nullable = false, unique = true)
     private String login;
 

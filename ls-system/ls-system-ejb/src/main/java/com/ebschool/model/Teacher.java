@@ -1,6 +1,7 @@
 package com.ebschool.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,11 +20,15 @@ public class Teacher extends User {
     @JoinColumn(name = "info_id", nullable = false, unique = true)
     private DetailedInfo detailedInfo;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "teacher_class",
         joinColumns = @JoinColumn(name = "teacher_id"),
         inverseJoinColumns = @JoinColumn(name = "class_id"))
     private Set<ClassInfo> classes;
+
+    public Teacher(){
+        classes = new HashSet<ClassInfo>();
+    }
 
     public byte[] getAvatar() {
         return avatar;

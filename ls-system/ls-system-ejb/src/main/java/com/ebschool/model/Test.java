@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Test implements Identifiable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String description;

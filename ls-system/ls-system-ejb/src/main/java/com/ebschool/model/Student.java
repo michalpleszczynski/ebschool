@@ -1,6 +1,7 @@
 package com.ebschool.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,18 +17,23 @@ public class Student extends User {
     @JoinColumn(name = "info_id", nullable = false, unique = true)
     private DetailedInfo detailedInfo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "level_id", nullable = false)
     private Level level;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "class_student",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "class_id"))
-    private Set<Student> classes;
+    private Set<ClassInfo> classes;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "student")
     private Set<Grade> grades;
+
+    public Student(){
+        classes = new HashSet<ClassInfo>();
+        grades = new HashSet<Grade>();
+    }
 
     public DetailedInfo getDetailedInfo() {
         return detailedInfo;
@@ -53,11 +59,11 @@ public class Student extends User {
         this.level = level;
     }
 
-    public Set<Student> getClasses() {
+    public Set<ClassInfo> getClasses() {
         return classes;
     }
 
-    public void setClasses(Set<Student> classes) {
+    public void setClasses(Set<ClassInfo> classes) {
         this.classes = classes;
     }
 }

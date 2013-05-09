@@ -19,23 +19,8 @@ public class Level  implements Identifiable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name_")
+    @Column(name = "name_", unique = true)
     private String name;
-
-    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY, orphanRemoval = false)
-    private Set<ClassInfo> classes;
-
-    public Level(){
-        classes = new HashSet<ClassInfo>();
-    }
-
-    public Set<ClassInfo> getClasses() {
-        return classes;
-    }
-
-    public void setClasses(Set<ClassInfo> classes) {
-        this.classes = classes;
-    }
 
     public long getId() {
         return id;
@@ -51,5 +36,25 @@ public class Level  implements Identifiable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object object){
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null ||
+                !Level.class.isAssignableFrom(object.getClass())) {
+            return false;
+        }
+
+        final Level level = (Level) object;
+        return getName() != null ? getName().equals(level.getName()) : false;
+    }
+
+    @Override
+    public int hashCode(){
+        return getName() != null ? getName().hashCode() : 0;
     }
 }

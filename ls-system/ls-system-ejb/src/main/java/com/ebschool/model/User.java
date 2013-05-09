@@ -114,4 +114,27 @@ public class User  implements Identifiable {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null ||
+                !User.class.isAssignableFrom(object.getClass())) {
+            return false;
+        }
+
+        final User user = (User) object;
+        return (getFirstName() != null ? getFirstName().equals(user.getFirstName()) : user.getFirstName() == null) &&
+                (getLastName() != null ? getLastName().equals(user.getLastName()) : user.getLastName() == null) &&
+                (getLogin() != null ? getLogin().equals(user.getLogin()) : user.getLogin() == null) &&
+                (getEmail() != null ? getEmail().equals(user.getEmail()) : user.getEmail() ==null);
+    }
+
+    @Override
+    public int hashCode(){
+        return getLogin() != null ? getLogin().hashCode() : 0;
+    }
 }

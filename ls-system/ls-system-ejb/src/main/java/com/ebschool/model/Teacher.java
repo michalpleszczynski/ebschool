@@ -53,4 +53,24 @@ public class Teacher extends User {
     public void setDetailedInfo(DetailedInfo detailedInfo) {
         this.detailedInfo = detailedInfo;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null ||
+                !Teacher.class.isAssignableFrom(object.getClass())) {
+            return false;
+        }
+
+        final Teacher teacher = (Teacher) object;
+        return getDetailedInfo() !=null ? getDetailedInfo().equals(teacher.getDetailedInfo()) : false;
+    }
+
+    @Override
+    public int hashCode(){
+        return getDetailedInfo() != null ? getDetailedInfo().hashCode() : 0;
+    }
 }

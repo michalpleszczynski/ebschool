@@ -70,4 +70,24 @@ public class DetailedInfo implements Identifiable {
     public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null ||
+                !DetailedInfo.class.isAssignableFrom(object.getClass())) {
+            return false;
+        }
+
+        final DetailedInfo detailedInfo = (DetailedInfo) object;
+        return getIdentificationNumber() != null ? getIdentificationNumber().equals(detailedInfo.getIdentificationNumber()) : false;
+    }
+
+    @Override
+    public int hashCode(){
+        return getIdentificationNumber() != null ? getIdentificationNumber().hashCode() : 0;
+    }
 }

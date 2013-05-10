@@ -250,6 +250,20 @@
                 </dependency>
             </dependencies>
             <activation/>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.12</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <!-- TODO: move configured jboss here -->
+                                <JBOSS_HOME>${project.basedir}/src/test/resources/jboss7</JBOSS_HOME>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <profile>

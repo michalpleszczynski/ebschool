@@ -11,8 +11,17 @@ import com.ebschool.model.*;
 public class DataBuilder {
 
     private static int pinCounter = 1;
+    private static int emailCounter = 1;
+    private static int loginCounter = 1;
 
     // DEFAULT VALUES
+
+    // user
+    public static final String DEFAULT_PASSWORD = "ff12bbd8c907af067070211d87bdf098be17375b";
+    public static final String DEFAULT_PHONE_NUMBER = "345123789";
+    public static final String DEFAULT_EMAIL_PREFIX = "default";
+    public static final String DEFAULT_EMAIL_SUFIX = "email.com";
+    public static final String DEFAULT_LOGIN = "login";
 
     // level
     public static final String DEFAULT_LEVEL_NAME = "default_level";
@@ -66,7 +75,6 @@ public class DataBuilder {
     public static Test buildTest(){
         Test test = new Test();
         test.setDescription(DEFAULT_TEST_DESC);
-        test.setClassInfo(getLastCreatedEntity(ClassInfo.class));
         test.setWhen(DEFAULT_TEST_DATE);
         lastCreatedTest = test;
         return test;
@@ -85,7 +93,6 @@ public class DataBuilder {
         ClassInfo classInfo = new ClassInfo();
         classInfo.setDescription(DEFAULT_CLASS_DESC);
         classInfo.setLevel(getLastCreatedEntity(Level.class));
-        classInfo.getLevel().getClasses().add(classInfo);
         classInfo.setWhen(DEFAULT_CLASS_DATE);
         classInfo.setWhere(DEFAULT_CLASS_WHERE);
         lastCreatedClass = classInfo;
@@ -105,6 +112,11 @@ public class DataBuilder {
         student.setLevel(getLastCreatedEntity(Level.class));
         student.getClasses().add(getLastCreatedEntity(ClassInfo.class));
         student.getGrades().add(getLastCreatedEntity(Grade.class));
+        student.setActive(true);
+        student.setEmail(getNextEmail());
+        student.setLogin(getNextLogin());
+        student.setPassword(DEFAULT_PASSWORD);
+        student.setPhoneNumber(DEFAULT_PHONE_NUMBER);
         lastCreatedStudent = student;
         return student;
     }
@@ -113,13 +125,16 @@ public class DataBuilder {
         Teacher teacher = new Teacher();
         teacher.setDetailedInfo(getLastCreatedEntity(DetailedInfo.class));
         teacher.getClasses().add(getLastCreatedEntity(ClassInfo.class));
+        teacher.setEmail(getNextEmail());
+        teacher.setLogin(getNextLogin());
+        teacher.setPassword(DEFAULT_PASSWORD);
+        teacher.setPhoneNumber(DEFAULT_PHONE_NUMBER);
         lastCreatedTeacher = teacher;
         return teacher;
     }
 
     public static Parent buildParent(){
         Parent parent = new Parent();
-        parent.getChildrenAccounts().add(getLastCreatedEntity(Student.class));
         lastCreatedParent = parent;
         return parent;
     }
@@ -199,31 +214,24 @@ public class DataBuilder {
         return null;
     }
 
-//    private static Level getLastCreatedLevel(){
-//        if (lastCreatedLevel == null){
-//            return buildLevel();
-//        }
-//        return lastCreatedLevel;
-//    }
-//
-//    private static void setLastCreatedLevel(Level level){
-//        lastCreatedLevel = level;
-//    }
-//
-//    private static ClassInfo getLastCreatedClass(){
-//        if (lastCreatedClass == null){
-//            return buildClass();
-//        }
-//        return lastCreatedClass;
-//    }
-//
-//    private static void setLastCreatedClass(ClassInfo classInfo){
-//        lastCreatedClass = classInfo;
-//    }
-
     private static String getNextPin(){
         Long nextPin = Long.valueOf(DEFAULT_PIN) + pinCounter++;
         return nextPin.toString();
+    }
+
+    private static String getNextEmail(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(DEFAULT_EMAIL_PREFIX);
+        sb.append(emailCounter++);
+        sb.append(DEFAULT_EMAIL_SUFIX);
+        return sb.toString();
+    }
+
+    private static String getNextLogin(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(DEFAULT_LOGIN);
+        sb.append(loginCounter++);
+        return sb.toString();
     }
 
 }

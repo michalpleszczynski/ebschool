@@ -66,4 +66,24 @@ public class Student extends User {
     public void setClasses(Set<ClassInfo> classes) {
         this.classes = classes;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null ||
+                !Student.class.isAssignableFrom(object.getClass())) {
+            return false;
+        }
+
+        final Student student = (Student) object;
+        return getDetailedInfo() !=null ? getDetailedInfo().equals(student.getDetailedInfo()) : false;
+    }
+
+    @Override
+    public int hashCode(){
+        return getDetailedInfo() != null ? getDetailedInfo().hashCode() : 0;
+    }
 }

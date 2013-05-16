@@ -62,7 +62,7 @@
         </dependency>
 
 
-        <!-- Test scope dependencies -->
+        <!-- test scope dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -76,10 +76,6 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.dbunit</groupId>
-            <artifactId>dbunit</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>

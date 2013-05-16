@@ -17,11 +17,11 @@ public class Student extends User {
     @JoinColumn(name = "info_id", nullable = false, unique = true)
     private DetailedInfo detailedInfo;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "level_id", nullable = false)
     private Level level;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinTable(name = "class_student",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "class_id"))
@@ -29,6 +29,13 @@ public class Student extends User {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "student")
     private Set<Grade> grades;
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "parent_student",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "parent_id"))
+    private Parent parent;
 
     public Student(){
         classes = new HashSet<ClassInfo>();

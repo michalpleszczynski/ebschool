@@ -31,10 +31,16 @@ public class ClassInfo implements Identifiable {
     @JoinColumn(name = "level_id")
     private Level level;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "classes")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @JoinTable(name = "class_student",
+            joinColumns = @JoinColumn(name = "class_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> students;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "classes")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @JoinTable(name = "teacher_class",
+            joinColumns = @JoinColumn(name = "class_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
     private Set<Teacher> teachers;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "classInfo")

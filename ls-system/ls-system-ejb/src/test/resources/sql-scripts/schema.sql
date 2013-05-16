@@ -26,13 +26,11 @@ alter table class_info add index FKEEAD9F15AE519245 (level_id), add constraint F
 
 alter table class_student add index FK5A8EDA74736E3D13 (class_id), add constraint FK5A8EDA74736E3D13 foreign key (class_id) references class_info (id);
 
-alter table class_student add index FK5A8EDA748FE9FC8 (class_id), add constraint FK5A8EDA748FE9FC8 foreign key (class_id) references student (id);
-
 alter table class_student add index FK5A8EDA74A22F6C25 (student_id), add constraint FK5A8EDA74A22F6C25 foreign key (student_id) references student (id);
 
 alter table grade add index FK5E0BFD7A22F6C25 (student_id), add constraint FK5E0BFD7A22F6C25 foreign key (student_id) references student (id);
 
-alter table grade add index FK5E0BFD7DE3DC40F (test_id), add constraint FK5E0BFD7DE3DC40F foreign key (test_id) references test (id);
+alter table grade add index FK5E0BFD7DE3DC40F (test_id);
 
 alter table parent add index FKC4AB08AA33076C7B (id), add constraint FKC4AB08AA33076C7B foreign key (id) references basic_user (id);
 

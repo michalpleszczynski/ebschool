@@ -11,6 +11,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -66,8 +67,12 @@ public class GenericRepositoryImpl<T extends Identifiable, PK> implements Generi
 
     @Override
     public void deleteAll(){
-        if ((Long)entityManager.createNativeQuery("SELECT COUNT(*) FROM " + clazz.getSimpleName()).getSingleResult() > 0){
-            entityManager.createNativeQuery("DELETE FROM " + clazz.getSimpleName()).executeUpdate();
+        if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + clazz.getSimpleName() + " e").getSingleResult() > 0){
+            Set<T> entities = getAll();
+            for (T entity : entities){
+                delete(entity);
+            }
+//            entityManager.createQuery("DELETE FROM " + clazz.getSimpleName()).executeUpdate();
         }
     }
 

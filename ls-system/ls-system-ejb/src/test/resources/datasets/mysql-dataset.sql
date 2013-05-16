@@ -4,7 +4,7 @@ insert into basic_user(email, first_name, last_name, login, password_, phone_num
 
 insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('some12@email.com', 'nameParent', 'last_nameParent', 'loginParent', 'bb12bbd8c907af067070211d87bdf098be17375b', '123123123', true);
 
-insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('lalal@op.pl', 'name2', 'last_name2', 'login2', 'bb12bbd8c907af067070211d87bdf098be17375b', '123123623', true);
+insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('lalal@op.pl', 'name2', 'last_name2', 'default_login2', 'bb12bbd8c907af067070211d87bdf098be17375b', '123123623', true);
 
 insert into detailed_info(street, zip_code, city, country, date_joined, date_of_birth, pin) values('Virginia Rd', '13733', 'Oxford', 'USA', '345345345', '345345345', '123123123');
 
@@ -21,6 +21,8 @@ insert into student(id, level_id, info_id) values('1', '1', '1');
 insert into teacher(id, info_id, avatar) values ('2', '2', null);
 
 insert into parent(id) values('3');
+
+insert into parent(id) values('4');
 
 insert into grade(comment_, percentage, weight, student_id, test_id) values('this is a comment', '76', '3', '1', '1');
 

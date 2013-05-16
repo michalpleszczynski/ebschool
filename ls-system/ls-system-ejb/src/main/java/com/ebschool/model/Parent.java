@@ -14,8 +14,10 @@ import java.util.Set;
 public class Parent extends User {
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(joinColumns = @JoinColumn(name = "parent_id"),
-                inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @JoinTable(
+            name = "parent_student",
+            joinColumns = @JoinColumn(name = "parent_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> childrenAccounts;
 
     public Parent(){

@@ -24,9 +24,10 @@ public class Grade  implements Identifiable {
     private String comment;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(nullable = true)
     private Test test;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional =  true, fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 

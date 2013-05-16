@@ -3,6 +3,7 @@ package com.ebschool.repo;
 import com.ebschool.model.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * User: michau
@@ -22,5 +23,17 @@ public interface UserRepository extends GenericRepository<User, Long> {
     public List<Student> getStudentsByParent(Parent parent);
 
     public List<Student> getStudentsByLevel(Level level);
+
+    public Set<Student> getAllStudents();
+
+    public Set<Teacher> getAllTeachers();
+
+    public Set<Parent> getAllParents();
+
+    public void deleteAllStudents();
+
+    public void deleteAllTeachers();
+
+    public void deleteAllParents();
 
 }

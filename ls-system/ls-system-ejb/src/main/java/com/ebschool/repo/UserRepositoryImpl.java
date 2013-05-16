@@ -1,13 +1,12 @@
 package com.ebschool.repo;
 
 import com.ebschool.model.*;
-import com.ebschool.repo.GenericRepositoryImpl;
-import com.ebschool.repo.UserRepository;
 
 import javax.ejb.*;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * User: michau
@@ -80,6 +79,51 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User, Long> implem
                 + " AS s WHERE s.level = :level", Student.class);
         q.setParameter("level", level);
         return q.getResultList();
+    }
+
+    @Override
+    public Set<Student> getAllStudents() {
+        return new HashSet(entityManager.createQuery("From " + Student.class.getSimpleName() + " c").getResultList());
+    }
+
+    @Override
+    public Set<Teacher> getAllTeachers() {
+        return new HashSet(entityManager.createQuery("From " + Teacher.class.getSimpleName() + " c").getResultList());
+    }
+
+    @Override
+    public Set<Parent> getAllParents() {
+        return new HashSet(entityManager.createQuery("From " + Parent.class.getSimpleName() + " c").getResultList());
+    }
+
+    @Override
+    public void deleteAllStudents() {
+        if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + Student.class.getSimpleName() + " e").getSingleResult() > 0){
+            Set<Student> entities = getAllStudents();
+            for (Student entity : entities){
+                delete(entity);
+            }
+        }
+    }
+
+    @Override
+    public void deleteAllTeachers() {
+        if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + Teacher.class.getSimpleName() + " e").getSingleResult() > 0){
+            Set<Teacher> entities = getAllTeachers();
+            for (Teacher entity : entities){
+                delete(entity);
+            }
+        }
+    }
+
+    @Override
+    public void deleteAllParents() {
+        if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + Parent.class.getSimpleName() + " e").getSingleResult() > 0){
+            Set<Parent> entities = getAllParents();
+            for (Parent entity : entities){
+                delete(entity);
+            }
+        }
     }
 
 }

@@ -23,6 +23,21 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User, Long> implem
     }
 
     @Override
+    public Student getStudentById(Long id) {
+        return entityManager.find(Student.class, id);
+    }
+
+    @Override
+    public Teacher getTeacherById(Long id) {
+        return entityManager.find(Teacher.class, id);
+    }
+
+    @Override
+    public Parent getParentById(Long id) {
+        return entityManager.find(Parent.class, id);
+    }
+
+    @Override
     public List<Student> getStudentsByClass(ClassInfo classInfo) {
         TypedQuery<Student> q = entityManager.createQuery(
                 "SELECT s FROM " + Student.class.getSimpleName()
@@ -51,15 +66,15 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User, Long> implem
 
     }
 
-    @Override
-    public List<Teacher> getTeachersByStudent(Student student) {
-        TypedQuery<Teacher> q = entityManager.createQuery(
-                "SELECT t FROM " + Teacher.class.getSimpleName()
-                + " AS t INNER JOIN t.classes AS c"
-                + " WHERE :student MEMBER OF c.students", Teacher.class);
-        q.setParameter("student", student);
-        return q.getResultList();
-    }
+//    @Override
+//    public List<Teacher> getTeachersByStudent(Student student) {
+//        TypedQuery<Teacher> q = entityManager.createQuery(
+//                "SELECT t FROM " + Teacher.class.getSimpleName()
+//                + " AS t INNER JOIN t.classes AS c"
+//                + " WHERE :student MEMBER OF c.students", Teacher.class);
+//        q.setParameter("student", student);
+//        return q.getResultList();
+//    }
 
     @Override
     public List<Student> getStudentsByParent(Parent parent) {

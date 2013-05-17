@@ -92,6 +92,8 @@ insert into teacher_class(teacher_id, class_id) values("8", "2");
 
 insert into teacher_class(teacher_id, class_id) values("8", "3");
 
+insert into teacher_class(teacher_id, class_id) values("8", "1");
+
 insert into parent_student(parent_id, student_id) values("3", "1");
 
 insert into parent_student(parent_id, student_id) values("3", "6");

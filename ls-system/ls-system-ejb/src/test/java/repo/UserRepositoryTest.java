@@ -1,9 +1,8 @@
 package repo;
 
-import com.ebschool.model.Parent;
-import com.ebschool.model.Student;
-import com.ebschool.model.Teacher;
-import com.ebschool.model.User;
+import com.ebschool.model.*;
+import com.ebschool.repo.ClassInfoRepository;
+import com.ebschool.repo.LevelRepository;
 import com.ebschool.repo.UserRepository;
 import com.ebschool.utils.Identifiable;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -19,6 +18,7 @@ import org.junit.runner.RunWith;
 import utils.DataBuilder;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -33,7 +33,13 @@ import static org.junit.Assert.*;
 public class UserRepositoryTest {
 
     @Inject
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Inject
+    private ClassInfoRepository classInfoRepository;
+
+    @Inject
+    private LevelRepository  levelRepository;
 
     @Deployment
     public static Archive<?> createDeploymentPackage() {
@@ -135,6 +141,57 @@ public class UserRepositoryTest {
         assertTrue(allStudents.isEmpty());
         assertTrue(allTeachers.isEmpty());
         assertTrue(allParent.isEmpty());
+    }
+
+    @Test
+    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-big-dataset.sql"})
+    public void testGetUserByCriteria() throws Exception {
+        // get students by class
+        ClassInfo classInfo = classInfoRepository.getById(1L);
+        List<Student> studentsOfClass1 = userRepository.getStudentsByClass(classInfo);
+        assertNotNull(studentsOfClass1);
+        assertEquals(2, studentsOfClass1.size());
+        Student studentFromClass1_1 = userRepository.getStudentById(1L);
+        Student studentFromClass1_2 = userRepository.getStudentById(7L);
+        assertTrue(studentsOfClass1.contains(studentFromClass1_1) && studentsOfClass1.contains(studentFromClass1_2));
+
+        // get students by teacher
+        Teacher teacher = userRepository.getTeacherById(8L);
+        List<Student> studentsOfTeacher1 = userRepository.getStudentsByTeacher(teacher);
+        assertNotNull(studentsOfTeacher1);
+        assertEquals(5, studentsOfTeacher1.size());
+        Set<Student> allStudents = userRepository.getAllStudents();
+        for (Student s : allStudents){
+            assertTrue(studentsOfTeacher1.contains(s));
+        }
+
+        // get teachers by class
+        List<Teacher> teachersOfClass1 = userRepository.getTeachersByClass(classInfo);
+        assertNotNull(teachersOfClass1);
+        assertEquals(2, teachersOfClass1.size());
+        Set<Teacher> allTeachers = userRepository.getAllTeachers();
+        for (Teacher t : allTeachers){
+            assertTrue(teachersOfClass1.contains(t));
+        }
+
+        // get students by parent
+        Parent parent = userRepository.getParentById(3L);
+        List<Student> kidsOfParent1 = userRepository.getStudentsByParent(parent);
+        assertNotNull(kidsOfParent1);
+        assertEquals(3, kidsOfParent1.size());
+        Student kid1 = userRepository.getStudentById(1L);
+        Student kid2 = userRepository.getStudentById(6L);
+        Student kid3 = userRepository.getStudentById(7L);
+        assertTrue(kidsOfParent1.contains(kid1) && kidsOfParent1.contains(kid2) && kidsOfParent1.contains(kid3));
+
+        // get students by level
+        Level level = levelRepository.getById(3L);
+        List<Student> studentsOfLevel1 = userRepository.getStudentsByLevel(level);
+        assertNotNull(studentsOfLevel1);
+        assertEquals(2, studentsOfLevel1.size());
+        Student studentOfLevel1_1 = userRepository.getStudentById(4L);
+        Student studentOfLevel1_2 = userRepository.getStudentById(7L);
+        assertTrue(studentsOfLevel1.contains(studentOfLevel1_1) && studentsOfLevel1.contains(studentOfLevel1_2));
     }
 
 }

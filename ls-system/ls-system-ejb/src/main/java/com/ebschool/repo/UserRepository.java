@@ -12,13 +12,19 @@ import java.util.Set;
  */
 public interface UserRepository extends GenericRepository<User, Long> {
 
+    public Student getStudentById(Long id);
+
+    public Teacher getTeacherById(Long id);
+
+    public Parent getParentById(Long id);
+
     public List<Student> getStudentsByClass(ClassInfo classInfo);
 
     public List<Student> getStudentsByTeacher(Teacher teacher);
 
     public List<Teacher> getTeachersByClass(ClassInfo classInfo);
 
-    public List<Teacher> getTeachersByStudent(Student student);
+//    public List<Teacher> getTeachersByStudent(Student student);
 
     public List<Student> getStudentsByParent(Parent parent);
 

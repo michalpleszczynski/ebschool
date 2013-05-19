@@ -11,7 +11,18 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "student")
+@NamedQueries({
+        @NamedQuery(name = "findStudentsByClass", query = "SELECT s FROM Student AS s WHERE :classInfo MEMBER OF s.classes"),
+        @NamedQuery(name = "findStudentsByTeacher", query = "SELECT s FROM Student AS s INNER JOIN s.classes AS c WHERE :teacher MEMBER OF c.teachers"),
+        @NamedQuery(name = "findStudentsByParent", query = "SELECT s FROM Student AS s, Parent AS p WHERE p = :parent AND s MEMBER OF p.childrenAccounts"),
+        @NamedQuery(name = "findStudentsByLevel", query = "SELECT s FROM Student AS s WHERE s.level = :level")
+})
 public class Student extends User {
+
+    public static final String STUDENTS_BY_CLASS = "findStudentsByClass";
+    public static final String STUDENTS_BY_TEACHER = "findStudentsByTeacher";
+    public static final String STUDENTS_BY_PARENT = "findStudentsByParent";
+    public static final String STUDENTS_BY_LEVEL = "findStudentsByLevel";
 
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "info_id", nullable = false, unique = true)

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
-
+import static com.ebschool.utils.QueryParameter.*;
 /**
  * User: michau
  * Date: 4/16/13
@@ -148,7 +148,8 @@ public class UserRepositoryTest {
     public void testGetUserByCriteria() throws Exception {
         // get students by class
         ClassInfo classInfo = classInfoRepository.getById(1L);
-        List<Student> studentsOfClass1 = userRepository.getStudentsByClass(classInfo);
+//        List<Student> studentsOfClass1 = userRepository.getStudentsByClass(classInfo);
+        List<Student> studentsOfClass1 = userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_CLASS, with("classInfo", classInfo).parameters());
         assertNotNull(studentsOfClass1);
         assertEquals(2, studentsOfClass1.size());
         Student studentFromClass1_1 = userRepository.getStudentById(1L);
@@ -157,7 +158,8 @@ public class UserRepositoryTest {
 
         // get students by teacher
         Teacher teacher = userRepository.getTeacherById(8L);
-        List<Student> studentsOfTeacher1 = userRepository.getStudentsByTeacher(teacher);
+//        List<Student> studentsOfTeacher1 = userRepository.getStudentsByTeacher(teacher);
+        List<Student> studentsOfTeacher1 = userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_TEACHER, with("teacher", teacher).parameters());
         assertNotNull(studentsOfTeacher1);
         assertEquals(5, studentsOfTeacher1.size());
         Set<Student> allStudents = userRepository.getAllStudents();
@@ -166,7 +168,8 @@ public class UserRepositoryTest {
         }
 
         // get teachers by class
-        List<Teacher> teachersOfClass1 = userRepository.getTeachersByClass(classInfo);
+//        List<Teacher> teachersOfClass1 = userRepository.getTeachersByClass(classInfo);
+        List<Teacher> teachersOfClass1 = userRepository.findWithNamedQuery(Teacher.class, Teacher.TEACHERS_BY_CLASS, with("classInfo", classInfo).parameters());
         assertNotNull(teachersOfClass1);
         assertEquals(2, teachersOfClass1.size());
         Set<Teacher> allTeachers = userRepository.getAllTeachers();
@@ -176,7 +179,8 @@ public class UserRepositoryTest {
 
         // get students by parent
         Parent parent = userRepository.getParentById(3L);
-        List<Student> kidsOfParent1 = userRepository.getStudentsByParent(parent);
+//        List<Student> kidsOfParent1 = userRepository.getStudentsByParent(parent);
+        List<Student> kidsOfParent1 = userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_PARENT, with("parent", parent).parameters());
         assertNotNull(kidsOfParent1);
         assertEquals(3, kidsOfParent1.size());
         Student kid1 = userRepository.getStudentById(1L);
@@ -186,12 +190,19 @@ public class UserRepositoryTest {
 
         // get students by level
         Level level = levelRepository.getById(3L);
-        List<Student> studentsOfLevel1 = userRepository.getStudentsByLevel(level);
+//        List<Student> studentsOfLevel1 = userRepository.getStudentsByLevel(level);
+        List<Student> studentsOfLevel1 = userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_LEVEL, with("level", level).parameters());
         assertNotNull(studentsOfLevel1);
         assertEquals(2, studentsOfLevel1.size());
         Student studentOfLevel1_1 = userRepository.getStudentById(4L);
         Student studentOfLevel1_2 = userRepository.getStudentById(7L);
         assertTrue(studentsOfLevel1.contains(studentOfLevel1_1) && studentsOfLevel1.contains(studentOfLevel1_2));
+
+        // get user by login and password
+        List<User> user = userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN_AND_PASSWORD, with("login", "default_login2").and("password", "bb12bbd8c907af067070211d87bdf098be17375b").parameters(), 1);
+        assertNotNull(user);
+        assertEquals(1, user.size());
+        assertEquals(4, user.get(0).getId());
     }
 
 }

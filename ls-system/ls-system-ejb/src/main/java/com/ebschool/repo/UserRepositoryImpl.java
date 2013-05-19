@@ -3,9 +3,11 @@ package com.ebschool.repo;
 import com.ebschool.model.*;
 
 import javax.ejb.*;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -37,34 +39,33 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User, Long> implem
         return entityManager.find(Parent.class, id);
     }
 
-    @Override
-    public List<Student> getStudentsByClass(ClassInfo classInfo) {
-        TypedQuery<Student> q = entityManager.createQuery(
-                "SELECT s FROM " + Student.class.getSimpleName()
-                + " AS s WHERE :classInfo MEMBER OF s.classes", Student.class);
-        q.setParameter("classInfo", classInfo);
-        return q.getResultList();
-    }
+//    public List<Student> getStudentsByClass(ClassInfo classInfo) {
+//        TypedQuery<Student> q = entityManager.createQuery(
+//                "SELECT s FROM " + Student.class.getSimpleName()
+//                + " AS s WHERE :classInfo MEMBER OF s.classes", Student.class);
+//        q.setParameter("classInfo", classInfo);
+//        return q.getResultList();
+//    }
 
-    @Override
-    public List<Student> getStudentsByTeacher(Teacher teacher) {
-        TypedQuery<Student> q = entityManager.createQuery("" +
-                "SELECT s FROM " + Student.class.getSimpleName()
-                + " AS s INNER JOIN s.classes AS c"
-                + " WHERE :teacher MEMBER OF c.teachers", Student.class);
-        q.setParameter("teacher", teacher);
-        return q.getResultList();
-    }
-
-    @Override
-    public List<Teacher> getTeachersByClass(ClassInfo classInfo) {
-        TypedQuery<Teacher> q = entityManager.createQuery(
-                "SELECT t FROM " + Teacher.class.getSimpleName()
-                + " AS t WHERE :classInfo MEMBER OF s.classes", Teacher.class);
-        q.setParameter("classInfo", classInfo);
-        return q.getResultList();
-
-    }
+//    @Override
+//    public List<Student> getStudentsByTeacher(Teacher teacher) {
+//        TypedQuery<Student> q = entityManager.createQuery("" +
+//                "SELECT s FROM " + Student.class.getSimpleName()
+//                + " AS s INNER JOIN s.classes AS c"
+//                + " WHERE :teacher MEMBER OF c.teachers", Student.class);
+//        q.setParameter("teacher", teacher);
+//        return q.getResultList();
+//    }
+//
+//    @Override
+//    public List<Teacher> getTeachersByClass(ClassInfo classInfo) {
+//        TypedQuery<Teacher> q = entityManager.createQuery(
+//                "SELECT t FROM " + Teacher.class.getSimpleName()
+//                + " AS t WHERE :classInfo MEMBER OF t.classes", Teacher.class);
+//        q.setParameter("classInfo", classInfo);
+//        return q.getResultList();
+//
+//    }
 
 //    @Override
 //    public List<Teacher> getTeachersByStudent(Student student) {
@@ -76,25 +77,25 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User, Long> implem
 //        return q.getResultList();
 //    }
 
-    @Override
-    public List<Student> getStudentsByParent(Parent parent) {
-        TypedQuery<Student> q = entityManager.createQuery(
-                "SELECT s FROM " + Student.class.getSimpleName()
-                + " AS s, " + Parent.class.getSimpleName() + " AS p "
-                + "WHERE p = :parent AND "
-                + " s MEMBER OF p.childrenAccounts", Student.class);
-        q.setParameter("parent", parent);
-        return q.getResultList();
-    }
-
-    @Override
-    public List<Student> getStudentsByLevel(Level level) {
-        TypedQuery<Student> q = entityManager.createQuery(
-                "SELECT s FROM " + Student.class.getSimpleName()
-                + " AS s WHERE s.level = :level", Student.class);
-        q.setParameter("level", level);
-        return q.getResultList();
-    }
+//    @Override
+//    public List<Student> getStudentsByParent(Parent parent) {
+//        TypedQuery<Student> q = entityManager.createQuery(
+//                "SELECT s FROM " + Student.class.getSimpleName()
+//                + " AS s, " + Parent.class.getSimpleName() + " AS p "
+//                + "WHERE p = :parent AND "
+//                + " s MEMBER OF p.childrenAccounts", Student.class);
+//        q.setParameter("parent", parent);
+//        return q.getResultList();
+//    }
+//
+//    @Override
+//    public List<Student> getStudentsByLevel(Level level) {
+//        TypedQuery<Student> q = entityManager.createQuery(
+//                "SELECT s FROM " + Student.class.getSimpleName()
+//                + " AS s WHERE s.level = :level", Student.class);
+//        q.setParameter("level", level);
+//        return q.getResultList();
+//    }
 
     @Override
     public Set<Student> getAllStudents() {

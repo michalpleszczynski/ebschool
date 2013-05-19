@@ -1,5 +1,7 @@
 package com.ebschool.repo;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -15,5 +17,9 @@ public interface GenericRepository<T, PK> {
     public void delete(T... objects);
     public void deleteAll();
     public Set<T> getAll();
+
+    public <T> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters);
+
+    public <T> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters, int resultLimit);
 
 }

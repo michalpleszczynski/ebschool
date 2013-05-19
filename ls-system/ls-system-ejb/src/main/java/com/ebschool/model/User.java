@@ -13,7 +13,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "login"}))
 @Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries({
+        @NamedQuery(name = "findUserByLoginAndPassword", query = "SELECT u FROM User as u WHERE u.login = :login AND u.password = :password")
+})
 public class User  implements Identifiable {
+
+    public static final String USER_BY_LOGIN_AND_PASSWORD = "findUserByLoginAndPassword";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

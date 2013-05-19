@@ -11,7 +11,12 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "teacher")
+@NamedQueries({
+        @NamedQuery(name = "findTeachersByClass", query = "SELECT t FROM Teacher AS t WHERE :classInfo MEMBER OF t.classes")
+})
 public class Teacher extends User {
+
+    public static final String TEACHERS_BY_CLASS = "findTeachersByClass";
 
     @Lob
     private byte[] avatar;

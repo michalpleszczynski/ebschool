@@ -13,7 +13,12 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "level")
+@NamedQueries({
+        @NamedQuery(name = "findLevelByName", query = "SELECT l FROM Level AS l WHERE l.name = :name")
+})
 public class Level  implements Identifiable {
+
+    public static final String LEVEL_BY_NAME = "findLevelByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

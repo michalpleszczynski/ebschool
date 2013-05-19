@@ -11,7 +11,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "test")
+@NamedQueries({
+        @NamedQuery(name = "findTestsByClass", query = "SELECT t FROM Test AS t WHERE t.classInfo = :classInfo")
+})
 public class Test implements Identifiable {
+
+    public static final String TESTS_BY_CLASS = "findTestsByClass";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,6 +61,36 @@ public class Test implements Identifiable {
 
     public void setClassInfo(ClassInfo classInfo) {
         this.classInfo = classInfo;
+    }
+
+    @Override
+    public boolean equals(Object object){
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null ||
+                !Test.class.isAssignableFrom(object.getClass())) {
+            return false;
+        }
+
+        final Test test = (Test) object;
+        return (getDescription() !=null ? getDescription().equals(test.getDescription()) : false) &&
+                (getWhen() == test.getWhen()) &&
+                (getClassInfo() !=null ? getClassInfo().getId() == test.getClassInfo().getId() : false);
+    }
+
+    // TODO: come back to this, probably wrong
+    @Override
+    public int hashCode(){
+        String identifier = getDescription();
+        if (identifier != null){
+            identifier = identifier + Long.valueOf(when);
+            if (classInfo != null){
+                return (Long.valueOf(classInfo.getId()) + identifier).hashCode();
+            }
+        }
+        return 0;
     }
 
 }

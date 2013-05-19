@@ -1,11 +1,16 @@
 package com.ebschool.service;
 
 import com.ebschool.model.Grade;
+import com.ebschool.model.Student;
 import com.ebschool.repo.GradeRepository;
+import com.ebschool.repo.UserRepository;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
+
+import static com.ebschool.utils.QueryParameter.*;
 
 /**
  * User: michau
@@ -20,6 +25,9 @@ public class GradeServiceImpl implements GradeServiceLocal{
     @Inject
     GradeRepository gradeRepository;
 
+    @Inject
+    UserRepository userRepository;
+
     @Override
     public Grade getById(Long id) {
         return gradeRepository.getById(id);
@@ -28,6 +36,11 @@ public class GradeServiceImpl implements GradeServiceLocal{
     @Override
     public Set<Grade> getAll() {
         return gradeRepository.getAll();
+    }
+
+    @Override
+    public List<Grade> getGradesByStudent(Student student) {
+        return gradeRepository.findWithNamedQuery(Grade.class, Grade.GRADES_BY_STUDENT, with("student", student).parameters());
     }
 
     @Override
@@ -43,5 +56,13 @@ public class GradeServiceImpl implements GradeServiceLocal{
     @Override
     public Grade update(Grade grade) {
         return gradeRepository.update(grade);
+    }
+
+    @Override
+    public Grade giveGrade(Student student, Grade grade) {
+        student = userRepository.getStudentById(student.getId());
+        grade.setStudent(student);
+        grade = gradeRepository.create(grade);
+        return grade;
     }
 }

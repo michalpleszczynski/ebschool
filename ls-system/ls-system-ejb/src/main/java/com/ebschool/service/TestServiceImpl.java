@@ -1,11 +1,15 @@
 package com.ebschool.service;
 
+import com.ebschool.model.ClassInfo;
 import com.ebschool.model.Test;
 import com.ebschool.repo.TestRepository;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
+
+import static com.ebschool.utils.QueryParameter.*;
 
 /**
  * User: michau
@@ -28,6 +32,11 @@ public class TestServiceImpl implements TestServiceLocal {
     @Override
     public Set<Test> getAll() {
         return testRepository.getAll();
+    }
+
+    @Override
+    public List<Test> getTestsByClass(ClassInfo classInfo) {
+        return testRepository.findWithNamedQuery(Test.class, Test.TESTS_BY_CLASS, with("classInfo", classInfo).parameters());
     }
 
     @Override

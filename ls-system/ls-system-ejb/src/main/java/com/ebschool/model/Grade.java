@@ -11,7 +11,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "grade")
+@NamedQueries({
+        @NamedQuery(name = "findGradesByStudent", query = "SELECT g FROM Grade AS g WHERE g.student = :student")
+})
 public class Grade  implements Identifiable {
+
+    public static final String GRADES_BY_STUDENT = "findGradesByStudent";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +28,13 @@ public class Grade  implements Identifiable {
     @Column(name = "comment_")
     private String comment;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    // grade does not to be associated with a test
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = true)
     private Test test;
 
-    @ManyToOne(optional =  true, fetch = FetchType.LAZY)
+    // it does have to be assigned to a student
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 

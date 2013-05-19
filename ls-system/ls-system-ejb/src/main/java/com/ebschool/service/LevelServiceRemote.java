@@ -2,6 +2,7 @@ package com.ebschool.service;
 
 import com.ebschool.model.Level;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,6 +13,7 @@ public interface LevelServiceRemote {
 
     public Level getById(Long id);
     public Set<Level> getAll();
+    public Level getByName(String name);
 
     public Level create(Level level);
     public Level update(Level level);

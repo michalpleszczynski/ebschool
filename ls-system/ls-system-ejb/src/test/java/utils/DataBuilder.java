@@ -247,4 +247,11 @@ public class DataBuilder {
         return sb.toString();
     }
 
+    public static String getLastLogin(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(DEFAULT_LOGIN);
+        sb.append(loginCounter-1);
+        return sb.toString();
+    }
+
 }

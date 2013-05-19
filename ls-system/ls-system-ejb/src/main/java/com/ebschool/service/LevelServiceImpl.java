@@ -5,7 +5,10 @@ import com.ebschool.repo.LevelRepository;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
+
+import static com.ebschool.utils.QueryParameter.*;
 
 /**
  * User: michau
@@ -43,6 +46,12 @@ public class LevelServiceImpl implements LevelServiceLocal {
     @Override
     public void delete(Level... levels) {
         levelRepository.delete(levels);
+    }
+
+    @Override
+    public Level getByName(String name){
+        List<Level> levels = levelRepository.findWithNamedQuery(Level.class, Level.LEVEL_BY_NAME, with("name", name).parameters(), 1);
+        return levels.isEmpty() ? null : levels.get(0);
     }
 
 }

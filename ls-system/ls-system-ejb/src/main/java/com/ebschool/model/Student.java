@@ -28,6 +28,8 @@ public class Student extends User {
     @JoinColumn(name = "info_id", nullable = false, unique = true)
     private DetailedInfo detailedInfo;
 
+    // student has a level assigned but can be assigned to classes with different levels
+    // it's not a bug it's a feature :)
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "level_id", nullable = false)
     private Level level;

@@ -1,6 +1,7 @@
 package com.ebschool.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "parent")
-public class Parent extends User {
+public class Parent extends User implements Serializable {
+
+    private static final long serialVersionUID = 1006L;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(

@@ -3,6 +3,7 @@ package com.ebschool.model;
 import com.ebschool.utils.Identifiable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * User: michau
@@ -14,7 +15,9 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "findGradesByStudent", query = "SELECT g FROM Grade AS g WHERE g.student = :student")
 })
-public class Grade  implements Identifiable {
+public class Grade  implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = 1003L;
 
     public static final String GRADES_BY_STUDENT = "findGradesByStudent";
 

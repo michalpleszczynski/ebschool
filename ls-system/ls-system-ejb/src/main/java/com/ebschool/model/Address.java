@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * User: michau
@@ -11,7 +12,9 @@ import javax.validation.constraints.Size;
  * Time: 8:19 PM
  */
 @Embeddable
-public class Address {
+public class Address implements Serializable{
+
+    private static final long serialVersionUID = 1000L;
 
     @Column(length = 40, nullable = false)
     private String country;

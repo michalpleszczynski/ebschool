@@ -1,6 +1,7 @@
 package com.ebschool.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,9 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "findTeachersByClass", query = "SELECT t FROM Teacher AS t WHERE :classInfo MEMBER OF t.classes")
 })
-public class Teacher extends User {
+public class Teacher extends User implements Serializable {
+
+    private static final long serialVersionUID = 1008L;
 
     public static final String TEACHERS_BY_CLASS = "findTeachersByClass";
 

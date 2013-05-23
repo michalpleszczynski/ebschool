@@ -9,6 +9,8 @@ import com.ebschool.utils.Identifiable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.io.Serializable;
+
 //TODO: add hashing of the password at some level
 @Entity
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "login"}))
@@ -16,7 +18,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @NamedQueries({
         @NamedQuery(name = "findUserByLoginAndPassword", query = "SELECT u FROM User as u WHERE u.login = :login AND u.password = :password")
 })
-public class User  implements Identifiable {
+public class User  implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = 1010L;
 
     public static final String USER_BY_LOGIN_AND_PASSWORD = "findUserByLoginAndPassword";
 

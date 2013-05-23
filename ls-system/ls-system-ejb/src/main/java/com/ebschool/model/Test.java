@@ -3,6 +3,7 @@ package com.ebschool.model;
 import com.ebschool.utils.Identifiable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * User: michau
@@ -14,7 +15,9 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "findTestsByClass", query = "SELECT t FROM Test AS t WHERE t.classInfo = :classInfo")
 })
-public class Test implements Identifiable {
+public class Test implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = 1009L;
 
     public static final String TESTS_BY_CLASS = "findTestsByClass";
 

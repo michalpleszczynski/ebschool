@@ -3,6 +3,7 @@ package com.ebschool.model;
 import com.ebschool.utils.Identifiable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "class_info")
-public class ClassInfo implements Identifiable {
+public class ClassInfo implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = 1001L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

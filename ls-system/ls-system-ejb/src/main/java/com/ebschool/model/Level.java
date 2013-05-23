@@ -3,6 +3,7 @@ package com.ebschool.model;
 import com.ebschool.utils.Identifiable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,9 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "findLevelByName", query = "SELECT l FROM Level AS l WHERE l.name = :name")
 })
-public class Level  implements Identifiable {
+public class Level  implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = 1004L;
 
     public static final String LEVEL_BY_NAME = "findLevelByName";
 

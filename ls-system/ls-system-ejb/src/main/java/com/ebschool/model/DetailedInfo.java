@@ -4,6 +4,7 @@ import com.ebschool.utils.Identifiable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
 /**
  * User: michau
@@ -12,7 +13,9 @@ import javax.validation.constraints.Pattern;
  */
 @Entity
 @Table(name = "detailed_info", uniqueConstraints = @UniqueConstraint(columnNames = "pin"))
-public class DetailedInfo implements Identifiable {
+public class DetailedInfo implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = 1002L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

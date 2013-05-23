@@ -4,13 +4,9 @@
              xsi:schemaLocation="
         http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    <persistence-unit name="Default">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <jta-data-source>java:jboss/datasources/DefaultDS</jta-data-source>
+    <persistence-unit name="test">
+        <jta-data-source>java:jboss/datasources/TestDS</jta-data-source>
         <properties>
-            <property name="hibernate.dialect"
-                      value="org.hibernate.dialect.MySQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.ejb.cfgfile" value="/hibernate.cfg.xml"/>
         </properties>
     </persistence-unit>

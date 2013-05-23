@@ -1,6 +1,7 @@
 package com.ebschool.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +18,9 @@ import java.util.Set;
         @NamedQuery(name = "findStudentsByParent", query = "SELECT s FROM Student AS s, Parent AS p WHERE p = :parent AND s MEMBER OF p.childrenAccounts"),
         @NamedQuery(name = "findStudentsByLevel", query = "SELECT s FROM Student AS s WHERE s.level = :level")
 })
-public class Student extends User {
+public class Student extends User implements Serializable {
+
+    private static final long serialVersionUID = 1007L;
 
     public static final String STUDENTS_BY_CLASS = "findStudentsByClass";
     public static final String STUDENTS_BY_TEACHER = "findStudentsByTeacher";

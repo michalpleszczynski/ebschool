@@ -17,7 +17,7 @@ import static com.ebschool.utils.QueryParameter.*;
 @Stateless
 @Local(LevelServiceLocal.class)
 @Remote(LevelServiceRemote.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class LevelServiceImpl implements LevelServiceLocal {
 
     @Inject

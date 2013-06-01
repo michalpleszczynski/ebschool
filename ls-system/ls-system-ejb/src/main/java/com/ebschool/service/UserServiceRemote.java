@@ -15,8 +15,8 @@ import java.util.Set;
 public interface UserServiceRemote {
 
     public User getById(Long id);
-    public User getUserByLoginAndPassword(String login, String password);
-    public Set<User> getAllUsers();
+    public User getByLogin(String login);
+    public Set<User> getAll();
 
     public User update(User user);
 

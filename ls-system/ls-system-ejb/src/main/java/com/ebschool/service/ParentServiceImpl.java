@@ -15,7 +15,7 @@ import java.util.Set;
 @Stateless
 @Local(ParentServiceLocal.class)
 @Remote(ParentServiceRemote.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class ParentServiceImpl implements ParentServiceLocal {
 
     @Inject
@@ -27,7 +27,7 @@ public class ParentServiceImpl implements ParentServiceLocal {
     }
 
     @Override
-    public Set<Parent> getAllParents() {
+    public Set<Parent> getAll() {
         return userRepository.getAllParents();
     }
 

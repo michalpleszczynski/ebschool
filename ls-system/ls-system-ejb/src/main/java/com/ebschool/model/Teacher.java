@@ -22,6 +22,7 @@ public class Teacher extends User implements Serializable {
     public static final String TEACHERS_BY_CLASS = "findTeachersByClass";
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] avatar;
 
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)

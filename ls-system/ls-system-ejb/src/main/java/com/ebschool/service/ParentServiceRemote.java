@@ -12,7 +12,7 @@ import java.util.Set;
 public interface ParentServiceRemote {
 
     public Parent getById(Long id);
-    public Set<Parent> getAllParents();
+    public Set<Parent> getAll();
 
     public Parent addChildAccount(Student student, Parent parent);
     public Parent removeChildAccount(Student student, Parent parent);

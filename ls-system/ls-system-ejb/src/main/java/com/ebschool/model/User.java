@@ -16,9 +16,9 @@ import java.io.Serializable;
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "login"}))
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-        @NamedQuery(name = "findUserByLoginAndPassword", query = "SELECT u FROM User as u WHERE u.login = :login AND u.password = :password")
+        @NamedQuery(name = "findUserByLoginAndPassword", query = "SELECT u FROM User as u WHERE u.login = :login")
 })
-public class User  implements Identifiable, Serializable {
+public abstract class User  implements Identifiable, Serializable {
 
     private static final long serialVersionUID = 1010L;
 

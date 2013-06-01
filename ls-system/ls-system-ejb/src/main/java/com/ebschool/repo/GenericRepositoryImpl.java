@@ -10,6 +10,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.Set;
 @Stateless
 @LocalBean
 //@RolesAllowed({"RegisteredUsers"})
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class GenericRepositoryImpl<T extends Identifiable, PK> implements GenericRepository<T, PK> {
 
     @PersistenceContext

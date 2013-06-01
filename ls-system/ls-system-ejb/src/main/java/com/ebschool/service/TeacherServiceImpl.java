@@ -18,7 +18,7 @@ import static com.ebschool.utils.QueryParameter.*;
 @Stateless
 @Local(TeacherServiceLocal.class)
 @Remote(TeacherServiceRemote.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class TeacherServiceImpl implements TeacherServiceLocal {
 
     @Inject
@@ -30,7 +30,7 @@ public class TeacherServiceImpl implements TeacherServiceLocal {
     }
 
     @Override
-    public Set<Teacher> getAllTeachers() {
+    public Set<Teacher> getAll() {
         return userRepository.getAllTeachers();
     }
 

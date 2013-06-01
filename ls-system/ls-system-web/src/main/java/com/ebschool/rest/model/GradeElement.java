@@ -1,19 +1,20 @@
 package com.ebschool.rest.model;
 
 import com.ebschool.model.Grade;
-import com.ebschool.rest.ResponseEntityBean;
+import com.ebschool.model.Student;
 import com.ebschool.service.GradeServiceLocal;
 
 import javax.ejb.EJB;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: michau
  * Date: 5/22/13
  */
-public class GradeElement implements ResponseEntityBean<Grade>{
-
-    @EJB
-    GradeServiceLocal gradeService;
+@XmlRootElement(name = "grade")
+public class GradeElement {
 
     private Long id;
     private String comment;
@@ -21,15 +22,14 @@ public class GradeElement implements ResponseEntityBean<Grade>{
     private byte weight;
     private byte percentage;
 
-    @Override
-    public void init(Grade grade) {
-        grade = gradeService.getById(grade.getId());
+    public GradeElement() {}
+
+    public GradeElement (Grade grade) {
         setId(grade.getId());
         setWeight(grade.getWeight());
         setComment(grade.getComment());
         setPercentage(grade.getPercentage());
-        StudentElement studentElement = new StudentElement();
-        studentElement.init(grade.getStudent());
+        StudentElement studentElement = new StudentElement(grade.getStudent());
         setStudent(studentElement);
     }
 

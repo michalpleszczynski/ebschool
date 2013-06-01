@@ -1,10 +1,20 @@
 package com.ebschool.rest.model;
 
+import com.ebschool.model.ClassInfo;
 import com.ebschool.model.Student;
-import com.ebschool.rest.ResponseEntityBean;
 import com.ebschool.service.StudentServiceLocal;
+import com.ebschool.service.StudentServiceRemote;
 
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.ws.rs.Path;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,31 +24,20 @@ import java.util.Set;
  * Date: 5/22/13
  */
 @XmlRootElement(name = "student")
-public class StudentElement implements ResponseEntityBean<Student>{
-
-    @EJB
-    StudentServiceLocal studentService;
+public class StudentElement extends UserElement {
 
     private LevelElement level;
-    private Set<GradeElement> grades;
-    private Set<ClassInfoElement> classes;
+    private DetailedInfoElement detailedInfo;
+    private Set<Long> classIds;
+    private Set<Long> gradeIds;
 
-    //TODO: find some more generic approach
-    public static Set<StudentElement> buildSet(Set<Student> students){
-        Set<StudentElement> returnSet = new HashSet<StudentElement>();
-        for (Student student : students){
-            StudentElement studentElement = new StudentElement();
-            studentElement.init(student);
-            returnSet.add(studentElement);
-        }
-        return returnSet;
+    public StudentElement() {
+        super();
     }
 
-    @Override
-    public void init(Student student) {
-        student = studentService.getStudentById(student.getId());
-        LevelElement levelElement = new LevelElement();
-        levelElement.init(student.getLevel());
+    public StudentElement (Student student) {
+        super(student);
+        LevelElement levelElement = new LevelElement(student.getLevel());
         setLevel(levelElement);
     }
 
@@ -50,19 +49,33 @@ public class StudentElement implements ResponseEntityBean<Student>{
         this.level = level;
     }
 
-    public Set<GradeElement> getGrades() {
-        return grades;
+    public DetailedInfoElement getDetailedInfo() {
+        return detailedInfo;
     }
 
-    public void setGrades(Set<GradeElement> grades) {
-        this.grades = grades;
+    @XmlElement(name = "info")
+    public void setDetailedInfo(DetailedInfoElement detailedInfo) {
+        this.detailedInfo = detailedInfo;
     }
 
-    public Set<ClassInfoElement> getClasses() {
-        return classes;
+    public Set<Long> getClassIds() {
+        return classIds;
     }
 
-    public void setClasses(Set<ClassInfoElement> classes) {
-        this.classes = classes;
+    @XmlElementWrapper(name = "classes")
+    @XmlElement(name = "class")
+    public void setClassIds(Set<Long> classIds) {
+        this.classIds = classIds;
     }
+
+    public Set<Long> getGradeIds() {
+        return gradeIds;
+    }
+
+    @XmlElementWrapper(name = "grades")
+    @XmlElement(name = "grade")
+    public void setGradeIds(Set<Long> gradeIds) {
+        this.gradeIds = gradeIds;
+    }
+
 }

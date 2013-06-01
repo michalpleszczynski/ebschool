@@ -100,7 +100,7 @@ public class StudentITest {
         userTransaction.begin();
 
         // check if the changes were saved properly
-        Student savedStudent = (Student)userService.getUserByLoginAndPassword(DataBuilder.getLastLogin(), DataBuilder.DEFAULT_PASSWORD);
+        Student savedStudent = (Student)userService.getByLogin(DataBuilder.getLastLogin());
         assertNotNull(savedStudent);
         assertEquals(newStudent, savedStudent);
 
@@ -140,7 +140,7 @@ public class StudentITest {
         userTransaction.begin();
 
         // check if student was properly deleted along with his grades and from his classes
-        Student deletedStudent = (Student)userService.getUserByLoginAndPassword(DataBuilder.getLastLogin(), DataBuilder.DEFAULT_PASSWORD);
+        Student deletedStudent = (Student)userService.getByLogin(DataBuilder.getLastLogin());
         assertNull(deletedStudent);
 
         assertNull(gradeService.getById(grade1.getId()));

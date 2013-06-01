@@ -105,11 +105,11 @@ public class EntityRelationshipITest {
         userTransaction.commit();
         userTransaction.begin();
 
-        Teacher savedTeacher = (Teacher)userService.getUserByLoginAndPassword(teachersLogin, DataBuilder.DEFAULT_PASSWORD);
+        Teacher savedTeacher = (Teacher)userService.getByLogin(teachersLogin);
         assertNotNull(savedTeacher);
         assertEquals(newTeacher, savedTeacher);
 
-        Student savedStudent = (Student)userService.getUserByLoginAndPassword(studentsLogin, DataBuilder.DEFAULT_PASSWORD);
+        Student savedStudent = (Student)userService.getByLogin(studentsLogin);
         assertNotNull(savedStudent);
         assertEquals(newStudent, savedStudent);
 

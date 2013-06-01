@@ -37,7 +37,7 @@ public class Grade  implements Identifiable, Serializable {
     private Test test;
 
     // it does have to be assigned to a student
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
 

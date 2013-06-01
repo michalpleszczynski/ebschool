@@ -14,7 +14,7 @@ import javax.ejb.TransactionAttributeType;
  */
 @Stateless
 @LocalBean
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class LevelRepositoryImpl extends GenericRepositoryImpl<Level, Long> implements LevelRepository {
 
     public LevelRepositoryImpl() {

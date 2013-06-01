@@ -1,24 +1,27 @@
 package com.ebschool.rest.model;
 
 import com.ebschool.model.Level;
-import com.ebschool.rest.ResponseEntityBean;
-import com.ebschool.service.LevelServiceLocal;
 
-import javax.ejb.EJB;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User: michau
  * Date: 5/22/13
  */
-public class LevelElement implements ResponseEntityBean<Level>{
+@XmlRootElement(name = "level")
+public class LevelElement {
 
     private Long id;
     private String name;
 
-    @Override
-    public void init(Level level) {
-        setId(id);
-        setName(name);
+    public LevelElement() {}
+
+    public LevelElement (Level level) {
+        setId(level.getId());
+        setName(level.getName());
     }
 
     public Long getId() {

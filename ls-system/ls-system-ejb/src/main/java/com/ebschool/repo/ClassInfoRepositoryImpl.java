@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Stateless
 @LocalBean
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class ClassInfoRepositoryImpl extends GenericRepositoryImpl<ClassInfo, Long> implements ClassInfoRepository{
 
     public ClassInfoRepositoryImpl() {

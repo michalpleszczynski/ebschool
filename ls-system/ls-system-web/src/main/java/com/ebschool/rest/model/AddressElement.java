@@ -16,6 +16,8 @@ public class AddressElement{
     private String street;
     private String zipCode;
 
+    public AddressElement() {}
+
     public AddressElement(Address address){
         setCity(address.getCity());
         setCountry(address.getCountry());

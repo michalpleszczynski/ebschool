@@ -12,7 +12,7 @@ import java.util.Set;
 public interface StudentServiceRemote {
 
     public Student getStudentById(Long id);
-    public Set<Student> getAllStudents();
+    public Set<Student> getAll();
 
     public List<Student> getStudentsByClass(ClassInfo classInfo);
     public List<Student> getStudentsByTeacher(Teacher teacher);

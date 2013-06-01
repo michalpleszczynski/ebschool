@@ -1,12 +1,10 @@
 package com.ebschool.rest.model;
 
 import com.ebschool.model.ClassInfo;
-import com.ebschool.model.Student;
-import com.ebschool.rest.ResponseEntityBean;
 import com.ebschool.service.ClassInfoServiceLocal;
 
 import javax.ejb.EJB;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,43 +13,24 @@ import java.util.Set;
  * Date: 5/22/13
  */
 @XmlRootElement(name = "class_info")
-public class ClassInfoElement implements ResponseEntityBean<ClassInfo> {
-
-    @EJB
-    ClassInfoServiceLocal classInfoServiceLocal;
+public class ClassInfoElement {
 
     private Long id;
     private long when;
     private String where;
     private String description;
 
-    private Set<StudentElement> students;
-    private Set<TeacherElement> teachers;
-    private Set<TestElement> tests;
+    private Set<Long> students;
+    private Set<Long> teachers;
+    private Set<Long> tests;
 
     public ClassInfoElement() {}
 
-    //TODO: find some more generic approach
-    public static Set<ClassInfoElement> buildSet(Set<ClassInfo> classInfos){
-        Set<ClassInfoElement> returnSet = new HashSet<>();
-        for (ClassInfo classInfo : classInfos){
-            ClassInfoElement classInfoElement = new ClassInfoElement();
-            classInfoElement.init(classInfo);
-            returnSet.add(classInfoElement);
-        }
-        return returnSet;
-    }
-
-    @Override
-    public void init(ClassInfo classInfo) {
-        classInfo = classInfoServiceLocal.getById(classInfo.getId());
+    public ClassInfoElement (ClassInfo classInfo) {
         setId(classInfo.getId());
         setDescription(classInfo.getDescription());
         setWhen(classInfo.getWhen());
         setWhere(classInfo.getWhere());
-        StudentElement.buildSet(classInfo.getStudents());
-        TeacherElement.buildSet(classInfo.getTeachers());
-        TestElement.buildSet(classInfo.getTests());
     }
 
     public Long getId() {
@@ -86,27 +65,33 @@ public class ClassInfoElement implements ResponseEntityBean<ClassInfo> {
         this.description = description;
     }
 
-    public Set<StudentElement> getStudents() {
+    public Set<Long> getStudents() {
         return students;
     }
 
-    public void setStudents(Set<StudentElement> students) {
+    @XmlElementWrapper(name = "students")
+    @XmlElement(name = "student")
+    public void setStudents(Set<Long> students) {
         this.students = students;
     }
 
-    public Set<TeacherElement> getTeachers() {
+    public Set<Long> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(Set<TeacherElement> teachers) {
+    @XmlElementWrapper(name = "teachers")
+    @XmlElement(name = "teacher")
+    public void setTeachers(Set<Long> teachers) {
         this.teachers = teachers;
     }
 
-    public Set<TestElement> getTests() {
+    public Set<Long> getTests() {
         return tests;
     }
 
-    public void setTests(Set<TestElement> tests) {
+    @XmlElementWrapper(name = "tests")
+    @XmlElement(name = "test")
+    public void setTests(Set<Long> tests) {
         this.tests = tests;
     }
 }

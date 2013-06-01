@@ -19,7 +19,7 @@ import static com.ebschool.utils.QueryParameter.*;
 @Stateless
 @Local(GradeServiceLocal.class)
 @Remote(GradeServiceRemote.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class GradeServiceImpl implements GradeServiceLocal{
 
     @Inject

@@ -17,7 +17,7 @@ import static com.ebschool.utils.QueryParameter.*;
 @Stateless
 @Local(UserServiceLocal.class)
 @Remote(UserServiceRemote.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class UserServiceImpl implements UserServiceLocal{
 
     @Inject
@@ -39,13 +39,13 @@ public class UserServiceImpl implements UserServiceLocal{
     }
 
     @Override
-    public User getUserByLoginAndPassword(String login, String password) {
-        List<User> user =  userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN_AND_PASSWORD, with("login", login).and("password", password).parameters(), 1);
+    public User getByLogin(String login) {
+        List<User> user =  userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN_AND_PASSWORD, with("login", login).parameters(), 1);
         return user.isEmpty() ? null : user.get(0);
     }
 
     @Override
-    public Set<User> getAllUsers() {
+    public Set<User> getAll() {
         return userRepository.getAll();
     }
 

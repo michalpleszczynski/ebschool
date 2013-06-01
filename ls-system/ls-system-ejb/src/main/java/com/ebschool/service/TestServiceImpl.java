@@ -18,7 +18,7 @@ import static com.ebschool.utils.QueryParameter.*;
 @Stateless
 @Local(TestServiceLocal.class)
 @Remote(TestServiceRemote.class)
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class TestServiceImpl implements TestServiceLocal {
 
     @Inject

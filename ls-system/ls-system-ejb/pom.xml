@@ -196,10 +196,6 @@
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it
-               to run just unit tests based on a custom pattern -->
-            <!-- Seperate profiles are provided for running all tests, including
-               Arquillian tests that execute in the specified container -->
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -260,37 +256,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-
-        <profile>
-            <id>arquillian-weld-ee-embedded</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-6.0</artifactId>
-                    <version>1.0.0.Final</version>
-                    <type>pom</type>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-                    <version>1.0.0.CR3</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.weld</groupId>
-                    <artifactId>weld-core</artifactId>
-                    <version>1.1.5.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-simple</artifactId>
-                    <version>1.6.4</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
         </profile>
 
     </profiles>

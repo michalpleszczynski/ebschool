@@ -200,8 +200,8 @@ public class UserRepositoryTest {
         Student studentOfLevel1_2 = userRepository.getStudentById(7L);
         assertTrue(studentsOfLevel1.contains(studentOfLevel1_1) && studentsOfLevel1.contains(studentOfLevel1_2));
 
-        // get user by login and password
-        List<User> user = userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN_AND_PASSWORD, with("login", "default_login2").and("password", "bb12bbd8c907af067070211d87bdf098be17375b").parameters(), 1);
+        // get user by login
+        List<User> user = userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN_AND_PASSWORD, with("login", "default_login2").parameters(), 1);
         assertNotNull(user);
         assertEquals(1, user.size());
         assertEquals(4, user.get(0).getId());

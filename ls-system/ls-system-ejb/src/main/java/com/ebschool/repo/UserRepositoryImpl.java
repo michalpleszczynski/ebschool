@@ -17,7 +17,7 @@ import java.util.Set;
  */
 @Stateless
 @LocalBean
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class UserRepositoryImpl extends GenericRepositoryImpl<User, Long> implements UserRepository {
 
     public UserRepositoryImpl() {

@@ -14,7 +14,7 @@ import javax.ejb.TransactionAttributeType;
  */
 @Stateless
 @LocalBean
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class TestRepositoryImpl extends GenericRepositoryImpl<Test, Long> implements TestRepository{
 
     public TestRepositoryImpl() {

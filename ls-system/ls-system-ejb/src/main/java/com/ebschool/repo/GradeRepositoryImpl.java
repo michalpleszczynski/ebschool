@@ -14,7 +14,7 @@ import javax.ejb.TransactionAttributeType;
  */
 @Stateless
 @LocalBean
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class GradeRepositoryImpl extends GenericRepositoryImpl<Grade, Long> implements GradeRepository {
 
     public GradeRepositoryImpl() {

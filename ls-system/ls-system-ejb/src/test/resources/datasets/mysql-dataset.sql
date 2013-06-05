@@ -1,10 +1,10 @@
-insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('some@email.com', 'name', 'last_name', 'login', 'ff12bbd8c907af067070211d87bdf098be17375b', '111222333', true);
+insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('some@email.com', 'name', 'last_name', 'login', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '111222333', true);
 
-insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('someother@email.com', 'other_name', 'other_last_name', 'other_login', 'ff12bbd8c907af067070211d87bdf098be17375b', '222222333', true);
+insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('someother@email.com', 'other_name', 'other_last_name', 'other_login', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '222222333', true);
 
-insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('some12@email.com', 'nameParent', 'last_nameParent', 'loginParent', 'bb12bbd8c907af067070211d87bdf098be17375b', '123123123', true);
+insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('some12@email.com', 'nameParent', 'last_nameParent', 'loginParent', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '123123123', true);
 
-insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('lalal@op.pl', 'name2', 'last_name2', 'default_login2', 'bb12bbd8c907af067070211d87bdf098be17375b', '123123623', true);
+insert into basic_user(email, first_name, last_name, login, password_, phone_number, active) values('lalal@op.pl', 'name2', 'last_name2', 'default_login2', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '123123623', true);
 
 insert into detailed_info(street, zip_code, city, country, date_joined, date_of_birth, pin) values('Virginia Rd', '13733', 'Oxford', 'USA', '345345345', '345345345', '123123123');
 
@@ -31,4 +31,3 @@ insert into class_student(student_id, class_id) values('1', '1');
 insert into teacher_class(teacher_id, class_id) values('2', '1');
 
 insert into parent_student(parent_id, student_id) values('3', '1');
-

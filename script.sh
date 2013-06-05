@@ -11,11 +11,11 @@ deploy() {
 
 recreateDB() {
   echo "Cleaning up the db...";
-  mysql -u testit_user --password=testit ebuisness_test_database < ls-system/ls-system-ejb/src/test/resources/sql-scripts/cleanup.sql;
+  mysql -u testit_user --password=testit ebuisness_database < ls-system/ls-system-ejb/src/main/resources/sql/cleanup.sql;
   echo "Creating db schema...";
-  mysql -u testit_user --password=testit ebuisness_test_database < ls-system/ls-system-ejb/src/test/resources/sql-scripts/schema.sql;
+  mysql -u testit_user --password=testit ebuisness_database < ls-system/ls-system-ejb/src/main/resources/sql/schema.sql;
   echo "Populating db...";
-  mysql -u testit_user --password=testit ebuisness_test_database < ls-system/ls-system-ejb/src/test/resources/datasets/mysql-big-dataset.sql;
+  mysql -u testit_user --password=testit ebuisness_database < ls-system/ls-system-ejb/src/main/resources/sql/mysql-big-dataset.sql;
   echo "Done.";
 }
 

@@ -47,14 +47,14 @@ public class TeacherResource {
 
     @GET
     @Path("{login}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getByLogin(@PathParam("login") String login){
         Teacher teacher = (Teacher) RestHelper.throw404IfNull(userService.getByLogin(login));
         return Response.ok().entity(restElementBuilder.buildTeacherElement(teacher)).build();
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAll() {
         Set<Teacher> teachers = RestHelper.throw404IfNull(teacherService.getAll());
         PageResult<TeacherElement> results = new SetPageResult<>(

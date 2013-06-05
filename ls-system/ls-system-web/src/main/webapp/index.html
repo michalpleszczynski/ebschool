@@ -1,5 +1,39 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    Hello!
+    <meta charset="utf-8">
+    <title>EB School - Login page</title>
+    <meta name="author" content="michau">
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+
 </head>
+<body>
+
+    <section id="loginSection">
+        <header>Log In</header>
+        <p id="errorMessage"></p>
+        <form onsubmit="return doSomething();">
+            <label for="username">User name:</label>
+            <input type="text" name="username" value="" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" value="" id="password" required>
+
+            <input type="submit" value="login"/>
+        </form>
+    </section>
+
+    <section id="mainPage">
+        <p id="userType" name="userType"></p>
+        <p id="firstName" name="firstName"></p>
+        <p id="lastName" name="lastName"></p>
+        <p id="login" name="login"></p>
+        <p id="email" name="email"></p>
+        <p id="levelName" name="levelName"></p>
+        <p id="pin" name="pin"></p>
+    </section>
+
+</body>
+<script src="js/jquery-1.10.1.js"></script>
+<script src="js/main.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
 </html>

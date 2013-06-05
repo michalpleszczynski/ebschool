@@ -38,7 +38,7 @@ public class LevelResource {
 
     @GET
     @Path("{name}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getByName(@PathParam("name") String name) {
         Level level = RestHelper.throw404IfNull(levelService.getByName(name));
         LevelElement levelElement = new LevelElement(level);
@@ -46,7 +46,7 @@ public class LevelResource {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAll() {
         Set<Level> levels = RestHelper.throw404IfNull(levelService.getAll());
         Set<LevelElement> levelElements = new HashSet<>();

@@ -2,8 +2,7 @@ package com.ebschool.rest.model;
 
 import com.ebschool.model.User;
 
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 /**
  * User: michau
@@ -12,6 +11,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "user")
 public abstract class UserElement {
 
+    @XmlEnum
+    public enum UserType {
+        @XmlEnumValue("student")
+        STUDENT,
+        @XmlEnumValue("teacher")
+        TEACHER,
+        @XmlEnumValue("parent")
+        PARENT
+    }
+
     private Long id;
     private String login;
     private String email;
@@ -19,6 +28,7 @@ public abstract class UserElement {
     private String phoneNumber;
     private String firstName;
     private String lastName;
+    private UserType type;
 
     public UserElement() {}
 
@@ -86,5 +96,14 @@ public abstract class UserElement {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    @XmlElement
+    public void setType(UserType type) {
+        this.type = type;
     }
 }

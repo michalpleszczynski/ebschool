@@ -5,6 +5,7 @@ import com.ebschool.model.Student;
 import com.ebschool.model.Teacher;
 import com.ebschool.model.User;
 
+import javax.annotation.security.DeclareRoles;
 import java.util.Set;
 
 /**

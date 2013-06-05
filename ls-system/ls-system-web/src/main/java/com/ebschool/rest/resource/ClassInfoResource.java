@@ -38,7 +38,7 @@ public class ClassInfoResource {
     RestElementBuilder restElementBuilder;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAll(){
         Set<ClassInfo> classes = classInfoService.getAll();
         PageResult<ClassInfoElement> classElements = new SetPageResult<>(
@@ -49,7 +49,7 @@ public class ClassInfoResource {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getClassInfoById(@PathParam("id") long id){
         ClassInfo classInfo = classInfoService.getById(id);
         return Response.ok().entity(restElementBuilder.buildClassInfoElement(classInfo)).build();

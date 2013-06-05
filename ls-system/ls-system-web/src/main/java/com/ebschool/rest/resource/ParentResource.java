@@ -44,14 +44,14 @@ public class ParentResource {
 
     @GET
     @Path("{login}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getByLogin(@PathParam("login") String login){
         Parent parent = (Parent) RestHelper.throw404IfNull(userService.getByLogin(login));
         return Response.ok().entity(restElementBuilder.buildParentElement(parent)).build();
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getAll() {
         Set<Parent> parents = RestHelper.throw404IfNull(parentService.getAll());
         PageResult<ParentElement> results = new SetPageResult<>(

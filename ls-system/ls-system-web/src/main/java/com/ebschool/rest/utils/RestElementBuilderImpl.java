@@ -1,10 +1,7 @@
 package com.ebschool.rest.utils;
 
 import com.ebschool.model.*;
-import com.ebschool.rest.model.ClassInfoElement;
-import com.ebschool.rest.model.ParentElement;
-import com.ebschool.rest.model.StudentElement;
-import com.ebschool.rest.model.TeacherElement;
+import com.ebschool.rest.model.*;
 import com.ebschool.service.ClassInfoServiceLocal;
 import com.ebschool.service.UserServiceLocal;
 
@@ -39,6 +36,7 @@ public class RestElementBuilderImpl implements RestElementBuilder{
         }
         studentElement.setClassIds(classIds);
         studentElement.setGradeIds(gradeIds);
+        studentElement.setType(UserElement.UserType.STUDENT);
         return studentElement;
     }
 
@@ -51,6 +49,7 @@ public class RestElementBuilderImpl implements RestElementBuilder{
             classIds.add(classInfo.getId());
         }
         teacherElement.setClassIds(classIds);
+        teacherElement.setType(UserElement.UserType.TEACHER);
         return teacherElement;
     }
 
@@ -63,6 +62,7 @@ public class RestElementBuilderImpl implements RestElementBuilder{
             childrenIds.add(student.getId());
         }
         parentElement.setChildrenAccounts(childrenIds);
+        parentElement.setType(UserElement.UserType.PARENT);
         return parentElement;
     }
 

@@ -1,19 +1,10 @@
 
 var baseURL = 'http://localhost:8080/ls-system/rest';
 
-loginSection = $("#loginSection");
 mainPage = $("#mainPage");
 
 function init(){
-    showOrHideElement(loginSection, true);
-    showOrHideElement(mainPage, false);
-}
 
-function doSomething() {
-    var login = document.getElementById("username").value;
-    var hash = CryptoJS.SHA1(document.getElementById("password").value);
-    getLoggedUser(login, hash);
-    return false;
 }
 
 function getLoggedUser(login, password){
@@ -25,6 +16,18 @@ function getLoggedUser(login, password){
         success: redirectToMainPage,
         error: tryAgain
     });
+}
+
+function getClassById(id){
+    console.log('getClassById: ' + id);
+    var response = $.ajax({
+        type: 'GET',
+        url: baseURL + '/classes/' + id,
+        dataType: 'json'
+    });
+    if (response.status == 200){
+        return response.entity;
+    }
 }
 
 function tryAgain(){
@@ -40,9 +43,6 @@ function showOrHideElement(element, show){
 }
 
 function redirectToMainPage(user){
-
-    showOrHideElement(loginSection, false);
-    showOrHideElement(mainPage, true);
 
     switch (user.type.toLowerCase()){
         case "student":

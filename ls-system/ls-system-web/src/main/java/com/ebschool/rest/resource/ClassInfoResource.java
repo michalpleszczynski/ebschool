@@ -50,7 +50,7 @@ public class ClassInfoResource {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getClassInfoById(@PathParam("id") long id){
+    public Response getById(@PathParam("id") long id){
         ClassInfo classInfo = classInfoService.getById(id);
         return Response.ok().entity(restElementBuilder.buildClassInfoElement(classInfo)).build();
     }

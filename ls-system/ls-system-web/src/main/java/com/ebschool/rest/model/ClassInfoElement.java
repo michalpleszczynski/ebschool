@@ -1,7 +1,10 @@
-package com.ebschool.rest.model;
+    package com.ebschool.rest.model;
 
 import com.ebschool.model.ClassInfo;
+import com.ebschool.model.Level;
+import com.ebschool.rest.utils.RestHelper;
 import com.ebschool.service.ClassInfoServiceLocal;
+import org.joda.time.DateTime;
 
 import javax.ejb.EJB;
 import javax.xml.bind.annotation.*;
@@ -16,9 +19,10 @@ import java.util.Set;
 public class ClassInfoElement {
 
     private Long id;
-    private long when;
+    private String when;
     private String where;
     private String description;
+    private LevelElement level;
 
     private Set<Long> students;
     private Set<Long> teachers;
@@ -29,8 +33,9 @@ public class ClassInfoElement {
     public ClassInfoElement (ClassInfo classInfo) {
         setId(classInfo.getId());
         setDescription(classInfo.getDescription());
-        setWhen(classInfo.getWhen());
+        setWhen(RestHelper.convertLongDate(classInfo.getWhen()));
         setWhere(classInfo.getWhere());
+        setLevel(new LevelElement(classInfo.getLevel()));
     }
 
     public Long getId() {
@@ -41,11 +46,11 @@ public class ClassInfoElement {
         this.id = id;
     }
 
-    public long getWhen() {
+    public String getWhen() {
         return when;
     }
 
-    public void setWhen(long when) {
+    public void setWhen(String when) {
         this.when = when;
     }
 
@@ -93,5 +98,13 @@ public class ClassInfoElement {
     @XmlElement(name = "test")
     public void setTests(Set<Long> tests) {
         this.tests = tests;
+    }
+
+    public LevelElement getLevel() {
+        return level;
+    }
+
+    public void setLevel(LevelElement level) {
+        this.level = level;
     }
 }

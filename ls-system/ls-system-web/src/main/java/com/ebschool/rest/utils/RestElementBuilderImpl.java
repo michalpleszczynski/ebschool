@@ -36,6 +36,7 @@ public class RestElementBuilderImpl implements RestElementBuilder{
         }
         studentElement.setClassIds(classIds);
         studentElement.setGradeIds(gradeIds);
+        studentElement.setDetailedInfo(new DetailedInfoElement(student.getDetailedInfo()));
         studentElement.setType(UserElement.UserType.STUDENT);
         return studentElement;
     }
@@ -49,6 +50,7 @@ public class RestElementBuilderImpl implements RestElementBuilder{
             classIds.add(classInfo.getId());
         }
         teacherElement.setClassIds(classIds);
+        teacherElement.setDetailedInfo(new DetailedInfoElement(teacher.getDetailedInfo()));
         teacherElement.setType(UserElement.UserType.TEACHER);
         return teacherElement;
     }

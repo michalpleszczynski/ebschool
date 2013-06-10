@@ -1,6 +1,7 @@
 package com.ebschool.rest.model;
 
 import com.ebschool.model.DetailedInfo;
+import com.ebschool.rest.utils.RestHelper;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,8 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class DetailedInfoElement {
 
     private Long id;
-    private long dateJoined;
-    private long dateOfBirth;
+    private String dateJoined;
+    private String dateOfBirth;
     private String pin;
     private AddressElement address;
 
@@ -21,8 +22,8 @@ public class DetailedInfoElement {
 
     public DetailedInfoElement(DetailedInfo detailedInfo){
         setId(detailedInfo.getId());
-        setDateJoined(detailedInfo.getDateJoined());
-        setDateOfBirth(detailedInfo.getDateOfBirth());
+        setDateJoined(RestHelper.convertLongDate(detailedInfo.getDateJoined(),"MM/dd/yyyy"));
+        setDateOfBirth(RestHelper.convertLongDate(detailedInfo.getDateOfBirth(), "MM/dd/yyyy"));
         setAddress(new AddressElement(detailedInfo.getAddress()));
         setPin(detailedInfo.getIdentificationNumber());
     }
@@ -35,19 +36,19 @@ public class DetailedInfoElement {
         this.id = id;
     }
 
-    public long getDateJoined() {
+    public String getDateJoined() {
         return dateJoined;
     }
 
-    public void setDateJoined(long dateJoined) {
+    public void setDateJoined(String dateJoined) {
         this.dateJoined = dateJoined;
     }
 
-    public long getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(long dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

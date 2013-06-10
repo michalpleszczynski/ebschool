@@ -11,8 +11,6 @@ import com.ebschool.service.ParentServiceLocal;
 import com.ebschool.service.UserServiceLocal;
 
 import javax.ejb.EJB;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;

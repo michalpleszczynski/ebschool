@@ -10,15 +10,21 @@ import com.ebschool.rest.utils.transactions.TransactionRequired;
 import com.ebschool.service.UserServiceLocal;
 import org.jboss.logging.Param;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.security.Principal;
 
 /**
  * User: michau
@@ -36,15 +42,26 @@ public class UserResource {
     RestElementBuilder restElementBuilder;
 
     @GET
-    @Path("{login}/{password}")
+    @Path("{current}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response getByLogin(@PathParam("login") String login,
-                                @PathParam("password") String password){
+    public Response getLoggedUser(@Context HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        String login = principal.getName();
         User user = RestHelper.throw404IfNull(userService.getByLogin(login),
                 String.format("User with login %s cannot be found", login));
-        if (!password.equals(user.getPassword())){
-            return Response.ok("Password doesn't match", MediaType.TEXT_PLAIN_TYPE).build();
-        }
+        return buildUserResponse(user);
+    }
+
+    @GET
+    @Path("/id/{id}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response getById(@PathParam("id") long id){
+        User user = RestHelper.throw404IfNull(userService.getById(id),
+                String.format("User with login %d cannot be found", id));
+        return buildUserResponse(user);
+    }
+
+    private Response buildUserResponse(User user){
         if (Student.class.isAssignableFrom(user.getClass())){
             return Response.ok().entity(restElementBuilder.buildStudentElement((Student)user)).build();
         } else if (Teacher.class.isAssignableFrom(user.getClass())){

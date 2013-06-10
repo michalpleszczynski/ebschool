@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
-import static com.ebschool.utils.QueryParameter.*;
+import static com.ebschool.utils.QueryParameter.with;
 
 /**
  * User: michau

@@ -6,9 +6,8 @@ package com.ebschool.security;
  */
 public interface Roles {
 
-    String ADMIN = "Administrator";
-    String TEACHER = "Teacher";
-    String STUDENT = "Student";
-    String PARENT = "Parent";
+    String TEACHER = "teacher";
+    String STUDENT = "student";
+    String PARENT = "parent";
 
 }

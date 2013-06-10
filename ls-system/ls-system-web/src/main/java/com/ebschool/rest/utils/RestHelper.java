@@ -2,6 +2,9 @@ package com.ebschool.rest.utils;
 
 import com.sun.jersey.api.NotFoundException;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * User: michau
  * Date: 5/23/13
@@ -21,6 +24,16 @@ public class RestHelper {
             throw new NotFoundException(message);
         }
         return object;
+    }
+
+    public static String convertLongDate(long lDate){
+        return convertLongDate(lDate, "EE - HH:mm");
+    }
+
+    public static String convertLongDate(long lDate, String format){
+        Date date = new Date(lDate);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        return dateFormat.format(date);
     }
 
 }

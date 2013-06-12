@@ -4,6 +4,7 @@ import com.ebschool.model.ClassInfo;
 import com.ebschool.model.Student;
 import com.ebschool.model.Teacher;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -17,6 +18,7 @@ public interface ClassInfoServiceRemote {
     public void delete(ClassInfo... classes);
 
     public Set<ClassInfo> getAll();
+    public Set<ClassInfo> getByIds(Collection<Long> ids);
 
     public ClassInfo addStudent(Student student, ClassInfo classInfo);
     public ClassInfo removeStudent(Student student, ClassInfo classInfo);

@@ -53,7 +53,7 @@ public class StudentElement extends UserElement {
         return detailedInfo;
     }
 
-    @XmlElement(name = "info")
+    @XmlElement(name = "detailedInfo")
     public void setDetailedInfo(DetailedInfoElement detailedInfo) {
         this.detailedInfo = detailedInfo;
     }

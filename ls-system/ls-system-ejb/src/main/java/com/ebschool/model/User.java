@@ -53,7 +53,6 @@ public abstract class User  implements Identifiable, Serializable {
     @Column(name = "phone_number", length = 12, nullable = false)
     private String phoneNumber;
 
-    @Size(min = 40, max = 40)
     @Column(nullable = false, length = 32, name = "password_")
     private String password;
 

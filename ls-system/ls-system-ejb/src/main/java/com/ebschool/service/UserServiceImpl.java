@@ -1,7 +1,12 @@
 package com.ebschool.service;
 
+import com.ebschool.model.Parent;
+import com.ebschool.model.Student;
+import com.ebschool.model.Teacher;
 import com.ebschool.model.User;
+import com.ebschool.repo.RoleRepository;
 import com.ebschool.repo.UserRepository;
+import com.ebschool.security.Roles;
 
 import javax.ejb.*;
 import javax.inject.Inject;
@@ -22,6 +27,9 @@ public class UserServiceImpl implements UserServiceLocal{
 
     @Inject
     UserRepository userRepository;
+
+    @Inject
+    RoleRepository roleRepository;
 
     @Override
     public User create(User user) {
@@ -61,7 +69,7 @@ public class UserServiceImpl implements UserServiceLocal{
             userRepository.create(user);
         }
         user.setActive(true);
-        //TODO: set random password, send an email to user
+        assignOrUnassignRole(user, true);
     }
 
     @Override
@@ -70,6 +78,7 @@ public class UserServiceImpl implements UserServiceLocal{
         if (existingUser != null){
             user.setActive(false);
         }
+        assignOrUnassignRole(user, false);
     }
 
     @Override
@@ -78,5 +87,27 @@ public class UserServiceImpl implements UserServiceLocal{
         if (user.getPassword().equals(oldPassword)){
             user.setPassword(newPassword);
         }
+    }
+
+    private void assignOrUnassignRole(User user, boolean isAssign){
+        Roles.Role role = getRoleForUser(user);
+        if (isAssign){
+            roleRepository.assignRole(user, role);
+        } else {
+            roleRepository.unassignRole(user, role);
+        }
+    }
+
+    private Roles.Role getRoleForUser(User user){
+        if (Student.class.isAssignableFrom(user.getClass())){
+            return Roles.Role.STUDENT;
+        }
+        if (Teacher.class.isAssignableFrom(user.getClass())){
+            return Roles.Role.TEACHER;
+        }
+        if (Parent.class.isAssignableFrom(user.getClass())){
+            return Roles.Role.PARENT;
+        }
+        return null;
     }
 }

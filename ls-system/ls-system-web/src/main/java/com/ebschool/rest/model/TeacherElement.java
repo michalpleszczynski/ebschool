@@ -37,7 +37,7 @@ public class TeacherElement extends UserElement {
         this.id = id;
     }
 
-    @XmlElement(name = "info")
+    @XmlElement(name = "detailedInfo")
     public DetailedInfoElement getDetailedInfo() {
         return detailedInfo;
     }

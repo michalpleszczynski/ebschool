@@ -2,6 +2,7 @@ package service;
 
 import com.ebschool.model.User;
 import com.ebschool.repo.UserRepository;
+import com.ebschool.security.Roles;
 import com.ebschool.service.UserServiceLocal;
 import com.ebschool.utils.Identifiable;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -32,6 +33,7 @@ public class UserServiceITest {
         JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addPackage(Identifiable.class.getPackage())
                 .addPackage(User.class.getPackage())
+                .addPackage(Roles.class.getPackage())
                 .addPackage(UserServiceLocal.class.getPackage())
                 .addPackage(DataBuilder.class.getPackage())
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")

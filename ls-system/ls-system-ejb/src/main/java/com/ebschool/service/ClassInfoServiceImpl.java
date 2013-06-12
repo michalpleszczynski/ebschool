@@ -7,6 +7,8 @@ import com.ebschool.repo.ClassInfoRepository;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -45,6 +47,15 @@ public class ClassInfoServiceImpl implements ClassInfoServiceLocal {
     @Override
     public Set<ClassInfo> getAll() {
         return classInfoRepository.getAll();
+    }
+
+    @Override
+    public Set<ClassInfo> getByIds(Collection<Long> ids) {
+        Set<ClassInfo> classes = new HashSet<>();
+        for (Long id : ids){
+            classes.add(classInfoRepository.getById(id));
+        }
+        return classes;
     }
 
     @Override

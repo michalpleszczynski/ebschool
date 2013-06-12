@@ -2,6 +2,7 @@ package other;
 
 import com.ebschool.model.*;
 import com.ebschool.repo.UserRepository;
+import com.ebschool.security.Roles;
 import com.ebschool.service.*;
 import com.ebschool.utils.Identifiable;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -65,6 +66,7 @@ public class EntityRelationshipITest {
                 .addPackage(Identifiable.class.getPackage())
                 .addPackage(User.class.getPackage())
                 .addPackage(UserRepository.class.getPackage())
+                .addPackage(Roles.class.getPackage())
                 .addPackage(UserServiceLocal.class.getPackage())
                 .addPackage(DataBuilder.class.getPackage())
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")

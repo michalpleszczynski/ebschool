@@ -91,6 +91,13 @@
             <version>3.0.1</version>
         </dependency>
 
+        <!--utils-->
+        <dependency>
+            <groupId>org.picketbox</groupId>
+            <artifactId>picketbox</artifactId>
+            <version>4.0.18.Final</version>
+        </dependency>
+
     </dependencies>
 
     <build>

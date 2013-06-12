@@ -4,6 +4,7 @@ import com.ebschool.model.ClassInfo;
 import com.ebschool.model.Test;
 import com.ebschool.repo.ClassInfoRepository;
 import com.ebschool.repo.TestRepository;
+import com.ebschool.security.Roles;
 import com.ebschool.utils.Identifiable;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -46,6 +47,7 @@ public class TestRepositoryTest {
         JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addPackage(Identifiable.class.getPackage())
                 .addPackage(Test.class.getPackage())
+                .addPackage(Roles.class.getPackage())
                 .addPackage(TestRepository.class.getPackage())
                 .addPackage(DataBuilder.class.getPackage())
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")

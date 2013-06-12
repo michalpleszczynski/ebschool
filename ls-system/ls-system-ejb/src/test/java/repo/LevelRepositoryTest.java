@@ -6,6 +6,7 @@ import com.ebschool.repo.ClassInfoRepository;
 import com.ebschool.repo.GradeRepository;
 import com.ebschool.repo.LevelRepository;
 import com.ebschool.repo.UserRepository;
+import com.ebschool.security.Roles;
 import com.ebschool.utils.Identifiable;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -50,6 +51,7 @@ public class LevelRepositoryTest {
         JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addPackage(Identifiable.class.getPackage())
                 .addPackage(Grade.class.getPackage())
+                .addPackage(Roles.class.getPackage())
                 .addPackage(GradeRepository.class.getPackage())
                 .addPackage(DataBuilder.class.getPackage())
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")

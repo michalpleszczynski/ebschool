@@ -8,6 +8,11 @@ var currentClass;
 
 var jerseyStarted = false;
 
+// maps for objects
+var classMap = {};
+var userMap = {};
+var levelMap = {};
+
 function init(){
     console.log('init');
     if (!jerseyStarted){
@@ -22,8 +27,31 @@ function init(){
 
 function initHtml(){
     $("#username_link").html(currentUser.login);
+    $("#createStudentBtn").hide();
     $("#userInfo").hide();
     $("#classInfo").hide();
+    $("#createStudent").hide();
+    if (currentUser.type.toLowerCase() == 'teacher'){
+        // get data to later populate selects
+        getAllClasses();
+        getAllLevels();
+        $("#createStudentBtn").show();
+    }
+    // prevent createStudentForm from redirecting when submitted
+    $('#createStudentForm').submit( function () {
+        var formdata = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: baseURL + '/students/add',
+            data: formdata,
+            success: function(){
+                $("#createStudent").hide();
+                $("body").append("Student created!");
+            },
+            error: logError
+         });
+        return false;
+    });
 }
 
 function getCurrentUser(){
@@ -38,8 +66,42 @@ function getCurrentUser(){
         async: false
     });
     if (response.status == 200){
-        return response.responseJSON;
+        var user = response.responseJSON;
+        userMap[user.id.toString()] = user;
+        return user;
     }
+}
+
+function initCreateStudentForm(){
+    console.log('initCreateStudentForm');
+
+    var allClasses = new Array();
+    var allLevels = new Array();
+    var i = 0;
+
+    for (classKey in classMap){
+        allClasses[i] = classMap[classKey.toString()];
+        i++;
+    }
+    i = 0;
+    for (levelKey in levelMap){
+        allLevels[i] = levelMap[levelKey.toString()];
+        i++;
+    }
+
+    // populate level select
+    $("#levelSelect option").remove();
+    $.each(allLevels, function(index, item) {
+        $("#levelSelect").append($("<option></option>").text(item.name).val(item.id));
+    });
+
+    // populate classes select
+    $("#classSelect option").remove();
+    $.each(allClasses, function(index, item) {
+        $("#classSelect").append($("<option></option>").text(item.when + ' ' + item.description).val(item.id));
+    });
+
+    $("#createStudent").show();
 }
 
 function logout(){
@@ -56,6 +118,9 @@ function logout(){
 
 function getClassById(id){
     console.log('getClassById: ' + id);
+    if (classMap.hasOwnProperty(id.toString())){
+        return classMap[id.toString()];
+    }
     var response = $.ajax({
         type: 'GET',
         url: baseURL + '/classes/' + id,
@@ -64,12 +129,16 @@ function getClassById(id){
         error: logError
     });
     if (response.status == 200){
+        classMap[id.toString()] = response.responseJSON;
         return response.responseJSON;
     }
 }
 
 function getUserById(id){
     console.log('getUserById: ' + id);
+    if (userMap.hasOwnProperty(id.toString())){
+        return userMap[id.toString()];
+    }
     var response = $.ajax({
         type: 'GET',
         url: baseURL + '/users/id/' + id,
@@ -78,8 +147,41 @@ function getUserById(id){
         error: logError
     });
     if (response.status == 200){
+        userMap[id.toString()] = response.responseJSON;
         return response.responseJSON;
     }
+}
+
+function getAllClasses(){
+    console.log('getAllClasses');
+    $.ajax({
+        type: 'GET',
+        url: baseURL + '/classes',
+        dataType: 'json',
+        success: function(response){
+            var classArray = response;
+            for (i = 0;i<classArray.length; ++i){
+                classMap[classArray[i].id.toString()] = classArray[i];
+            }
+        },
+        error: logError
+    });
+}
+
+function getAllLevels(){
+    console.log('getAllLevels');
+    var response = $.ajax({
+        type: 'GET',
+        url: baseURL + '/levels',
+        dataType: 'json',
+        success: function(response){
+            var levelArray = response;
+            for (i = 0;i<levelArray.length; ++i){
+                levelMap[levelArray[i].id.toString()] = levelArray[i];
+            }
+        },
+        error: logError
+    });
 }
 
 function dummyRequest(){

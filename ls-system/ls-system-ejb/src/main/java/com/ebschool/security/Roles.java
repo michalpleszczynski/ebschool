@@ -6,6 +6,12 @@ package com.ebschool.security;
  */
 public interface Roles {
 
+    public enum Role {
+        TEACHER,
+        STUDENT,
+        PARENT
+    }
+
     String TEACHER = "teacher";
     String STUDENT = "student";
     String PARENT = "parent";

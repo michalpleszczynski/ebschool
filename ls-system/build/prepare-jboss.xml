@@ -1,0 +1,22 @@
+<project name="ls-system" default="jboss" basedir="./jboss">
+    <description>
+        prepare local jboss-7.1.1 instance
+    </description>
+
+    <property environment="env"/>
+
+    <target name="jboss">
+	<echo>Copying standalone.xml...</echo>
+        <copy file="standalone.xml" overwrite="true" tofile="${env.JBOSS_HOME}/standalone/configuration/standalone.xml" />
+	<echo>Copying mysql module...</echo>
+        <copy todir="${env.JBOSS_HOME}/modules/com/mysql/">
+            <fileset dir="mysql"/>
+        </copy>
+	<echo>Appending fix for jersey/cdi problem to standalone.conf...</echo>
+        <echo file="${env.JBOSS_HOME}/bin/standalone.conf" append="true">
+# workaround for a jersey/cdi problem
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.jersey.server.impl.cdi.lookupExtensionInBeanManager=true"
+        </echo>
+	<echo>Done.</echo>
+    </target>
+</project>

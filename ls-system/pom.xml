@@ -10,8 +10,9 @@
 
     <modules>
         <module>ls-system-ejb</module>
-        <module>ls-system-web</module>
+        <module>ls-system-mobile</module>
         <module>ls-system-ear</module>
+        <module>ls-system-rest</module>
     </modules>
 
     <properties>

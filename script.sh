@@ -19,4 +19,11 @@ recreateDB() {
   echo "Done.";
 }
 
+start() {
+  start_dir=`pwd`;
+  cd $JBOSS_HOME/bin;
+  sh standalone.sh
+  cd $start_dir;
+}
+
 $@

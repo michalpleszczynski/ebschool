@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-1.10.1.js"></script>
+    <script src="js/auth.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/login-form.css"/>
+    <title>Log In</title>
+</head>
+<body>
+<section class="form-section">
+    <form method="post" action="auth/main.html" onsubmit="return logIn();" class="login-form">
+        <h1>Log In</h1>
+        <h2 class="retry">Incorrect login/password. Try again</h2>
+        <input type="text" name="username" id="username" placeholder="username" required>
+        <input type="password" name="password" id="password" placeholder="password" required>
+        <span>
+            <input type="checkbox" id="checkbox" name="checkbox">
+            <label for="checkbox">remember</label>
+        </span>
+        <input type="submit" value="login"/>
+    </form>
+</section>
+
+</body>
+</html>

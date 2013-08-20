@@ -1,15 +1,18 @@
 #!/bin/bash
 
-deploy() {
+function deploy() {
   start_dir=`pwd`;
   cd /home/michau/Desktop/Michau/programy/Java/E-Buisness/ebuisness-school/ls-system;
-  mvn clean install;
+  cd ejb && mvn clean install && cd ..;
+  cd rest && mvn clean install && cd ..;
+  cd mobile && mvn clean install && cd ..;
+  cd ear && mvn clean install && cd ..;
   rm $JBOSS_HOME/standalone/deployments/ls-system.ear*
-  cp ls-system-ear/target/ls-system.ear $JBOSS_HOME/standalone/deployments/
+  cp ear/target/ls-system.ear $JBOSS_HOME/standalone/deployments/
   cd $start_dir;
 }
 
-recreateDB() {
+function recreateDB() {
   echo "Cleaning up the db...";
   mysql -u testit_user --password=testit ebuisness_database < ls-system/ls-system-ejb/src/main/resources/sql/cleanup.sql;
   echo "Creating db schema...";
@@ -19,7 +22,14 @@ recreateDB() {
   echo "Done.";
 }
 
-start() {
+function prepareJboss() {
+  start_dir=`pwd`;
+  cd /home/michau/Desktop/Michau/programy/Java/E-Buisness/ebuisness-school/ls-system/build;
+  ant -f prepare-jboss.xml
+  cd $start_dir;
+}
+
+function start() {
   start_dir=`pwd`;
   cd $JBOSS_HOME/bin;
   sh standalone.sh

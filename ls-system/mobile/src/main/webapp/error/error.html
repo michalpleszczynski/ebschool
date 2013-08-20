@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #141517;
+        }
+
+        .message-section {
+            position: fixed;
+            left: 50%;
+        }
+
+        .error-message {
+            position: relative;
+            left: -50%;
+            margin-top: 150px;
+            font-family: 'Myriad Pro', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #AFF213;
+        }
+
+        .error-message a {
+            font-family: 'Myriad Pro', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #445b0f;
+        }
+
+    </style>
+    <title>Error - try again</title>
+</head>
+<body>
+    <section class="message-section">
+        <p class="error-message">Incorrect login/password. Please <a href="javascript:history.back(-1);">try again</a>.</p>
+    </section>
+</body>
+</html>

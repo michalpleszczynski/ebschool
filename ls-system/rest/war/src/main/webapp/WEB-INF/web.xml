@@ -1,0 +1,63 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <servlet>
+        <servlet-name>jerseyServlet</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.ebschool.rest.core.JaxRsActivator</param-value>
+            <!--<param-name>com.sun.jersey.config.property.packages</param-name>-->
+            <!--<param-value>com.ebschool.rest.core;org.codehaus.jackson.jaxrs</param-value>-->
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jerseyServlet</servlet-name>
+        <url-pattern>/resource/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Roles -->
+    <security-role>
+        <description>Teachers</description>
+        <role-name>teacher</role-name>
+    </security-role>
+    <security-role>
+        <description>Students</description>
+        <role-name>student</role-name>
+    </security-role>
+    <security-role>
+        <description>Parents</description>
+        <role-name>parent</role-name>
+    </security-role>
+    <!-- Resource / Role Mapping  -->
+    <security-constraint>
+        <display-name>Logged User Area</display-name>
+        <web-resource-collection>
+            <web-resource-name>user_resources</web-resource-name>
+            <url-pattern>/resource/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>For logged users</description>
+            <role-name>teacher</role-name>
+            <role-name>student</role-name>
+            <role-name>parent</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+     <!--Login Prompt-->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
+
+</web-app>

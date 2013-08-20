@@ -1,0 +1,94 @@
+span {
+display: block;
+}
+
+body {
+background-color: #141517;
+}
+
+.login-form,
+.login-form h1,
+.login-form h2,
+.login-form span,
+.login-form input,
+.login-form label {
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0;
+}
+
+.form-section {
+position: fixed;
+left: 50%;
+}
+
+.login-form {
+position: relative;
+left: -50%;
+width: 200px;
+height: 185px;
+padding: 15px 25px 0 25px;
+margin-top: 150px;
+cursor: default;
+
+background-color: #141517;
+
+}
+
+.login-form label, h1, h2{
+font-family: 'Myriad Pro', sans-serif;
+font-size: 12px;
+font-weight: bold;
+color: #AFF213;
+}
+
+.login-form h1 {
+font-size: 22px;
+}
+
+.retry {
+   display: none;
+}
+
+.login-form input[type=text],
+.login-form input[type=password],
+.login-form input[type=submit]{
+line-height: 14px;
+margin: 10px 0;
+padding: 6px 15px;
+border: 0;
+outline: none;
+
+font-family: Helvetica, sans-serif;
+font-size: 12px;
+font-weight: bold;
+color: #445b0f;
+text-shadow: 0px 1px 1px rgba(255,255,255, .2);
+
+-webkit-border-radius: 26px;
+-moz-border-radius: 26px;
+border-radius: 26px;
+
+-webkit-transition: all .15s ease-in-out;
+-moz-transition: all .15s ease-in-out;
+-o-transition: all .15s ease-in-out;
+transition: all .15s ease-in-out;
+}
+
+.checkbox {
+float: left;
+}
+
+.login-form input[type=submit] {
+position: relative;
+left: 135px;
+bottom: 15px;
+cursor: pointer;
+
+color: #445b0f;
+
+-webkit-box-shadow: inset 1px 1px 1px 0px rgba(255,255,255, .45), 0px 1px 1px 0px rgba(0,0,0, .3);
+-moz-box-shadow: inset 1px 1px 1px 0px rgba(255,255,255, .45), 0px 1px 1px 0px rgba(0,0,0, .3);
+box-shadow: inset 1px 1px 1px 0px rgba(255,255,255, .45), 0px 1px 1px 0px rgba(0,0,0, .3);
+}

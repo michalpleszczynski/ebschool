@@ -1,6 +1,5 @@
 // navigation variables
-var baseURL = 'http://' + window.location.host + '/ls-rest/resource';
-var homePage = 'http://' + window.location.host + '/ls-mobile/index.html';
+var baseURL = 'https://' + window.location.host + '/ls-rest/resource';
 var currentClass;
 
 // maps for objects

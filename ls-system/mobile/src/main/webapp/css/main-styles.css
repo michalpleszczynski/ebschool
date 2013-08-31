@@ -1,0 +1,16 @@
+span {
+display: block;
+}
+
+body {
+background-color: #141517;
+}
+
+p {
+font-family: 'Myriad Pro', sans-serif;
+color: #AFF213;
+}
+
+.login_link {
+float: right;
+}

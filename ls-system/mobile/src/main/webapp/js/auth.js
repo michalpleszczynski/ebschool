@@ -1,5 +1,5 @@
-var baseURL = 'http://' + window.location.host + '/ls-rest/resource';
-var homePage = 'http://' + window.location.host + '/ls-mobile/index.html';
+var baseURL = 'https://' + window.location.host + '/ls-rest/resource';
+var homePage = 'http://' + window.location.host + '/ls-mobile';
 
 function logIn(){
     var username = $('#username').val();
@@ -37,5 +37,7 @@ function logout(){
     });
     currentUser = null;
     sessionStorage.removeItem('currentUser');
+    homePage80 = homePage.replace(':8443', ':8080');
+    $('#logout_link').attr('href', homePage80);
     return false;
 }

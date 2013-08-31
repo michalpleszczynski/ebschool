@@ -293,7 +293,7 @@
                         <login-module code="Database" flag="required">
                             <module-option name="dsJndiName" value="java:jboss/datasources/DevDS"/>
                             <module-option name="principalsQuery" value="select password_ from basic_user where login=?"/>
-                            <module-option name="rolesQuery" value="select role, 'Roles' from roles r inner join basic_user u on r.user_id = u.id where u.login =?"/>
+                            <module-option name="rolesQuery" value="select role, 'Roles' from roles r join basic_user u on r.user_id = u.id where u.login =?"/>
                             <module-option name="hashAlgorithm" value="SHA1"/>
                             <module-option name="hashEncoding" value="base64"/>
                             <module-option name="unauthenticatedIdentity" value="guest"/>
@@ -313,7 +313,10 @@
             <coordinator-environment default-timeout="300"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:web:1.1" default-virtual-server="default-host" native="false">
-            <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http"/>
+            <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http" redirect-port="8443"/>
+            <connector name="https" scheme="https" protocol="HTTP/1.1" socket-binding="https" enable-lookups="false" secure="true">
+                <ssl name="ls-system-ssl" password="password" protocol="TLSv1" key-alias="michau" certificate-key-file="../standalone/configuration/michau.keystore" />
+            </connector>
             <virtual-server name="default-host" enable-welcome-root="true">
                 <alias name="localhost"/>
                 <alias name="example.com"/>

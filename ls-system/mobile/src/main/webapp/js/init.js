@@ -1,4 +1,4 @@
-var baseURL = 'http://' + window.location.host + '/ls-rest/resource';
+var baseURL = 'https://' + window.location.host + '/ls-rest/resource';
 
 function init(){
     console.log('init');

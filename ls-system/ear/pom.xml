@@ -28,6 +28,11 @@
         </dependency>
         <dependency>
             <groupId>com.ebschool</groupId>
+            <artifactId>ls-system-web</artifactId>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>com.ebschool</groupId>
             <artifactId>ls-system-rest-core</artifactId>
             <type>jar</type>
         </dependency>
@@ -60,6 +65,11 @@
                             <artifactId>ls-system-mobile</artifactId>
                             <!-- Define the context root for the webapp -->
                             <contextRoot>/ls-mobile</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>com.ebschool</groupId>
+                            <artifactId>ls-system-web</artifactId>
+                            <contextRoot>/ls-client</contextRoot>
                         </webModule>
                         <ejbModule>
                             <groupId>com.ebschool</groupId>

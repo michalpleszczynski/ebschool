@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta http-equiv="content-type" content="text/html;
+charset=UTF-8" />
+    <h:outputStylesheet library="css" name="styles.css" />
+    <h:outputStylesheet library="css" name="cssLayout.css" />
+</h:head>
+<h:body>
+    <div id="top" class="top">
+        <ui:insert name="top">Top</ui:insert>
+    </div>
+    <div>
+    <div id="left">
+        <ui:insert name="left">Left</ui:insert>
+    </div>
+    <div id="content" class="main_content">
+        <ui:insert name="content">Content</ui:insert>
+    </div>
+    <div id="bottom">
+        <ui:insert name="bottom">Bottom</ui:insert>
+    </div>
+    </div>
+</h:body>
+</html>

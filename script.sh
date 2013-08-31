@@ -5,6 +5,7 @@ function deploy() {
   cd /home/michau/Desktop/Michau/programy/Java/E-Buisness/ebuisness-school/ls-system;
   cd ejb && mvn clean install && cd ..;
   cd rest && mvn clean install && cd ..;
+  cd web && mvn clean install && cd ..;
   cd mobile && mvn clean install && cd ..;
   cd ear && mvn clean install && cd ..;
   rm $JBOSS_HOME/standalone/deployments/ls-system.ear*

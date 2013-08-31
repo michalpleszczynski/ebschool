@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/jquery-1.10.1.js"></script>
+    <script src="../js/auth.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main-styles.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/login-form.css"/>
+    <title>Log In</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact Us</a></li>
+        <li><a href="#">User Area</a></li>
+    </ul>
+</nav>
+<section class="form-section">
+    <form method="post" action="main.html" onsubmit="return logIn();" class="login-form">
+        <h1>Log In</h1>
+        <h2 class="retry">Incorrect login/password. Try again</h2>
+        <input type="text" name="username" id="username" placeholder="username" required>
+        <input type="password" name="password" id="password" placeholder="password" required>
+        <span>
+            <input type="checkbox" id="checkbox" name="checkbox">
+            <label for="checkbox">remember</label>
+        </span>
+        <input type="submit" value="login"/>
+    </form>
+</section>
+<footer>
+    <p>Copyright LS schools. Author: michau</p>
+</footer>
+</body>
+</html>

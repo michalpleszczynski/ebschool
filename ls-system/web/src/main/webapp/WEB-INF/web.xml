@@ -25,4 +25,44 @@ http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee"
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+
+    <!-- Roles -->
+    <security-role>
+        <description>Teachers</description>
+        <role-name>teacher</role-name>
+    </security-role>
+    <security-role>
+        <description>Students</description>
+        <role-name>student</role-name>
+    </security-role>
+    <security-role>
+        <description>Parents</description>
+        <role-name>parent</role-name>
+    </security-role>
+    <!-- Resource / Role Mapping  -->
+    <security-constraint>
+        <display-name>Logged User Area</display-name>
+        <web-resource-collection>
+            <web-resource-name>user_resources</web-resource-name>
+            <url-pattern>/auth/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>For logged users</description>
+            <role-name>teacher</role-name>
+            <role-name>student</role-name>
+            <role-name>parent</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/auth/login.xhtml</form-login-page>
+            <form-error-page>/auth/login.xhtml?retry=true</form-error-page>
+        </form-login-config>
+    </login-config>
+
 </web-app>

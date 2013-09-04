@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://java.sun.com/jsf/passthrough"
+      xmlns:eb="http://java.sun.com/jsf/composite/eb">
+<h:head>
+    <title>Log in.</title>
+</h:head>
+<h:body>
+    <ui:composition template="/resources/templates/main_layout.xhtml">
+        <ui:define name="top">
+            <eb:navigation/>
+        </ui:define>
+        <ui:define name="content">
+            <section class="form-section">
+                <form method="post" action="j_security_check" class="login-form">
+                    <h1>Log In</h1>
+                    <h:outputText class="tryagain_message" rendered="${param.retry == 'true'}" value="Incorrect login/password. Try again" />
+                    <input type="text" name="j_username" jsf:id="j_username" placeholder="username" required="true" />
+                    <input type="password" name="j_password" jsf:id="j_password" placeholder="password" required="true" />
+                    <span>
+                        <input type="checkbox" jsf:id="checkbox" name="checkbox" />
+                        <label for="checkbox">remember</label>
+                    </span>
+                    <input type="submit" name="submit" value="login"/>
+                </form>
+            </section>
+
+        </ui:define>
+        <ui:define name="bottom">Copyright.</ui:define>
+    </ui:composition>
+</h:body>
+</html>

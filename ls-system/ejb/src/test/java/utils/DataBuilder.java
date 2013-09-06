@@ -1,6 +1,6 @@
 package utils;
 
-import com.ebschool.model.*;
+import com.ebschool.ejb.model.*;
 
 /**
  * User: michau

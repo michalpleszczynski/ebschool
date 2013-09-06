@@ -1,10 +1,10 @@
 package com.ebschool.rest.core.resource;
 
-import com.ebschool.model.Test;
+import com.ebschool.ejb.model.Test;
 import com.ebschool.rest.core.model.TestElement;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.service.TestServiceLocal;
+import com.ebschool.ejb.service.TestServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;

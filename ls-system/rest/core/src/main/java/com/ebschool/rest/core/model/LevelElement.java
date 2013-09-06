@@ -1,6 +1,6 @@
 package com.ebschool.rest.core.model;
 
-import com.ebschool.model.Level;
+import com.ebschool.ejb.model.Level;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

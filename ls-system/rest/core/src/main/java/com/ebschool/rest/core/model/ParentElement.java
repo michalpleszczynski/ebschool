@@ -1,6 +1,6 @@
 package com.ebschool.rest.core.model;
 
-import com.ebschool.model.Parent;
+import com.ebschool.ejb.model.Parent;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

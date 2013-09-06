@@ -1,10 +1,10 @@
 package userstory;
 
-import com.ebschool.model.*;
-import com.ebschool.repo.UserRepository;
-import com.ebschool.security.Roles;
-import com.ebschool.service.*;
-import com.ebschool.utils.Identifiable;
+import com.ebschool.ejb.model.*;
+import com.ebschool.ejb.repo.UserRepository;
+import com.ebschool.ejb.security.Roles;
+import com.ebschool.ejb.service.*;
+import com.ebschool.ejb.utils.Identifiable;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ApplyScriptBefore;

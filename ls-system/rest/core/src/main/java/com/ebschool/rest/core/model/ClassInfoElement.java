@@ -1,6 +1,6 @@
     package com.ebschool.rest.core.model;
 
-import com.ebschool.model.ClassInfo;
+import com.ebschool.ejb.model.ClassInfo;
 import com.ebschool.rest.core.utils.RestHelper;
 
 import javax.xml.bind.annotation.*;

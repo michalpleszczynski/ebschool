@@ -12,11 +12,12 @@
         <copy todir="${env.JBOSS_HOME}/modules/com/mysql/">
             <fileset dir="mysql"/>
         </copy>
-	<echo>Appending fix for jersey/cdi problem to standalone.conf...</echo>
-        <echo file="${env.JBOSS_HOME}/bin/standalone.conf" append="true">
-# workaround for a jersey/cdi problem
-JAVA_OPTS="$JAVA_OPTS -Dcom.sun.jersey.server.impl.cdi.lookupExtensionInBeanManager=true"
-        </echo>
+	<echo>Copying standalone.conf...</echo>
+        <copy file="standalone.conf" overwrite="true" tofile="${env.JBOSS_HOME}/standalone/configuration/standalone.conf" />
+        <!--<echo file="${env.JBOSS_HOME}/bin/standalone.conf" append="true">-->
+<!--# workaround for a jersey/cdi problem-->
+<!--JAVA_OPTS="$JAVA_OPTS -Dcom.sun.jersey.server.impl.cdi.lookupExtensionInBeanManager=true"-->
+        <!--</echo>-->
 	<echo>Done.</echo>
     </target>
 </project>

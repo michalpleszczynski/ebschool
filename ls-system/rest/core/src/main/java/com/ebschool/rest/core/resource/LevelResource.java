@@ -1,10 +1,10 @@
 package com.ebschool.rest.core.resource;
 
-import com.ebschool.model.Level;
+import com.ebschool.ejb.model.Level;
 import com.ebschool.rest.core.model.LevelElement;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.service.LevelServiceLocal;
+import com.ebschool.ejb.service.LevelServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;

@@ -1,14 +1,14 @@
 package com.ebschool.rest.core.resource;
 
-import com.ebschool.model.*;
+import com.ebschool.ejb.model.*;
 import com.ebschool.rest.core.model.TeacherElement;
 import com.ebschool.rest.core.utils.RestElementBuilder;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.paging.PageResult;
 import com.ebschool.rest.core.utils.paging.SetPageResult;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.service.TeacherServiceLocal;
-import com.ebschool.service.UserServiceLocal;
+import com.ebschool.ejb.service.TeacherServiceLocal;
+import com.ebschool.ejb.service.UserServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;

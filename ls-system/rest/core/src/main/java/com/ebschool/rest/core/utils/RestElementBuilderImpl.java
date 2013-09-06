@@ -1,9 +1,9 @@
 package com.ebschool.rest.core.utils;
 
-import com.ebschool.model.*;
+import com.ebschool.ejb.model.*;
 import com.ebschool.rest.core.model.*;
-import com.ebschool.service.ClassInfoServiceLocal;
-import com.ebschool.service.UserServiceLocal;
+import com.ebschool.ejb.service.ClassInfoServiceLocal;
+import com.ebschool.ejb.service.UserServiceLocal;
 
 import javax.ejb.EJB;
 import javax.ejb.Singleton;

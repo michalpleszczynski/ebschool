@@ -1,6 +1,6 @@
 package com.ebschool.rest.core.model;
 
-import com.ebschool.model.User;
+import com.ebschool.ejb.model.User;
 
 import javax.xml.bind.annotation.*;
 

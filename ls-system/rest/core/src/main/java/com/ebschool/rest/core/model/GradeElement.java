@@ -1,6 +1,6 @@
 package com.ebschool.rest.core.model;
 
-import com.ebschool.model.Grade;
+import com.ebschool.ejb.model.Grade;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

@@ -1,6 +1,6 @@
 package com.ebschool.rest.core.model;
 
-import com.ebschool.model.Address;
+import com.ebschool.ejb.model.Address;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

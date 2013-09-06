@@ -1,10 +1,10 @@
 package com.ebschool.rest.core.resource;
 
-import com.ebschool.model.Grade;
+import com.ebschool.ejb.model.Grade;
 import com.ebschool.rest.core.model.GradeElement;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.service.GradeServiceLocal;
+import com.ebschool.ejb.service.GradeServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;

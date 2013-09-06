@@ -1,11 +1,11 @@
 package repo;
 
-import com.ebschool.model.*;
-import com.ebschool.repo.ClassInfoRepository;
-import com.ebschool.repo.LevelRepository;
-import com.ebschool.repo.UserRepository;
-import com.ebschool.security.Roles;
-import com.ebschool.utils.Identifiable;
+import com.ebschool.ejb.model.*;
+import com.ebschool.ejb.repo.ClassInfoRepository;
+import com.ebschool.ejb.repo.LevelRepository;
+import com.ebschool.ejb.repo.UserRepository;
+import com.ebschool.ejb.security.Roles;
+import com.ebschool.ejb.utils.Identifiable;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ApplyScriptBefore;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
-import static com.ebschool.utils.QueryParameter.*;
+import static com.ebschool.ejb.utils.QueryParameter.*;
 /**
  * User: michau
  * Date: 4/16/13

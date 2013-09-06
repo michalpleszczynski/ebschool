@@ -1,6 +1,6 @@
 package com.ebschool.rest.core.utils;
 
-import com.ebschool.model.*;
+import com.ebschool.ejb.model.*;
 import com.ebschool.rest.core.model.*;
 
 import java.util.Set;

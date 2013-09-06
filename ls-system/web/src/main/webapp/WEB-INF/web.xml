@@ -26,19 +26,6 @@ http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee"
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
-    <!-- Roles -->
-    <security-role>
-        <description>Teachers</description>
-        <role-name>teacher</role-name>
-    </security-role>
-    <security-role>
-        <description>Students</description>
-        <role-name>student</role-name>
-    </security-role>
-    <security-role>
-        <description>Parents</description>
-        <role-name>parent</role-name>
-    </security-role>
     <!-- Resource / Role Mapping  -->
     <security-constraint>
         <display-name>Logged User Area</display-name>
@@ -57,6 +44,20 @@ http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee"
         </user-data-constraint>
     </security-constraint>
 
+    <!-- Roles -->
+    <security-role>
+        <description>Teachers</description>
+        <role-name>teacher</role-name>
+    </security-role>
+    <security-role>
+        <description>Students</description>
+        <role-name>student</role-name>
+    </security-role>
+    <security-role>
+        <description>Parents</description>
+        <role-name>parent</role-name>
+    </security-role>
+
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
@@ -64,5 +65,6 @@ http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee"
             <form-error-page>/auth/login.xhtml?retry=true</form-error-page>
         </form-login-config>
     </login-config>
+
 
 </web-app>

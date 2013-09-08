@@ -1,8 +1,11 @@
 package com.ebschool.ejb.service;
 
+import com.ebschool.ejb.exception.DuplicatedUserException;
 import com.ebschool.ejb.model.Parent;
 import com.ebschool.ejb.model.Student;
+import com.ebschool.ejb.model.User;
 import com.ebschool.ejb.repo.UserRepository;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.*;
 import javax.inject.Inject;
@@ -28,20 +31,25 @@ public class ParentServiceImpl implements ParentServiceLocal {
 
     @Override
     public Set<Parent> getAll() {
-        return userRepository.getAllParents();
+        return userRepository.getAll(Parent.class);
+    }
+
+    @Override
+    public Parent create(Parent parent) {
+        return userRepository.create(parent);
     }
 
     @Override
     public Parent addChildAccount(Student student, Parent parent) {
         Parent p = userRepository.getParentById(parent.getId());
         p.getChildrenAccounts().add(student);
-        return (Parent)userRepository.update(p);
+        return userRepository.update(p);
     }
 
     @Override
     public Parent removeChildAccount(Student student, Parent parent) {
         Parent p = userRepository.getParentById(parent.getId());
         p.getChildrenAccounts().remove(student);
-        return (Parent)userRepository.update(p);
+        return userRepository.update(p);
     }
 }

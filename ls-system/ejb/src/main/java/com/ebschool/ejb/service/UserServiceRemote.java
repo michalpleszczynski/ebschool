@@ -13,13 +13,11 @@ public interface UserServiceRemote {
 
     public User getById(Long id);
     public User getByLogin(String login);
-    public Set<User> getAll();
+    public <T extends User> Set<T> getAll(Class<T> type);
 
     public User update(User user);
 
     public void signUp(User user);
     public void disableAccount(User user);
-
-    public void changePassword(User user, String oldPassword, String newPassword);
 
 }

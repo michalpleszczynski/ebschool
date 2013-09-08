@@ -1,10 +1,11 @@
-package other;
+package com.ebschool.test.ejb.other;
 
 import com.ebschool.ejb.model.*;
 import com.ebschool.ejb.repo.UserRepository;
 import com.ebschool.ejb.security.Roles;
 import com.ebschool.ejb.service.*;
 import com.ebschool.ejb.utils.Identifiable;
+import com.ebschool.test.ejb.utils.DataBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ApplyScriptBefore;
@@ -16,7 +17,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.runner.RunWith;
-import utils.DataBuilder;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;

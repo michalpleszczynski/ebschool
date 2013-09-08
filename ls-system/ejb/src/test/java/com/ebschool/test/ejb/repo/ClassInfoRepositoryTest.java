@@ -1,9 +1,8 @@
-package repo;
+package com.ebschool.test.ejb.repo;
 
-import com.ebschool.ejb.model.Grade;
-import com.ebschool.ejb.model.Student;
-import com.ebschool.ejb.model.Test;
-import com.ebschool.ejb.repo.GradeRepository;
+import com.ebschool.ejb.model.ClassInfo;
+import com.ebschool.ejb.model.User;
+import com.ebschool.ejb.repo.ClassInfoRepository;
 import com.ebschool.ejb.repo.UserRepository;
 import com.ebschool.ejb.security.Roles;
 import com.ebschool.ejb.utils.Identifiable;
@@ -16,40 +15,37 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.DataBuilder;
+import com.ebschool.test.ejb.utils.DataBuilder;
 
 import javax.inject.Inject;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import static org.junit.Assert.*;
 
 /**
  * User: michau
- * Date: 5/16/13
- * Time: 6:28 PM
+ * Date: 5/13/13
+ * Time: 2:58 PM
  */
 @RunWith(Arquillian.class)
 @CleanupUsingScript(value = "sql-scripts/cleanup.sql")
 @Transactional(manager = "java:jboss/UserTransaction")
-public class GradeRepositoryTest {
+public class ClassInfoRepositoryTest {
 
     @Inject
-    GradeRepository gradeRepository;
-
-    @Inject
-    UserRepository userRepository;
+    ClassInfoRepository classInfoRepository;
 
     @Deployment
     public static Archive<?> createDeploymentPackage() {
 
         JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addPackage(Identifiable.class.getPackage())
-                .addPackage(Grade.class.getPackage())
+                .addPackage(User.class.getPackage())
                 .addPackage(Roles.class.getPackage())
-                .addPackage(GradeRepository.class.getPackage())
+                .addPackage(UserRepository.class.getPackage())
                 .addPackage(DataBuilder.class.getPackage())
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("test-persistence.xml", "persistence.xml")
@@ -58,48 +54,37 @@ public class GradeRepositoryTest {
         return ejb;
     }
 
-    @org.junit.Test
+    @Test
     @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void getByIdTest() throws Exception {
-        Grade grade = gradeRepository.getById(1L);
-        assertNotNull(grade);
-        assertEquals("this is a comment", grade.getComment());
-        assertEquals(76, grade.getPercentage());
-        assertEquals(3, grade.getWeight());
-        Student student = grade.getStudent();
-        assertNotNull(student);
-        assertEquals(1L, student.getId());
-        Test test = grade.getTest();
-        assertNotNull(test);
-        assertEquals(1L, test.getId());
+        ClassInfo classInfo = classInfoRepository.getById(1L);
+        assertNotNull(classInfo);
+        assertEquals("this is a description", classInfo.getDescription());
     }
 
-    @org.junit.Test
+    @Test
     @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void createTest() throws Exception {
-        Grade grade = DataBuilder.buildGrade();
-        assertNotNull(grade);
-        Student student = (Student)userRepository.getById(1L);
-        assertNotNull(student);
-        grade.setStudent(student);
-        Grade returnedGrade = gradeRepository.create(grade);
-        assertEquals(returnedGrade, grade);
+        ClassInfo classInfo = DataBuilder.buildClass();
+        assertNotNull(classInfo);
+        ClassInfo returnedClass = classInfoRepository.create(classInfo);
+        assertEquals(returnedClass, classInfo);
     }
 
-    @org.junit.Test
+    @Test
     @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-big-dataset.sql"})
     public void deleteTest() throws Exception {
-        Set<Grade> grades = gradeRepository.getAll();
-        assertNotNull(grades);
-        assertEquals(6, grades.size());
-        Iterator iterator = grades.iterator();
-        Grade grade1 = (Grade)iterator.next();
-        Grade grade2 = (Grade)iterator.next();
-        gradeRepository.delete(grade1, grade2);
-        grades = gradeRepository.getAll();
-        assertEquals(4, grades.size());
-        gradeRepository.deleteAll();
-        grades = gradeRepository.getAll();
-        assertEquals(0, grades.size());
+        Set<ClassInfo> classes = classInfoRepository.getAll();
+        assertNotNull(classes);
+        assertEquals(3, classes.size());
+        ClassInfo classInfo = classInfoRepository.getById(3L);
+        classInfoRepository.delete(classInfo);
+        classes = classInfoRepository.getAll();
+        assertNotNull(classes);
+        assertEquals(2, classes.size());
+        classInfoRepository.deleteAll();
+        classes = classInfoRepository.getAll();
+        assertNotNull(classes);
+        assertTrue(classes.isEmpty());
     }
 }

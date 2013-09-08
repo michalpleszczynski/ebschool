@@ -1,9 +1,15 @@
 package com.ebschool.ejb.repo;
 
 import com.ebschool.ejb.model.*;
+import org.apache.commons.lang.ArrayUtils;
 
 import javax.ejb.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,10 +20,67 @@ import java.util.Set;
 @Stateless
 @LocalBean
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class UserRepositoryImpl extends GenericRepositoryImpl<User, Long> implements UserRepository {
+public class UserRepositoryImpl implements UserRepository {
 
-    public UserRepositoryImpl() {
-        super(User.class);
+    @PersistenceContext
+    protected EntityManager entityManager;
+
+    @Override
+    public <T extends User> T getById(long id) {
+        return (T)entityManager.find(User.class, id);
+    }
+
+    @Override
+    public <T extends User> T create(T object) {
+        entityManager.persist(object);
+        return object;
+    }
+
+    @Override
+    public <T extends User> T update(T object) {
+        return entityManager.merge(object);
+    }
+
+    @Override
+    public <T extends User> void delete(T... objects) {
+        if (ArrayUtils.isEmpty(objects)){
+            throw new IllegalArgumentException("At least one object to delete must be specified");
+        }
+        for (T object : objects){
+            entityManager.remove(object);
+        }
+    }
+
+    @Override
+    public <T extends User> void deleteAll(Class<T> type) {
+        if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + type.getSimpleName() + " e").getSingleResult() > 0){
+            Set<T> entities = getAll(type);
+            for (T entity : entities){
+                delete(entity);
+            }
+        }
+    }
+
+    @Override
+    public <T extends User> Set<T> getAll(Class<T> type) {
+        return new HashSet<T>(entityManager.createQuery("From " + type.getSimpleName() + " c").getResultList());
+    }
+
+    @Override
+    public <T extends User> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters) {
+        return findWithNamedQuery(T, namedQueryName, parameters, 0);
+    }
+
+    @Override
+    public <T extends User> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters, int resultLimit) {
+        Set<Map.Entry<String, Object>> rawParameters = parameters.entrySet();
+        TypedQuery<T> query = entityManager.createNamedQuery(namedQueryName, T);
+        if(resultLimit > 0)
+            query.setMaxResults(resultLimit);
+        for (Map.Entry<String, Object> entry : rawParameters) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+        return query.getResultList();
     }
 
     @Override
@@ -34,108 +97,4 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User, Long> implem
     public Parent getParentById(Long id) {
         return entityManager.find(Parent.class, id);
     }
-
-//    public List<Student> getStudentsByClass(ClassInfo classInfo) {
-//        TypedQuery<Student> q = entityManager.createQuery(
-//                "SELECT s FROM " + Student.class.getSimpleName()
-//                + " AS s WHERE :classInfo MEMBER OF s.classes", Student.class);
-//        q.setParameter("classInfo", classInfo);
-//        return q.getResultList();
-//    }
-
-//    @Override
-//    public List<Student> getStudentsByTeacher(Teacher teacher) {
-//        TypedQuery<Student> q = entityManager.createQuery("" +
-//                "SELECT s FROM " + Student.class.getSimpleName()
-//                + " AS s INNER JOIN s.classes AS c"
-//                + " WHERE :teacher MEMBER OF c.teachers", Student.class);
-//        q.setParameter("teacher", teacher);
-//        return q.getResultList();
-//    }
-//
-//    @Override
-//    public List<Teacher> getTeachersByClass(ClassInfo classInfo) {
-//        TypedQuery<Teacher> q = entityManager.createQuery(
-//                "SELECT t FROM " + Teacher.class.getSimpleName()
-//                + " AS t WHERE :classInfo MEMBER OF t.classes", Teacher.class);
-//        q.setParameter("classInfo", classInfo);
-//        return q.getResultList();
-//
-//    }
-
-//    @Override
-//    public List<Teacher> getTeachersByStudent(Student student) {
-//        TypedQuery<Teacher> q = entityManager.createQuery(
-//                "SELECT t FROM " + Teacher.class.getSimpleName()
-//                + " AS t INNER JOIN t.classes AS c"
-//                + " WHERE :student MEMBER OF c.students", Teacher.class);
-//        q.setParameter("student", student);
-//        return q.getResultList();
-//    }
-
-//    @Override
-//    public List<Student> getStudentsByParent(Parent parent) {
-//        TypedQuery<Student> q = entityManager.createQuery(
-//                "SELECT s FROM " + Student.class.getSimpleName()
-//                + " AS s, " + Parent.class.getSimpleName() + " AS p "
-//                + "WHERE p = :parent AND "
-//                + " s MEMBER OF p.childrenAccounts", Student.class);
-//        q.setParameter("parent", parent);
-//        return q.getResultList();
-//    }
-//
-//    @Override
-//    public List<Student> getStudentsByLevel(Level level) {
-//        TypedQuery<Student> q = entityManager.createQuery(
-//                "SELECT s FROM " + Student.class.getSimpleName()
-//                + " AS s WHERE s.level = :level", Student.class);
-//        q.setParameter("level", level);
-//        return q.getResultList();
-//    }
-
-    @Override
-    public Set<Student> getAllStudents() {
-        return new HashSet(entityManager.createQuery("From " + Student.class.getSimpleName() + " c").getResultList());
-    }
-
-    @Override
-    public Set<Teacher> getAllTeachers() {
-        return new HashSet(entityManager.createQuery("From " + Teacher.class.getSimpleName() + " c").getResultList());
-    }
-
-    @Override
-    public Set<Parent> getAllParents() {
-        return new HashSet(entityManager.createQuery("From " + Parent.class.getSimpleName() + " c").getResultList());
-    }
-
-    @Override
-    public void deleteAllStudents() {
-        if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + Student.class.getSimpleName() + " e").getSingleResult() > 0){
-            Set<Student> entities = getAllStudents();
-            for (Student entity : entities){
-                delete(entity);
-            }
-        }
-    }
-
-    @Override
-    public void deleteAllTeachers() {
-        if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + Teacher.class.getSimpleName() + " e").getSingleResult() > 0){
-            Set<Teacher> entities = getAllTeachers();
-            for (Teacher entity : entities){
-                delete(entity);
-            }
-        }
-    }
-
-    @Override
-    public void deleteAllParents() {
-        if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + Parent.class.getSimpleName() + " e").getSingleResult() > 0){
-            Set<Parent> entities = getAllParents();
-            for (Parent entity : entities){
-                delete(entity);
-            }
-        }
-    }
-
 }

@@ -1,14 +1,16 @@
-package userstory;
+package com.ebschool.test.ejb.userstory;
 
+import com.ebschool.ejb.exception.DuplicatedUserException;
 import com.ebschool.ejb.model.*;
 import com.ebschool.ejb.repo.UserRepository;
 import com.ebschool.ejb.security.Roles;
 import com.ebschool.ejb.service.*;
 import com.ebschool.ejb.utils.Identifiable;
+import com.ebschool.test.ejb.AbstractArquillianTest;
+import com.ebschool.test.ejb.utils.DataBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ApplyScriptBefore;
-import org.jboss.arquillian.persistence.CleanupUsingScript;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
@@ -17,13 +19,10 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.DataBuilder;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-import javax.transaction.UserTransaction;
 
 import java.util.List;
 import java.util.Set;
@@ -35,10 +34,10 @@ import static org.junit.Assert.*;
  * Date: 5/19/13
  */
 @RunWith(Arquillian.class)
-@CleanupUsingScript(value = "sql-scripts/cleanup.sql")
+//@CleanupUsingScript(value = "sql-scripts/cleanup.sql")
 @TransactionManagement(TransactionManagementType.BEAN)
 @Transactional(manager = "java:jboss/UserTransaction", value = TransactionMode.DISABLED)
-public class StudentITest {
+public class StudentITest extends AbstractArquillianTest {
 
     @EJB
     UserServiceLocal userService;
@@ -54,32 +53,30 @@ public class StudentITest {
 
     @EJB
     StudentServiceLocal studentService;
-
-    @Resource(lookup = "java:jboss/UserTransaction")
-    UserTransaction userTransaction;
-
-    @Deployment
-    public static Archive<?> createDeploymentPackage() {
-
-        JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
-                .addPackage(Identifiable.class.getPackage())
-                .addPackage(User.class.getPackage())
-                .addPackage(UserRepository.class.getPackage())
-                .addPackage(Roles.class.getPackage())
-                .addPackage(UserServiceLocal.class.getPackage())
-                .addPackage(DataBuilder.class.getPackage())
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsManifestResource("test-persistence.xml", "persistence.xml")
-                .addAsResource("test-hibernate.cfg.xml");
-
-        return ejb;
-    }
+//
+//    @Deployment
+//    public static Archive<?> createDeploymentPackage() {
+//
+//        JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
+//                .addPackage(Identifiable.class.getPackage())
+//                .addPackage(User.class.getPackage())
+//                .addPackage(UserRepository.class.getPackage())
+//                .addPackage(Roles.class.getPackage())
+//                .addPackage(UserServiceLocal.class.getPackage())
+//                .addPackage(DataBuilder.class.getPackage())
+//                .addPackage(DuplicatedUserException.class.getPackage())
+//                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
+//                .addAsManifestResource("test-persistence.xml", "persistence.xml")
+//                .addAsResource("test-hibernate.cfg.xml");
+//
+//        return ejb;
+//    }
 
     // it looks like applyScriptBefore annotation automatically wraps method in transaction, so to manage
     // transactions explicitly we need to commit at the beginning and start at the end
     // not elegant but probably will sometime be fixed in arquillian
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-big-dataset.sql"})
+    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void testStudentLifecycle() throws Exception {
         userTransaction.commit();
         userTransaction.begin();

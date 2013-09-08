@@ -2,6 +2,8 @@ package com.ebschool.ejb.repo;
 
 import com.ebschool.ejb.model.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -9,36 +11,23 @@ import java.util.Set;
  * Date: 4/13/13
  * Time: 3:23 PM
  */
-public interface UserRepository extends GenericRepository<User, Long> {
+public interface UserRepository {
+
+    public <T extends User> T getById(long id);
+    public <T extends User> T create(T object);
+    public <T extends User> T update(T object);
+    public <T extends User> void delete(T... objects);
+    public <T extends User> void deleteAll(Class<T> type);
+    public <T extends User> Set<T> getAll(Class<T> type);
+
+    public <T extends User> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters);
+
+    public <T extends User> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters, int resultLimit);
 
     public Student getStudentById(Long id);
 
     public Teacher getTeacherById(Long id);
 
     public Parent getParentById(Long id);
-
-//    public List<Student> getStudentsByClass(ClassInfo classInfo);
-
-//    public List<Student> getStudentsByTeacher(Teacher teacher);
-//
-//    public List<Teacher> getTeachersByClass(ClassInfo classInfo);
-
-//    public List<Teacher> getTeachersByStudent(Student student);
-
-//    public List<Student> getStudentsByParent(Parent parent);
-//
-//    public List<Student> getStudentsByLevel(Level level);
-
-    public Set<Student> getAllStudents();
-
-    public Set<Teacher> getAllTeachers();
-
-    public Set<Parent> getAllParents();
-
-    public void deleteAllStudents();
-
-    public void deleteAllTeachers();
-
-    public void deleteAllParents();
 
 }

@@ -128,70 +128,6 @@
                     <ejbVersion>3.1</ejbVersion>
                 </configuration>
             </plugin>
-            <!-- Plugin used to generate ddl files -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>hibernate3-maven-plugin</artifactId>
-                <version>2.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.hibernate.javax.persistence</groupId>
-                        <artifactId>hibernate-jpa-2.0-api</artifactId>
-                        <version>1.0.1.Final</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.hibernate</groupId>
-                        <artifactId>hibernate-entitymanager</artifactId>
-                        <version>${hibernate.maven.plugin.version}</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>cglib</groupId>
-                                <artifactId>cglib</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>commons-logging</groupId>
-                                <artifactId>commons-logging</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.hibernate</groupId>
-                        <artifactId>hibernate-core</artifactId>
-                        <version>${hibernate.version}</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>cglib</groupId>
-                                <artifactId>cglib</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>commons-logging</groupId>
-                                <artifactId>commons-logging</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>javax.validation</groupId>
-                        <artifactId>validation-api</artifactId>
-                        <version>1.0.0.GA</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <components>
-                        <component>
-                            <name>hbm2ddl</name>
-                            <implementation>jpaconfiguration</implementation>
-                        </component>
-                    </components>
-                    <componentProperties>
-                        <persistenceunit>Default</persistenceunit>
-                        <outputfilename>schema.ddl</outputfilename>
-                        <drop>false</drop>
-                        <create>true</create>
-                        <export>false</export>
-                        <format>true</format>
-                    </componentProperties>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -215,7 +151,9 @@
         </profile>
 
         <profile>
-            <id>arquillian-jbossas-managed</id>
+            <!--TODO-->
+            <!--executing sql scripts in arquillian does not work, half of the queries from sql file (basic_user) are ignored or merged with each other-->
+            <id>arq-test</id>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.spec</groupId>
@@ -253,6 +191,72 @@
                                 <!-- TODO: move configured jboss here -->
                                 <JBOSS_HOME>${project.basedir}/src/test/resources/jboss7</JBOSS_HOME>
                             </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>generate-schema</id>
+            <build>
+                <plugins>
+                    <!-- Plugin used to generate ddl files -->
+                    <plugin>
+                        <groupId>de.juplo</groupId>
+                        <artifactId>hibernate4-maven-plugin</artifactId>
+                        <version>1.0.2</version>
+                        <executions>
+                            <execution>
+                                <id>create</id>
+                                <goals>
+                                    <goal>export</goal>
+                                </goals>
+                                <configuration>
+                                    <outputFile>src/main/resources/sql/schema.sql</outputFile>
+                                    <format>true</format>
+                                    <target>NONE</target>
+                                    <type>CREATE</type>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>drop</id>
+                                <goals>
+                                    <goal>export</goal>
+                                </goals>
+                                <configuration>
+                                    <outputFile>src/main/resources/sql/cleanup.sql</outputFile>
+                                    <format>true</format>
+                                    <target>NONE</target>
+                                    <type>DROP</type>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <configuration>
+                                    <tasks>
+                                        <echo>Copying schema.sql and cleanup.sql to test folder...</echo>
+                                        <copy file="src/main/resources/sql/schema.sql" overwrite="true" tofile="src/test/resources/sql-scripts/schema.sql" />
+                                        <copy file="src/main/resources/sql/cleanup.sql" overwrite="true" tofile="src/test/resources/sql-scripts/cleanup.sql" />
+                                        <echo>Done.</echo>
+                                    </tasks>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.12</version>
+                        <configuration>
+                            <skip>true</skip>
                         </configuration>
                     </plugin>
                 </plugins>

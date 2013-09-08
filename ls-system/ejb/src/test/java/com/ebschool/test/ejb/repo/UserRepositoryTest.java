@@ -1,4 +1,4 @@
-package repo;
+package com.ebschool.test.ejb.repo;
 
 import com.ebschool.ejb.model.*;
 import com.ebschool.ejb.repo.ClassInfoRepository;
@@ -17,7 +17,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.DataBuilder;
+import com.ebschool.test.ejb.utils.DataBuilder;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -104,44 +104,44 @@ public class UserRepositoryTest {
     @Test
     @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void deleteTest() throws Exception {
-        Set<User> users = userRepository.getAll();
+        Set<User> users = userRepository.getAll(User.class);
         assertNotNull(users);
         assertEquals(4, users.size());
         User user = userRepository.getById(2L);
         assertNotNull(user);
         userRepository.delete(user);
-        users = userRepository.getAll();
+        users = userRepository.getAll(User.class);
         assertNotNull(users);
         assertEquals(3, users.size());
         User user2 = userRepository.getById(1L);
         User user3 = userRepository.getById(3L);
         userRepository.delete(user2, user3);
-        users = userRepository.getAll();
+        users = userRepository.getAll(User.class);
         assertNotNull(users);
         assertEquals(1, users.size());
-        userRepository.deleteAll();
-        users = userRepository.getAll();
+        userRepository.deleteAll(User.class);
+        users = userRepository.getAll(User.class);
         assertTrue(users.isEmpty());
     }
 
     @Test
     @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-big-dataset.sql"})
     public void testGetAndDeleteByClass() throws Exception {
-        Set<Student> allStudents = userRepository.getAllStudents();
-        Set<Teacher> allTeachers = userRepository.getAllTeachers();
-        Set<Parent> allParent = userRepository.getAllParents();
+        Set<Student> allStudents = userRepository.getAll(Student.class);
+        Set<Teacher> allTeachers = userRepository.getAll(Teacher.class);
+        Set<Parent> allParent = userRepository.getAll(Parent.class);
         assertNotNull(allParent);
         assertNotNull(allTeachers);
         assertNotNull(allStudents);
         assertEquals(5, allStudents.size());
         assertEquals(2, allTeachers.size());
         assertEquals(1, allParent.size());
-        userRepository.deleteAllStudents();
-        userRepository.deleteAllTeachers();
-        userRepository.deleteAllParents();
-        allStudents = userRepository.getAllStudents();
-        allTeachers = userRepository.getAllTeachers();
-        allParent = userRepository.getAllParents();
+        userRepository.deleteAll(Student.class);
+        userRepository.deleteAll(Teacher.class);
+        userRepository.deleteAll(Parent.class);
+        allStudents = userRepository.getAll(Student.class);
+        allTeachers = userRepository.getAll(Teacher.class);
+        allParent = userRepository.getAll(Parent.class);
         assertTrue(allStudents.isEmpty());
         assertTrue(allTeachers.isEmpty());
         assertTrue(allParent.isEmpty());
@@ -166,7 +166,7 @@ public class UserRepositoryTest {
         List<Student> studentsOfTeacher1 = userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_TEACHER, with("teacher", teacher).parameters());
         assertNotNull(studentsOfTeacher1);
         assertEquals(5, studentsOfTeacher1.size());
-        Set<Student> allStudents = userRepository.getAllStudents();
+        Set<Student> allStudents = userRepository.getAll(Student.class);
         for (Student s : allStudents){
             assertTrue(studentsOfTeacher1.contains(s));
         }
@@ -176,7 +176,7 @@ public class UserRepositoryTest {
         List<Teacher> teachersOfClass1 = userRepository.findWithNamedQuery(Teacher.class, Teacher.TEACHERS_BY_CLASS, with("classInfo", classInfo).parameters());
         assertNotNull(teachersOfClass1);
         assertEquals(2, teachersOfClass1.size());
-        Set<Teacher> allTeachers = userRepository.getAllTeachers();
+        Set<Teacher> allTeachers = userRepository.getAll(Teacher.class);
         for (Teacher t : allTeachers){
             assertTrue(teachersOfClass1.contains(t));
         }

@@ -1,8 +1,11 @@
-package repo;
+package com.ebschool.test.ejb.repo;
 
-import com.ebschool.ejb.model.ClassInfo;
-import com.ebschool.ejb.model.User;
+import com.ebschool.ejb.model.Grade;
+import com.ebschool.ejb.model.Level;
+import com.ebschool.ejb.model.Student;
 import com.ebschool.ejb.repo.ClassInfoRepository;
+import com.ebschool.ejb.repo.GradeRepository;
+import com.ebschool.ejb.repo.LevelRepository;
 import com.ebschool.ejb.repo.UserRepository;
 import com.ebschool.ejb.security.Roles;
 import com.ebschool.ejb.utils.Identifiable;
@@ -15,9 +18,8 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import utils.DataBuilder;
+import com.ebschool.test.ejb.utils.DataBuilder;
 
 import javax.inject.Inject;
 
@@ -27,25 +29,31 @@ import static org.junit.Assert.*;
 
 /**
  * User: michau
- * Date: 5/13/13
- * Time: 2:58 PM
+ * Date: 5/16/13
+ * Time: 8:08 PM
  */
 @RunWith(Arquillian.class)
 @CleanupUsingScript(value = "sql-scripts/cleanup.sql")
 @Transactional(manager = "java:jboss/UserTransaction")
-public class ClassInfoRepositoryTest {
+public class LevelRepositoryTest {
+
+    @Inject
+    LevelRepository levelRepository;
 
     @Inject
     ClassInfoRepository classInfoRepository;
+
+    @Inject
+    UserRepository userRepository;
 
     @Deployment
     public static Archive<?> createDeploymentPackage() {
 
         JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addPackage(Identifiable.class.getPackage())
-                .addPackage(User.class.getPackage())
+                .addPackage(Grade.class.getPackage())
                 .addPackage(Roles.class.getPackage())
-                .addPackage(UserRepository.class.getPackage())
+                .addPackage(GradeRepository.class.getPackage())
                 .addPackage(DataBuilder.class.getPackage())
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("test-persistence.xml", "persistence.xml")
@@ -54,37 +62,37 @@ public class ClassInfoRepositoryTest {
         return ejb;
     }
 
-    @Test
+    @org.junit.Test
     @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
-    public void getByIdTest() throws Exception {
-        ClassInfo classInfo = classInfoRepository.getById(1L);
-        assertNotNull(classInfo);
-        assertEquals("this is a description", classInfo.getDescription());
+    public void testGetById() throws Exception {
+        Level level = levelRepository.getById(1L);
+        assertNotNull(level);
+        assertEquals("advanced", level.getName());
     }
 
-    @Test
+    @org.junit.Test
     @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void createTest() throws Exception {
-        ClassInfo classInfo = DataBuilder.buildClass();
-        assertNotNull(classInfo);
-        ClassInfo returnedClass = classInfoRepository.create(classInfo);
-        assertEquals(returnedClass, classInfo);
+        Level level = DataBuilder.buildLevel();
+        assertNotNull(level);
+        Level returnedLevel = levelRepository.create(level);
+        assertEquals(returnedLevel, level);
     }
 
-    @Test
+    @org.junit.Test
     @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-big-dataset.sql"})
     public void deleteTest() throws Exception {
-        Set<ClassInfo> classes = classInfoRepository.getAll();
-        assertNotNull(classes);
-        assertEquals(3, classes.size());
-        ClassInfo classInfo = classInfoRepository.getById(3L);
-        classInfoRepository.delete(classInfo);
-        classes = classInfoRepository.getAll();
-        assertNotNull(classes);
-        assertEquals(2, classes.size());
+        Set<Level> levels = levelRepository.getAll();
+        assertNotNull(levels);
+        assertEquals(3, levels.size());
         classInfoRepository.deleteAll();
-        classes = classInfoRepository.getAll();
-        assertNotNull(classes);
-        assertTrue(classes.isEmpty());
+        userRepository.deleteAll(Student.class);
+        levelRepository.delete(levelRepository.getById(2L));
+        levels = levelRepository.getAll();
+        assertEquals(2, levels.size());
+        levelRepository.deleteAll();
+        levels = levelRepository.getAll();
+        assertEquals(0, levels.size());
     }
+
 }

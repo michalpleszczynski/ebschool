@@ -1,4 +1,4 @@
-package utils;
+package com.ebschool.test.ejb.utils;
 
 import com.ebschool.ejb.model.*;
 
@@ -17,7 +17,7 @@ public class DataBuilder {
     // DEFAULT VALUES
 
     // user
-    public static final String DEFAULT_PASSWORD = "ff12bbd8c907af067070211d87bdf098be17375b";
+    public static final String DEFAULT_PASSWORD = "/xK72MkHrwZwcCEdh73wmL4XN1s=";
     public static final String DEFAULT_PHONE_NUMBER = "345123789";
     public static final String DEFAULT_EMAIL_PREFIX = "default";
     public static final String DEFAULT_EMAIL_SUFFIX = "email.com";

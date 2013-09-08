@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserServiceLocal{
     }
 
     @Override
-    public Set<User> getAll() {
-        return userRepository.getAll();
+    public <T extends User> Set<T> getAll(Class<T> type) {
+        return userRepository.getAll(type);
     }
 
     @Override
@@ -79,14 +79,6 @@ public class UserServiceImpl implements UserServiceLocal{
             user.setActive(false);
         }
         assignOrUnassignRole(user, false);
-    }
-
-    @Override
-    public void changePassword(User user, String oldPassword, String newPassword) {
-        // TODO: change all this to encryption
-        if (user.getPassword().equals(oldPassword)){
-            user.setPassword(newPassword);
-        }
     }
 
     private void assignOrUnassignRole(User user, boolean isAssign){

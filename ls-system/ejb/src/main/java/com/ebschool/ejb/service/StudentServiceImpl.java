@@ -1,7 +1,9 @@
 package com.ebschool.ejb.service;
 
+import com.ebschool.ejb.exception.DuplicatedUserException;
 import com.ebschool.ejb.model.*;
 import com.ebschool.ejb.repo.UserRepository;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.*;
 import javax.inject.Inject;
@@ -30,7 +32,12 @@ public class StudentServiceImpl implements StudentServiceLocal {
 
     @Override
     public Set<Student> getAll() {
-        return userRepository.getAllStudents();
+        return userRepository.getAll(Student.class);
+    }
+
+    @Override
+    public Student create(Student student) {
+        return userRepository.create(student);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.ebschool.ejb.service;
 
+import com.ebschool.ejb.exception.DuplicatedUserException;
 import com.ebschool.ejb.model.ClassInfo;
 import com.ebschool.ejb.model.Teacher;
+import com.ebschool.ejb.model.User;
 import com.ebschool.ejb.repo.UserRepository;
 
 import javax.ejb.*;
@@ -31,7 +33,12 @@ public class TeacherServiceImpl implements TeacherServiceLocal {
 
     @Override
     public Set<Teacher> getAll() {
-        return userRepository.getAllTeachers();
+        return userRepository.getAll(Teacher.class);
+    }
+
+    @Override
+    public Teacher create(Teacher teacher) {
+        return userRepository.create(teacher);
     }
 
     @Override

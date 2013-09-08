@@ -1,5 +1,6 @@
 package com.ebschool.ejb.service;
 
+import com.ebschool.ejb.exception.DuplicatedUserException;
 import com.ebschool.ejb.model.*;
 
 import javax.annotation.security.PermitAll;
@@ -16,6 +17,8 @@ public interface StudentServiceRemote {
     @PermitAll
     public Student getStudentById(Long id);
     public Set<Student> getAll();
+
+    public Student create(Student student);
 
     @PermitAll
     public List<Student> getStudentsByClass(ClassInfo classInfo);

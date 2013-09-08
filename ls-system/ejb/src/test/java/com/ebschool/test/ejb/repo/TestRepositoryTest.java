@@ -1,4 +1,4 @@
-package repo;
+package com.ebschool.test.ejb.repo;
 
 import com.ebschool.ejb.model.ClassInfo;
 import com.ebschool.ejb.model.Test;
@@ -16,7 +16,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.runner.RunWith;
-import utils.DataBuilder;
+import com.ebschool.test.ejb.utils.DataBuilder;
 
 import javax.inject.Inject;
 

@@ -11,7 +11,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 
-//TODO: add hashing of the password at some level
 @Entity
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "login"}))
 @Inheritance(strategy = InheritanceType.JOINED)

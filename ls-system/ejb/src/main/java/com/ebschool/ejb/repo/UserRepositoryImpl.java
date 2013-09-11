@@ -22,7 +22,7 @@ import java.util.Set;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class UserRepositoryImpl implements UserRepository {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "dev")
     protected EntityManager entityManager;
 
     @Override

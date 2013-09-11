@@ -1,29 +1,22 @@
 package com.ebschool.test.ejb.userstory;
 
-import com.ebschool.ejb.exception.DuplicatedUserException;
-import com.ebschool.ejb.model.*;
-import com.ebschool.ejb.repo.UserRepository;
-import com.ebschool.ejb.security.Roles;
+import com.ebschool.ejb.model.ClassInfo;
+import com.ebschool.ejb.model.Grade;
+import com.ebschool.ejb.model.Level;
+import com.ebschool.ejb.model.Student;
 import com.ebschool.ejb.service.*;
-import com.ebschool.ejb.utils.Identifiable;
 import com.ebschool.test.ejb.AbstractArquillianTest;
 import com.ebschool.test.ejb.utils.DataBuilder;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ApplyScriptBefore;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
-
 import java.util.List;
 import java.util.Set;
 

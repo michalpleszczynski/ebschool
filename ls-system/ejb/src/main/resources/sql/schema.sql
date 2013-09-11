@@ -8,6 +8,7 @@
         login varchar(25) not null,
         password_ varchar(32) not null,
         phone_number varchar(12) not null,
+        type varchar(255) not null,
         primary key (id)
     );
 

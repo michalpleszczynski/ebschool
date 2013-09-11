@@ -21,7 +21,7 @@ import javax.persistence.Query;
 // TODO: maybe solve it in some better way
 public class RoleRepositoryImpl implements RoleRepository{
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "dev")
     EntityManager em;
 
     @Override

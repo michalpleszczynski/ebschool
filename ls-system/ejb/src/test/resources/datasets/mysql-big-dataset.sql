@@ -1,18 +1,18 @@
-insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active) values(1, 'some@email.com', 'name', 'last_name', 'login', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '111222333', true);
+insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(1, 'some@email.com', 'name', 'last_name', 'login', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '111222333', true, "STUDENT");
 
-insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active) values(2, 'someother@email.com', 'other_name', 'other_last_name', 'other_login', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '222222333', true);
+insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(2, 'someother@email.com', 'other_name', 'other_last_name', 'other_login', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '222222333', true, "TEACHER");
 
-insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active) values(3, 'some12@email.com', 'nameParent', 'last_nameParent', 'loginParent', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '123123123', true);
+insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(3, 'some12@email.com', 'nameParent', 'last_nameParent', 'loginParent', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '123123123', true, "PARENT");
 
-insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active) values(4, 'lalal@op.pl', 'name2', 'last_name2', 'default_login2', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '123123623', true);
+insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(4, 'lalal@op.pl', 'name2', 'last_name2', 'default_login2', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '123123623', true, "STUDENT");
 
-insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active) values(5, 'awlasiu@wp.pl', 'Ashlee', 'Gayle', 'lethal_ashlee', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '607888555', true);
+insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(5, 'awlasiu@wp.pl', 'Ashlee', 'Gayle', 'lethal_ashlee', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '607888555', true, "STUDENT");
 
-insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active) values(6, 'jeff@bigdaddy.com', 'Jeff', 'Masztalerz', 'haveplate', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '534678233', true);
+insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(6, 'jeff@bigdaddy.com', 'Jeff', 'Masztalerz', 'haveplate', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '534678233', true, "STUDENT");
 
-insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active) values(7, 'michau@yahoo.com', 'Michau', 'Will', 'gniewosz', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '4723334', true);
+insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(7, 'michau@yahoo.com', 'Michau', 'Will', 'gniewosz', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '4723334', true, "STUDENT");
 
-insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active) values(8, 'random_guy@gmail.pl', 'Random', 'Guy', '4354333', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '811812821', true);
+insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(8, 'random_guy@gmail.pl', 'Random', 'Guy', '4354333', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '811812821', true, "TEACHER");
 
 insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(1, 'Virginia Rd', '13733', 'Oxford', 'USA', '345345345', '345345345', '123123123');
 

@@ -19,6 +19,10 @@ import java.io.Serializable;
 })
 public abstract class User  implements Identifiable, Serializable {
 
+    public enum UserType{
+        ADMIN, STUDENT, TEACHER, PARENT
+    }
+
     private static final long serialVersionUID = 1010L;
 
     public static final String USER_BY_LOGIN_AND_PASSWORD = "findUserByLoginAndPassword";
@@ -57,6 +61,10 @@ public abstract class User  implements Identifiable, Serializable {
 
     @Column(nullable = false)
     private boolean active;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserType type;
 
     public long getId() {
         return id;
@@ -120,6 +128,14 @@ public abstract class User  implements Identifiable, Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
     }
 
     @Override

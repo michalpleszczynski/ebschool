@@ -121,6 +121,7 @@ public class DataBuilder {
         student.setPhoneNumber(DEFAULT_PHONE_NUMBER);
         student.setFirstName(DEFAULT_STUDENT_F_NAME);
         student.setLastName(DEFAULT_STUDENT_L_NAME);
+        student.setType(User.UserType.STUDENT);
         lastCreatedStudent = student;
         return student;
     }
@@ -134,6 +135,7 @@ public class DataBuilder {
         teacher.setPhoneNumber(DEFAULT_PHONE_NUMBER);
         teacher.setFirstName(DEFAULT_TEACHER_F_NAME);
         teacher.setLastName(DEFAULT_TEACHER_L_NAME);
+        teacher.setType(User.UserType.TEACHER);
         lastCreatedTeacher = teacher;
         return teacher;
     }
@@ -147,6 +149,7 @@ public class DataBuilder {
         parent.setLogin(getNextLogin());
         parent.setPassword(DEFAULT_PASSWORD);
         parent.setPhoneNumber(DEFAULT_PHONE_NUMBER);
+        parent.setType(User.UserType.PARENT);
         lastCreatedParent = parent;
         return parent;
     }

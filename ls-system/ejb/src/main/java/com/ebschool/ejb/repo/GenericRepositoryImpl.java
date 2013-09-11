@@ -24,9 +24,9 @@ import java.util.Set;
 @LocalBean
 //@RolesAllowed({"RegisteredUsers"})
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public abstract class GenericRepositoryImpl<T extends Identifiable, PK> implements GenericRepository<T, PK> {
+public class GenericRepositoryImpl<T extends Identifiable, PK> implements GenericRepository<T, PK> {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "dev")
     protected EntityManager entityManager;
 
     private Class<T> clazz;

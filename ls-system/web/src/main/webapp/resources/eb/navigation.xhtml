@@ -13,12 +13,14 @@
         <h:link outcome="/about" value="About Us">
             <f:param name="toNonSecure" value="true" />
         </h:link>
-        <h:link outcome="/auth/login" value="Log In" />
     </h:panelGroup>
     <h:panelGroup rendered="#{cc.attrs.secure == 'false'}">
         <h:link outcome="/index">Home</h:link>
         <h:link outcome="/about">About Us</h:link>
         <h:link outcome="/auth/login">Log In</h:link>
+        <h:link outcome="/auth/student/welcome">Student Area</h:link>
+        <h:link outcome="/auth/parent/welcome">Parent Area</h:link>
+        <h:link outcome="/auth/teacher/welcome">Teacher App</h:link>
     </h:panelGroup>
 </cc:implementation>
 </html>

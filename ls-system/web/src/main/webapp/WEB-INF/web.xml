@@ -44,6 +44,51 @@ http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee"
         </user-data-constraint>
     </security-constraint>
 
+    <security-constraint>
+        <display-name>Student Area</display-name>
+        <web-resource-collection>
+            <web-resource-name>student_resources</web-resource-name>
+            <url-pattern>/auth/student/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>For students</description>
+            <role-name>student</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>Teacher Area</display-name>
+        <web-resource-collection>
+            <web-resource-name>teacher_resources</web-resource-name>
+            <url-pattern>/auth/teacher/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>For teachers</description>
+            <role-name>teacher</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>Parent Area</display-name>
+        <web-resource-collection>
+            <web-resource-name>parent_resources</web-resource-name>
+            <url-pattern>/auth/parent/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>For parents</description>
+            <role-name>parent</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
     <!-- Roles -->
     <security-role>
         <description>Teachers</description>

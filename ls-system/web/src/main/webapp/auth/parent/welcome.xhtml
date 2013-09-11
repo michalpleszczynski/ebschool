@@ -6,9 +6,9 @@
     <title>Welcome Parent.</title>
 </h:head>
 <h:body>
-    <ui:composition template="/resources/templates/main_layout.xhtml">
+    <ui:composition template="/WEB-INF/templates/main_layout.xhtml">
         <ui:define name="top">
-
+            <eb:navigation secure="true"/>
         </ui:define>
         <ui:define name="left">Look at your children's grades.</ui:define>
         <ui:define name="content">Tests coming up!</ui:define>

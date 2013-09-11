@@ -70,12 +70,13 @@ public class RestElementBuilderImpl implements RestElementBuilder{
 
     @Override
     public UserElement buildUserElement(User user) {
-        if (Student.class.isAssignableFrom(user.getClass())){
-            return buildStudentElement((Student)user);
-        } else if (Teacher.class.isAssignableFrom(user.getClass())){
-            return buildTeacherElement((Teacher)user);
-        } else if (Parent.class.isAssignableFrom(user.getClass())){
-            return buildParentElement((Parent)user);
+        switch (user.getType()){
+            case PARENT:
+                return buildParentElement((Parent)user);
+            case TEACHER:
+                return buildTeacherElement((Teacher)user);
+            case STUDENT:
+                return buildStudentElement((Student)user);
         }
         return null;
     }
@@ -102,8 +103,9 @@ public class RestElementBuilderImpl implements RestElementBuilder{
         return classInfoElement;
     }
 
-    // not pretty, but using strategy pattern here seems like it would create too many classes
-    // for no good reason. number of entities should not grow too much
+    // builds a set of restElements from given Set of model classes. Instead of converting them everywhere in getAll methods
+    // this method can be used for the more complicated entities. Simple entities (ones that don't have lazy loaded collections of
+    // other entities) are converted in service methods.
     @Override
     public <S, T> Set<S> buildElementSet(Set<T> entities, Class<S> type) {
         Set<S> resultSet = new HashSet();

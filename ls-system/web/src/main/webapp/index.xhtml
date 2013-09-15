@@ -1,17 +1,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:eb="http://java.sun.com/jsf/composite/eb">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
     <title>Welcome.</title>
 </h:head>
 <h:body>
     <ui:composition template="/WEB-INF/templates/main_layout.xhtml">
-        <ui:define name="top">
-            <eb:navigation secure="false"/>
-        </ui:define>
+        <!--pass parameter to template so it can set navigation-->
+        <ui:param name="secure" value="false" />
         <ui:define name="left">Look at links.</ui:define>
-        <ui:define name="content">Welcome user.</ui:define>
+        <ui:define name="content">
+            <h1>Neque porro quisquam</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper mollis nibh et faucibus.
+                Cras condimentum eros vel dui dictum consectetur. Vivamus suscipit sollicitudin nisi accumsan blandit.
+                Aliquam non massa erat. Cras blandit ligula et aliquam imperdiet. Donec lobortis accumsan vulputate.
+                Nunc vulputate tortor in arcu interdum semper. Proin posuere id massa vel hendrerit.
+            </p>
+            <h2>Lorem ipsum dolor sit amet</h2>
+            <p>
+                Cras blandit ligula et aliquam imperdiet. Donec lobortis accumsan vulputate.
+                Nunc vulputate tortor in arcu interdum semper. Proin posuere id massa vel hendrerit.
+            </p>
+            <h2>Cras condimentum eros</h2>
+            <p>
+                Aliquam non massa erat. Cras blandit ligula et aliquam imperdiet. Donec lobortis accumsan vulputate.
+                Nunc vulputate tortor in arcu interdum semper. Proin posuere id massa vel hendrerit.
+            </p>
+        </ui:define>
         <ui:define name="bottom">Copyright.</ui:define>
     </ui:composition>
 </h:body>

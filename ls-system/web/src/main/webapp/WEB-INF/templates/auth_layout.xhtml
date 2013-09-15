@@ -4,10 +4,9 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:eb="http://java.sun.com/jsf/composite/eb">
 <h:head>
-    <meta http-equiv="content-type" content="text/html;
-charset=UTF-8" />
-    <h:outputStylesheet library="main_layout" name="css/styles.css" />
-    <h:outputStylesheet library="main_layout" name="css/layout.css" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <h:outputStylesheet library="auth_layout" name="css/styles.css" />
+    <h:outputStylesheet library="auth_layout" name="css/layout.css" />
 </h:head>
 <h:body>
 
@@ -15,7 +14,6 @@ charset=UTF-8" />
         <ui:insert name="top">
             <section>
                 <h:graphicImage library="main_layout" name="img/top_logo.png" styleClass="center"/>
-                <eb:navigation secure="#{secure}"/>
             </section>
         </ui:insert>
     </div>
@@ -25,9 +23,6 @@ charset=UTF-8" />
             <ui:insert name="left">Left</ui:insert>
         </div>
 
-        <div id="right">
-            <ui:insert name="right">Right</ui:insert>
-        </div>
         <ui:insert name="content">Content</ui:insert>
     </div>
 

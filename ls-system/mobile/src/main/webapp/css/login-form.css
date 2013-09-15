@@ -1,38 +1,38 @@
-.login-form,
-.login-form h1,
-.login-form h2,
-.login-form span,
-.login-form input,
-.login-form label {
+.login_form,
+.login_form h1,
+.login_form h2,
+.login_form span,
+.login_form input,
+.login_form label {
 margin: 0;
 padding: 0;
 border: 0;
 outline: 0;
 }
 
-.form-section,
-.login-form {
+.form_section,
+.login_form {
 position: relative;
 width: 200px;
 height: 180px;
 margin: 0 auto;
 }
 
-.login-form {
+.login_form {
 padding: 0% 5% 0% 5%;
 cursor: default;
 
 background-color: #141517;
 }
 
-.login-form label, h1, h2{
+.login_form label, h1, h2{
 font-family: 'Myriad Pro', sans-serif;
 font-size: 12px;
 font-weight: bold;
 color: #AFF213;
 }
 
-.login-form h1 {
+.login_form h1 {
 font-size: 22px;
 }
 
@@ -40,9 +40,9 @@ font-size: 22px;
    display: none;
 }
 
-.login-form input[type=text],
-.login-form input[type=password],
-.login-form input[type=submit]{
+.login_form input[type=text],
+.login_form input[type=password],
+.login_form input[type=submit]{
 line-height: 14px;
 margin: 10px 0;
 padding: 6px 15px;
@@ -69,7 +69,7 @@ transition: all .15s ease-in-out;
 float: left;
 }
 
-.login-form input[type=submit] {
+.login_form input[type=submit] {
 position: relative;
 left: 135px;
 bottom: 15px;

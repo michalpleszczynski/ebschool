@@ -1,0 +1,30 @@
+span {display: block}
+
+.form_section,
+.login_form {
+position: relative;
+width: 200px;
+height: 180px;
+margin: 0 auto;
+}
+
+.login_form {
+padding: 15% 5% 15% 5%;
+cursor: default;
+}
+
+.login_form input[type=submit] {
+position: relative;
+left: 155px;
+bottom: 15px;
+cursor: pointer;
+}
+
+.login_form input[type=text],
+.login_form input[type=password] {
+width: 180px;
+}
+
+.error_msg {
+    color: red;
+}

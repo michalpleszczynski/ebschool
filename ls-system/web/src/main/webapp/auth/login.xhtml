@@ -6,19 +6,32 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
+    <meta http-equiv="content-type" content="text/html;
+charset=UTF-8" />
     <title>Log in.</title>
 </h:head>
 <h:body>
-    <form method="post" action="j_security_check">
-        <h:outputText value="Log In" />
-        <h:outputText rendered="${param.retry == 'true'}" value="Incorrect login/password. Try again" />
-        <input type="text" name="j_username" id="j_username" placeholder="username" required="true"/>
-        <input type="password" name="j_password" id="j_password" placeholder="password" required="true"/>
-            <span>
-                <input type="checkbox" id="checkbox" name="checkbox"/>
-                <label for="checkbox">remember</label>
-            </span>
-        <input type="submit" value="login"/>
-    </form>
+    <ui:composition template="/WEB-INF/templates/main_layout.xhtml">
+        <!--pass parameter to template so it can set navigation-->
+        <ui:param name="secure" value="true" />
+        <ui:define name="content">
+            <h:outputStylesheet library="default" name="css/login.css" />
+            <section class="form_section">
+                <form method="post" action="j_security_check" class="login_form">
+                    <h:outputText value="Log In" />
+                    <h:outputText rendered="${param.retry == 'true'}" value="Incorrect login/password. Try again." styleClass="error_msg" />
+                    <h:outputText rendered="${param.forbidden == 'true'}" value="Sorry, you don't have permission to access this page." styleClass="error_msg"/>
+                    <input type="text" name="j_username" id="j_username" placeholder="username" required="true"/>
+                    <input type="password" name="j_password" id="j_password" placeholder="password" required="true"/>
+                    <span>
+                        <input type="checkbox" id="checkbox" name="checkbox" />
+                        <label for="checkbox">remember</label>
+                    </span>
+                    <input type="submit" value="login"/>
+                </form>
+            </section>
+        </ui:define>
+        <ui:define name="bottom">Copyright.</ui:define>
+    </ui:composition>
 </h:body>
 </html>

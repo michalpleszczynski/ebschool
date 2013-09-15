@@ -89,6 +89,12 @@ http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee"
         </user-data-constraint>
     </security-constraint>
 
+    <!--Error pages-->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/auth/login.xhtml?forbidden=true</location>
+    </error-page>
+
     <!-- Roles -->
     <security-role>
         <description>Teachers</description>

@@ -1,0 +1,25 @@
+aside, p, details, footer, header, menu, nav, section, span {display: block}
+
+.navigation
+{
+display: block;
+width: 80%;
+margin: 0 auto;
+}
+
+p.links
+{
+text-align: center;
+font:20px arial,sans-serif;
+}
+
+p.links a {
+padding: 5px;
+outline: none;
+}
+
+img.center {
+display: block;
+margin-left: auto;
+margin-right: auto;
+}

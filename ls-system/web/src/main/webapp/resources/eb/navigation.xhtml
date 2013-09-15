@@ -6,21 +6,24 @@
     <cc:attribute name="secure" required="true"/>
 </cc:interface>
 <cc:implementation>
-    <h:panelGroup rendered="#{cc.attrs.secure == 'true'}">
-        <h:link outcome="/index" value="Home">
-            <f:param name="toNonSecure" value="true" />
-        </h:link>
-        <h:link outcome="/about" value="About Us">
-            <f:param name="toNonSecure" value="true" />
-        </h:link>
+    <h:panelGroup rendered="#{cc.attrs.secure == 'true'}" styleClass="navigation">
+        <p class="links">
+            <h:link outcome="/index" value="Home">
+                <f:param name="toNonSecure" value="true" />
+            </h:link>
+            <h:link outcome="/about" value="About Us">
+                <f:param name="toNonSecure" value="true" />
+            </h:link>
+        </p>
     </h:panelGroup>
-    <h:panelGroup rendered="#{cc.attrs.secure == 'false'}">
-        <h:link outcome="/index">Home</h:link>
-        <h:link outcome="/about">About Us</h:link>
-        <h:link outcome="/auth/login">Log In</h:link>
-        <h:link outcome="/auth/student/welcome">Student Area</h:link>
-        <h:link outcome="/auth/parent/welcome">Parent Area</h:link>
-        <h:link outcome="/auth/teacher/welcome">Teacher App</h:link>
+    <h:panelGroup rendered="#{cc.attrs.secure == 'false'}" styleClass="navigation">
+        <p class="links">
+            <h:link outcome="/index">Home</h:link>
+            <h:link outcome="/about">About Us</h:link>
+            <h:link outcome="/auth/student/welcome">Student Area</h:link>
+            <h:link outcome="/auth/parent/welcome">Parent Area</h:link>
+            <h:link outcome="/auth/teacher/welcome">Teacher App</h:link>
+        </p>
     </h:panelGroup>
 </cc:implementation>
 </html>

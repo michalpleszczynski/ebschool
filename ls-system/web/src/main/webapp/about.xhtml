@@ -8,9 +8,28 @@
 </h:head>
 <h:body>
     <ui:composition template="/WEB-INF/templates/main_layout.xhtml">
-        <ui:define name="top"><eb:navigation secure="false"/></ui:define>
+        <!--pass parameter to template so it can set navigation-->
+        <ui:param name="secure" value="false" />
         <ui:define name="left">Links.</ui:define>
-        <ui:define name="content">We are awesome.</ui:define>
+        <ui:define name="content">
+            <h2>Neque porro quisquam</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper mollis nibh et faucibus.
+                Cras condimentum eros vel dui dictum consectetur. Vivamus suscipit sollicitudin nisi accumsan blandit.
+                Aliquam non massa erat. Cras blandit ligula et aliquam imperdiet. Donec lobortis accumsan vulputate.
+                Nunc vulputate tortor in arcu interdum semper. Proin posuere id massa vel hendrerit.
+            </p>
+            <p>
+                Proin id tempus ante. Aenean sollicitudin ante adipiscing dui ultrices, quis rhoncus risus ultricies.
+                Vivamus sit amet nisi non purus eleifend ornare at non leo. Suspendisse molestie at felis ac varius.
+                Maecenas sodales dui quis leo faucibus commodo. Nullam fringilla malesuada lacus sit amet sodales.
+                Ut sapien massa, luctus sit amet dictum et, dapibus sed lorem. Donec congue justo quis felis congue,
+                et bibendum enim porttitor. In ac nisi diam. Integer sollicitudin volutpat metus, at pretium nisi sollicitudin ac.
+                Pellentesque blandit aliquet adipiscing. Fusce commodo tincidunt urna, id dapibus nibh mollis aliquet.
+                Ut bibendum tellus ut urna congue, non cursus mi tincidunt. Sed ullamcorper sem sollicitudin est gravida commodo.
+                Suspendisse sed eros sed eros lobortis viverra eget iaculis nisl.
+            </p>
+        </ui:define>
         <ui:define name="bottom">Copyright.</ui:define>
     </ui:composition>
 </h:body>

@@ -1,0 +1,45 @@
+div{
+padding: 5x;
+}
+
+div#top,
+div#content,
+div#bottom {
+width: 1400px;
+margin-left: auto;
+margin-right: auto;
+}
+
+div#content,
+div#right,
+div#left {
+height: 500px;
+}
+
+div#right,
+div#left {
+width: 200px;
+}
+
+div#top{
+background-color: #036fab;
+height: 300px;
+}
+
+div#right{
+float:right;
+background-color: #ff3333;
+}
+
+div#left{
+float:left;
+background-color: #ece3a5;
+}
+
+div#content{
+background-color: #c2dfef;;
+}
+
+div#bottom{
+background-color: #dddddd;
+}

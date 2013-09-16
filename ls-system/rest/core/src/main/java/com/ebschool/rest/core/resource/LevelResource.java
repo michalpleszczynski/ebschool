@@ -1,10 +1,10 @@
 package com.ebschool.rest.core.resource;
 
 import com.ebschool.ejb.model.Level;
+import com.ebschool.ejb.service.LevelService;
 import com.ebschool.rest.core.model.LevelElement;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.ejb.service.LevelServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -28,7 +28,7 @@ import java.util.Set;
 public class LevelResource {
 
     @EJB
-    LevelServiceLocal levelService;
+    LevelService levelService;
 
     @GET
     @Path("{name}")

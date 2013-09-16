@@ -10,7 +10,7 @@ import java.util.Set;
  * User: michau
  * Date: 5/19/13
  */
-public interface TestServiceRemote {
+public interface TestService {
 
     public Test getById(Long id);
     public Set<Test> getAll();

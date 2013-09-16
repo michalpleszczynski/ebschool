@@ -1,12 +1,12 @@
 package com.ebschool.rest.core.resource;
 
 import com.ebschool.ejb.model.ClassInfo;
+import com.ebschool.ejb.service.ClassInfoService;
 import com.ebschool.rest.core.model.ClassInfoElement;
 import com.ebschool.rest.core.utils.RestElementBuilder;
 import com.ebschool.rest.core.utils.paging.PageResult;
 import com.ebschool.rest.core.utils.paging.SetPageResult;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.ejb.service.ClassInfoServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -30,7 +30,7 @@ import java.util.Set;
 public class ClassInfoResource {
 
     @EJB
-    ClassInfoServiceLocal classInfoService;
+    ClassInfoService classInfoService;
 
     @Inject
     RestElementBuilder restElementBuilder;

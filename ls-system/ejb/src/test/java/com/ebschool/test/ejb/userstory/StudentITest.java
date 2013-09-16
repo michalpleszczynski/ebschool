@@ -33,19 +33,19 @@ import static org.junit.Assert.*;
 public class StudentITest extends AbstractArquillianTest {
 
     @EJB
-    UserServiceLocal userService;
+    UserService userService;
 
     @EJB
-    LevelServiceLocal levelService;
+    LevelService levelService;
 
     @EJB
-    ClassInfoServiceLocal classInfoService;
+    ClassInfoService classInfoService;
 
     @EJB
-    GradeServiceLocal gradeService;
+    GradeService gradeService;
 
     @EJB
-    StudentServiceLocal studentService;
+    StudentService studentService;
 //
 //    @Deployment
 //    public static Archive<?> createDeploymentPackage() {
@@ -55,7 +55,7 @@ public class StudentITest extends AbstractArquillianTest {
 //                .addPackage(User.class.getPackage())
 //                .addPackage(UserRepository.class.getPackage())
 //                .addPackage(Roles.class.getPackage())
-//                .addPackage(UserServiceLocal.class.getPackage())
+//                .addPackage(UserService.class.getPackage())
 //                .addPackage(DataBuilder.class.getPackage())
 //                .addPackage(DuplicatedUserException.class.getPackage())
 //                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")

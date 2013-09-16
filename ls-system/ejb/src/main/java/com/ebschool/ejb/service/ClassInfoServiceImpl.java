@@ -16,10 +16,9 @@ import java.util.Set;
  * Date: 5/19/13
  */
 @Stateless
-@Local(ClassInfoServiceLocal.class)
-@Remote(ClassInfoServiceRemote.class)
+@Local(ClassInfoService.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class ClassInfoServiceImpl implements ClassInfoServiceLocal {
+public class ClassInfoServiceImpl implements ClassInfoService {
 
     @Inject
     ClassInfoRepository classInfoRepository;

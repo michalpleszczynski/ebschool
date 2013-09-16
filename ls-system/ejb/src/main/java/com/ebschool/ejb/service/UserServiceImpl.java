@@ -20,10 +20,9 @@ import static com.ebschool.ejb.utils.QueryParameter.*;
  * Date: 5/18/13
  */
 @Stateless
-@Local(UserServiceLocal.class)
-@Remote(UserServiceRemote.class)
+@Local(UserService.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class UserServiceImpl implements UserServiceLocal{
+public class UserServiceImpl implements UserService {
 
     @Inject
     UserRepository userRepository;

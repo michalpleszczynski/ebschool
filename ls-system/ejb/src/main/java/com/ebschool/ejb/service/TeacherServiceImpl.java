@@ -1,9 +1,7 @@
 package com.ebschool.ejb.service;
 
-import com.ebschool.ejb.exception.DuplicatedUserException;
 import com.ebschool.ejb.model.ClassInfo;
 import com.ebschool.ejb.model.Teacher;
-import com.ebschool.ejb.model.User;
 import com.ebschool.ejb.repo.UserRepository;
 
 import javax.ejb.*;
@@ -18,10 +16,9 @@ import static com.ebschool.ejb.utils.QueryParameter.*;
  * Date: 5/19/13
  */
 @Stateless
-@Local(TeacherServiceLocal.class)
-@Remote(TeacherServiceRemote.class)
+@Local(TeacherService.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class TeacherServiceImpl implements TeacherServiceLocal {
+public class TeacherServiceImpl implements TeacherService {
 
     @Inject
     UserRepository userRepository;

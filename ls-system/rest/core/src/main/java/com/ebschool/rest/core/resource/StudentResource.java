@@ -1,16 +1,16 @@
 package com.ebschool.rest.core.resource;
 
 import com.ebschool.ejb.model.*;
+import com.ebschool.ejb.service.ClassInfoService;
+import com.ebschool.ejb.service.LevelService;
+import com.ebschool.ejb.service.StudentService;
 import com.ebschool.rest.core.model.StudentElement;
 import com.ebschool.rest.core.utils.RestElementBuilder;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.paging.PageResult;
 import com.ebschool.rest.core.utils.paging.SetPageResult;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.ejb.service.ClassInfoServiceLocal;
-import com.ebschool.ejb.service.LevelServiceLocal;
-import com.ebschool.ejb.service.StudentServiceLocal;
-import com.ebschool.ejb.service.UserServiceLocal;
+import com.ebschool.ejb.service.UserService;
 import org.jboss.security.auth.spi.Util;
 
 import javax.ejb.EJB;
@@ -36,16 +36,16 @@ import java.util.Set;
 public class StudentResource {
 
     @EJB
-    UserServiceLocal userService;
+    UserService userService;
 
     @EJB
-    StudentServiceLocal studentService;
+    StudentService studentService;
 
     @EJB
-    LevelServiceLocal levelService;
+    LevelService levelService;
 
     @EJB
-    ClassInfoServiceLocal classInfoService;
+    ClassInfoService classInfoService;
 
     @Inject
     RestElementBuilder restElementBuilder;

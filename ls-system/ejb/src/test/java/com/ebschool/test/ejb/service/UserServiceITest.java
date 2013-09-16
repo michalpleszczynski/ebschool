@@ -2,7 +2,7 @@ package com.ebschool.test.ejb.service;
 
 import com.ebschool.ejb.model.User;
 import com.ebschool.ejb.security.Roles;
-import com.ebschool.ejb.service.UserServiceLocal;
+import com.ebschool.ejb.service.UserService;
 import com.ebschool.ejb.utils.Identifiable;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -31,7 +31,7 @@ public class UserServiceITest {
                 .addPackage(Identifiable.class.getPackage())
                 .addPackage(User.class.getPackage())
                 .addPackage(Roles.class.getPackage())
-                .addPackage(UserServiceLocal.class.getPackage())
+                .addPackage(UserService.class.getPackage())
                 .addPackage(DataBuilder.class.getPackage())
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("test-persistence.xml", "persistence.xml")

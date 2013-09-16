@@ -8,7 +8,7 @@ import java.util.Set;
  * User: michau
  * Date: 5/19/13
  */
-public interface LevelServiceRemote {
+public interface LevelService {
 
     public Level getById(Long id);
     public Set<Level> getAll();
@@ -17,5 +17,5 @@ public interface LevelServiceRemote {
     public Level create(Level level);
     public Level update(Level level);
     public void delete(Level... levels);
-    
+
 }

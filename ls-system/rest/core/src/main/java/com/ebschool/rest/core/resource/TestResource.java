@@ -1,10 +1,10 @@
 package com.ebschool.rest.core.resource;
 
 import com.ebschool.ejb.model.Test;
+import com.ebschool.ejb.service.TestService;
 import com.ebschool.rest.core.model.TestElement;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.ejb.service.TestServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -26,7 +26,7 @@ import javax.ws.rs.core.Response;
 public class TestResource {
 
     @EJB
-    TestServiceLocal testService;
+    TestService testService;
 
     @GET
     @Path("{id}")

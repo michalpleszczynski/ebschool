@@ -11,11 +11,12 @@ import java.util.Set;
  * User: michau
  * Date: 5/18/13
  */
-public interface ClassInfoServiceRemote {
+public interface ClassInfoService {
 
     public ClassInfo getById(Long id);
     public ClassInfo create(ClassInfo classInfo);
     public void delete(ClassInfo... classes);
+    public ClassInfo update(ClassInfo classInfo);
 
     public Set<ClassInfo> getAll();
     public Set<ClassInfo> getByIds(Collection<Long> ids);

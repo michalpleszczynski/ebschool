@@ -6,10 +6,13 @@ import java.util.Set;
 
 /**
  * User: michau
- * Date: 5/17/13
- * Time: 7:59 PM
+ * Date: 4/14/13
+ * Time: 4:28 PM
  */
-public interface UserServiceRemote {
+public interface UserService {
+
+    public User create(User user);
+    public void delete(User... users);
 
     public User getById(Long id);
     public User getByLogin(String login);

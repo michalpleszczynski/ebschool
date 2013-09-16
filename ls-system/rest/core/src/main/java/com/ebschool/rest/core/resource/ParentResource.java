@@ -1,14 +1,14 @@
 package com.ebschool.rest.core.resource;
 
 import com.ebschool.ejb.model.Parent;
+import com.ebschool.ejb.service.ParentService;
+import com.ebschool.ejb.service.UserService;
 import com.ebschool.rest.core.model.ParentElement;
 import com.ebschool.rest.core.utils.RestElementBuilder;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.paging.PageResult;
 import com.ebschool.rest.core.utils.paging.SetPageResult;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.ejb.service.ParentServiceLocal;
-import com.ebschool.ejb.service.UserServiceLocal;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -32,10 +32,10 @@ import java.util.Set;
 public class ParentResource {
 
     @EJB
-    UserServiceLocal userService;
+    UserService userService;
 
     @EJB
-    ParentServiceLocal parentService;
+    ParentService parentService;
 
     @Inject
     RestElementBuilder restElementBuilder;

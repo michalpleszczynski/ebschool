@@ -1,9 +1,7 @@
 package com.ebschool.ejb.service;
 
-import com.ebschool.ejb.exception.DuplicatedUserException;
 import com.ebschool.ejb.model.*;
 import com.ebschool.ejb.repo.UserRepository;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ejb.*;
 import javax.inject.Inject;
@@ -17,10 +15,9 @@ import static com.ebschool.ejb.utils.QueryParameter.*;
  * Date: 5/19/13
  */
 @Stateless
-@Local(StudentServiceLocal.class)
-@Remote(StudentServiceRemote.class)
+@Local(StudentService.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class StudentServiceImpl implements StudentServiceLocal {
+public class StudentServiceImpl implements StudentService {
 
     @Inject
     UserRepository userRepository;

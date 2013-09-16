@@ -17,10 +17,9 @@ import static com.ebschool.ejb.utils.QueryParameter.*;
  * Date: 5/19/13
  */
 @Stateless
-@Local(GradeServiceLocal.class)
-@Remote(GradeServiceRemote.class)
+@Local(GradeService.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class GradeServiceImpl implements GradeServiceLocal{
+public class GradeServiceImpl implements GradeService {
 
     @Inject
     GradeRepository gradeRepository;

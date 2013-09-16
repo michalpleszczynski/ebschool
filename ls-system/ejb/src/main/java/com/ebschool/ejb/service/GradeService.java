@@ -10,7 +10,9 @@ import java.util.Set;
  * User: michau
  * Date: 5/19/13
  */
-public interface GradeServiceRemote {
+public interface GradeService {
+
+    public Grade create(Grade grade);
 
     public Grade getById(Long id);
     public Set<Grade> getAll();

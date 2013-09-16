@@ -1,9 +1,9 @@
 package com.ebschool.rest.core.utils;
 
 import com.ebschool.ejb.model.*;
+import com.ebschool.ejb.service.ClassInfoService;
+import com.ebschool.ejb.service.UserService;
 import com.ebschool.rest.core.model.*;
-import com.ebschool.ejb.service.ClassInfoServiceLocal;
-import com.ebschool.ejb.service.UserServiceLocal;
 
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -18,10 +18,10 @@ import java.util.Set;
 public class RestElementBuilderImpl implements RestElementBuilder{
 
     @EJB
-    UserServiceLocal userService;
+    UserService userService;
 
     @EJB
-    ClassInfoServiceLocal classInfoService;
+    ClassInfoService classInfoService;
 
     public StudentElement buildStudentElement(Student student){
         student = (Student) userService.getById(student.getId());

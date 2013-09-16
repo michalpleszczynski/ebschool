@@ -16,10 +16,9 @@ import static com.ebschool.ejb.utils.QueryParameter.*;
  * Date: 5/19/13
  */
 @Stateless
-@Local(TestServiceLocal.class)
-@Remote(TestServiceRemote.class)
+@Local(TestService.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class TestServiceImpl implements TestServiceLocal {
+public class TestServiceImpl implements TestService {
 
     @Inject
     TestRepository testRepository;

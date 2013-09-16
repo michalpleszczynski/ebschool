@@ -33,25 +33,25 @@ import javax.transaction.UserTransaction;
 public abstract class AbstractArquillianTest {
 
     @EJB
-    protected UserServiceLocal userService;
+    protected UserService userService;
 
     @EJB
-    protected ParentServiceLocal parentService;
+    protected ParentService parentService;
 
     @EJB
-    protected TeacherServiceLocal teacherService;
+    protected TeacherService teacherService;
 
     @EJB
-    protected StudentServiceLocal studentService;
+    protected StudentService studentService;
 
     @EJB
-    protected LevelServiceLocal levelService;
+    protected LevelService levelService;
 
     @EJB
-    protected ClassInfoServiceLocal classInfoService;
+    protected ClassInfoService classInfoService;
 
     @EJB
-    protected GradeServiceLocal gradeService;
+    protected GradeService gradeService;
 
     @Resource(lookup = "java:jboss/UserTransaction")
     protected UserTransaction userTransaction;
@@ -64,7 +64,7 @@ public abstract class AbstractArquillianTest {
                 .addPackage(User.class.getPackage())
                 .addPackage(UserRepository.class.getPackage())
                 .addPackage(Roles.class.getPackage())
-                .addPackage(UserServiceLocal.class.getPackage())
+                .addPackage(UserService.class.getPackage())
                 .addPackage(DataBuilder.class.getPackage())
                 .addPackage(DuplicatedUserException.class.getPackage())
                 .addPackage(AbstractArquillianTest.class.getPackage())

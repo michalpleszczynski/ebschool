@@ -4,7 +4,7 @@ import com.ebschool.ejb.model.User;
 import com.ebschool.rest.core.utils.RestElementBuilder;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
-import com.ebschool.ejb.service.UserServiceLocal;
+import com.ebschool.ejb.service.UserService;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -31,7 +31,7 @@ import java.security.Principal;
 public class SessionResource {
 
     @EJB
-    UserServiceLocal userService;
+    UserService userService;
 
     @Inject
     RestElementBuilder restElementBuilder;

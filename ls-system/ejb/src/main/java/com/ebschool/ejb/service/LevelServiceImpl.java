@@ -15,10 +15,9 @@ import static com.ebschool.ejb.utils.QueryParameter.with;
  * Date: 5/19/13
  */
 @Stateless
-@Local(LevelServiceLocal.class)
-@Remote(LevelServiceRemote.class)
+@Local(LevelService.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class LevelServiceImpl implements LevelServiceLocal {
+public class LevelServiceImpl implements LevelService {
 
     @Inject
     LevelRepository levelRepository;

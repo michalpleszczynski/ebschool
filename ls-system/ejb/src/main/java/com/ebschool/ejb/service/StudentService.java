@@ -1,6 +1,5 @@
 package com.ebschool.ejb.service;
 
-import com.ebschool.ejb.exception.DuplicatedUserException;
 import com.ebschool.ejb.model.*;
 
 import javax.annotation.security.PermitAll;
@@ -11,20 +10,17 @@ import java.util.Set;
  * User: michau
  * Date: 5/17/13
  */
-//@RolesAllowed({Roles.TEACHER})
-public interface StudentServiceRemote {
+public interface StudentService {
 
-    @PermitAll
     public Student getStudentById(Long id);
     public Set<Student> getAll();
 
     public Student create(Student student);
 
-    @PermitAll
     public List<Student> getStudentsByClass(ClassInfo classInfo);
     public List<Student> getStudentsByTeacher(Teacher teacher);
-//    @RolesAllowed({Roles.PARENT, Roles.TEACHER})
     public List<Student> getStudentsByParent(Parent parent);
     public List<Student> getStudentsByLevel(Level level);
+
 
 }

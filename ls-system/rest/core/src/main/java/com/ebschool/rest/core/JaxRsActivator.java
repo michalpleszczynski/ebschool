@@ -29,7 +29,7 @@ public class JaxRsActivator extends Application {
         s.add(SessionResource.class);
         s.add(StudentResource.class);
         s.add(TeacherResource.class);
-        s.add(TestResource.class);
+        s.add(StudentTaskResource.class);
         s.add(UserResource.class);
         return s;
     }

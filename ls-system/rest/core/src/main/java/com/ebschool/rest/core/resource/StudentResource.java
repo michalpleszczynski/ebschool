@@ -12,6 +12,7 @@ import com.ebschool.rest.core.utils.paging.SetPageResult;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
 import com.ebschool.ejb.service.UserService;
 import org.jboss.security.auth.spi.Util;
+import org.joda.time.LocalDate;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -100,15 +101,8 @@ public class StudentResource {
         address.setZipCode(zipCode);
 
         detailedInfo.setAddress(address);
-        Date dateJoined = new Date();
-        Date dateOfBirthDate = null;
-        try {
-            dateOfBirthDate = new SimpleDateFormat("mm/dd/yyyy").parse(dateOfBirth);
-        } catch (ParseException ex){
-            throw new WebApplicationException(ex, Response.Status.NOT_ACCEPTABLE);
-        }
-        detailedInfo.setDateJoined(dateJoined.getTime());
-        detailedInfo.setDateOfBirth(dateOfBirthDate.getTime());
+        detailedInfo.setDateJoined(new LocalDate());
+        detailedInfo.setDateOfBirth(new LocalDate(dateOfBirth));
         detailedInfo.setIdentificationNumber(pin);
 
         student.setFirstName(firstName);

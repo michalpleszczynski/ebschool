@@ -103,3 +103,19 @@ insert into parent_student(parent_id, student_id) values("3", "1");
 insert into parent_student(parent_id, student_id) values("3", "6");
 
 insert into parent_student(parent_id, student_id) values("3", "7");
+
+insert into roles(id, role, user_id) values("1", "student", "1");
+
+insert into roles(id, role, user_id) values("2", "teacher", "2");
+
+insert into roles(id, role, user_id) values("3", "parent", "3");
+
+insert into roles(id, role, user_id) values("4", "student", "4");
+
+insert into roles(id, role, user_id) values("5", "student", "5");
+
+insert into roles(id, role, user_id) values("6", "student", "6");
+
+insert into roles(id, role, user_id) values("7", "student", "7");
+
+insert into roles(id, role, user_id) values("8", "teacher", "8");

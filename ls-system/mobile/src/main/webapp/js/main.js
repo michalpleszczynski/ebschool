@@ -147,7 +147,7 @@ function renderParent(parent){
 function renderClass(classInfo){
     console.log("render class:" + classInfo.id);
     $("#userInfo").hide();
-    $("#when").html(classInfo.when);
+    $("#when").html(classInfo.day + ' ' + classInfo.time);
     $("#where").html(classInfo.where);
     $("#description").html(classInfo.description);
     $("#class_level").html(classInfo.level.name);
@@ -167,7 +167,7 @@ function showClasses() {
         var newLiHTML = '<a id="class_link[id]" href="javascript:void(0)" onclick="showClass([id]); return false;">' +
                         '[when] [description]</a>';
         newLiHTML = newLiHTML.replace(/\[id\]/g, classInfo.id);
-        newLiHTML = newLiHTML.replace('[when]', classInfo.when);
+        newLiHTML = newLiHTML.replace('[when]', classInfo.day + ' ' + classInfo.time);
         newLiHTML = newLiHTML.replace('[description]', classInfo.description);
         newLi.innerHTML = newLiHTML;
     }

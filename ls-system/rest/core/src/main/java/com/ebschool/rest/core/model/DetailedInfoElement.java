@@ -1,9 +1,11 @@
 package com.ebschool.rest.core.model;
 
 import com.ebschool.ejb.model.DetailedInfo;
-import com.ebschool.rest.core.utils.RestHelper;
+import com.ebschool.rest.core.utils.adapters.LocalDateAdapter;
+import org.joda.time.LocalDate;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * User: michau
@@ -13,19 +15,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class DetailedInfoElement {
 
     private Long id;
-    private String dateJoined;
-    private String dateOfBirth;
+    private LocalDate dateJoined;
+    private LocalDate dateOfBirth;
     private String pin;
     private AddressElement address;
 
     public DetailedInfoElement() {}
 
     public DetailedInfoElement(DetailedInfo detailedInfo){
-        setId(detailedInfo.getId());
-        setDateJoined(RestHelper.convertLongDate(detailedInfo.getDateJoined(),"MM/dd/yyyy"));
-        setDateOfBirth(RestHelper.convertLongDate(detailedInfo.getDateOfBirth(), "MM/dd/yyyy"));
+        this.id = detailedInfo.getId();
+        setDateJoined(detailedInfo.getDateJoined());
+        setDateOfBirth(detailedInfo.getDateOfBirth());
         setAddress(new AddressElement(detailedInfo.getAddress()));
-        setPin(detailedInfo.getIdentificationNumber());
+        this.pin = detailedInfo.getIdentificationNumber();
     }
 
     public Long getId() {
@@ -36,19 +38,21 @@ public class DetailedInfoElement {
         this.id = id;
     }
 
-    public String getDateJoined() {
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    public LocalDate getDateJoined() {
         return dateJoined;
     }
 
-    public void setDateJoined(String dateJoined) {
+    public void setDateJoined(LocalDate dateJoined) {
         this.dateJoined = dateJoined;
     }
 
-    public String getDateOfBirth() {
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

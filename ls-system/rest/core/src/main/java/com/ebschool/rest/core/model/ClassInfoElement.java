@@ -2,8 +2,11 @@
 
 import com.ebschool.ejb.model.ClassInfo;
 import com.ebschool.rest.core.utils.RestHelper;
+import com.ebschool.rest.core.utils.adapters.LocalTimeAdapter;
+import org.joda.time.LocalTime;
 
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Set;
 
 /**
@@ -13,11 +16,34 @@ import java.util.Set;
 @XmlRootElement(name = "class_info")
 public class ClassInfoElement {
 
+    @XmlEnum
+    public enum Day {
+        MONDAY(1),
+        TUESDAY(2),
+        WEDNESDAY(3),
+        THURSDAY(4),
+        FRIDAY(5),
+        SATURDAY(6),
+        SUNDAY(7);
+
+        private int index;
+
+        private Day(int index){
+            this.index = index;
+        }
+
+        public int getIndex(){
+            return index;
+        }
+    }
+
     private Long id;
-    private String when;
     private String where;
     private String description;
+    private Day day;
+    private LocalTime time;
     private LevelElement level;
+    private SemesterElement semester;
 
     private Set<Long> students;
     private Set<Long> teachers;
@@ -26,10 +52,12 @@ public class ClassInfoElement {
     public ClassInfoElement() {}
 
     public ClassInfoElement (ClassInfo classInfo) {
-        setId(classInfo.getId());
-        setDescription(classInfo.getDescription());
-        setWhen(RestHelper.convertLongDate(classInfo.getWhen()));
-        setWhere(classInfo.getWhere());
+        this.id = classInfo.getId();
+        this.description = classInfo.getDescription();
+        setSemester(new SemesterElement(classInfo.getSemester()));
+        setTime(classInfo.getWhen().getTime());
+        this.day = Day.valueOf(classInfo.getWhen().getDay().name());
+        this.where = classInfo.getWhere();
         setLevel(new LevelElement(classInfo.getLevel()));
     }
 
@@ -39,14 +67,6 @@ public class ClassInfoElement {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getWhen() {
-        return when;
-    }
-
-    public void setWhen(String when) {
-        this.when = when;
     }
 
     public String getWhere() {
@@ -101,5 +121,30 @@ public class ClassInfoElement {
 
     public void setLevel(LevelElement level) {
         this.level = level;
+    }
+
+    public SemesterElement getSemester() {
+        return semester;
+    }
+
+    public void setSemester(SemesterElement semester) {
+        this.semester = semester;
+    }
+
+    public Day getDay() {
+        return day;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    @XmlJavaTypeAdapter(LocalTimeAdapter.class)
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }

@@ -2,7 +2,7 @@ package com.ebschool.rest.core.resource;
 
 import com.ebschool.ejb.model.StudentTask;
 import com.ebschool.ejb.service.StudentTaskService;
-import com.ebschool.rest.core.model.TestElement;
+import com.ebschool.rest.core.model.StudentTaskElement;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
 
@@ -20,10 +20,10 @@ import javax.ws.rs.core.Response;
  * Date: 6/6/13
  * Time: 2:08 PM
  */
-@Path("/tests")
+@Path("/tasks")
 @RequestScoped
 @TransactionRequired
-public class TestResource {
+public class StudentTaskResource {
 
     @EJB
     StudentTaskService studentTaskService;
@@ -33,8 +33,8 @@ public class TestResource {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getById(@PathParam("id") long id){
         StudentTask studentTask = RestHelper.throw404IfNull(studentTaskService.getById(id));
-        TestElement testElement = new TestElement(studentTask);
-        return Response.ok().entity(testElement).build();
+        StudentTaskElement studentTaskElement = new StudentTaskElement(studentTask);
+        return Response.ok().entity(studentTaskElement).build();
     }
 
 }

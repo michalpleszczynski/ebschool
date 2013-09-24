@@ -36,18 +36,20 @@ public class LevelRepositoryImpl extends GenericRepositoryImpl<Level, Long> impl
             throw new IllegalArgumentException("At least one object to delete must be specified");
         }
         for (Level level : levels) {
-            Set<ClassInfo> classes = level.getClasses();
-            classInfoRepository.delete(classes.toArray(new ClassInfo[classes.size()]));
-        }
-        for (Level level : levels) {
+            if (level == null)
+                continue;
+            // set null in students
             TypedQuery<Student> query = entityManager.createNamedQuery(Student.STUDENTS_BY_LEVEL, Student.class).setParameter("level", level);
             List<Student> students = query.getResultList();
             for (Student student : students) {
-                student = userRepository.getById(student.getId());
                 student.setLevel(null);
             }
-        }
-        for (Level level : levels) {
+
+            // delete classes
+            Set<ClassInfo> classes = level.getClasses();
+            classInfoRepository.delete(classes.toArray(new ClassInfo[classes.size()]));
+
+            // remove level
             entityManager.remove(level);
         }
     }

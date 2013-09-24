@@ -27,7 +27,8 @@ public class Level  implements Identifiable, Serializable {
     @Column(name = "name_", unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "level", cascade = CascadeType.ALL, targetEntity = ClassInfo.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "level", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH},
+            targetEntity = ClassInfo.class)
     private Set<ClassInfo> classes;
 
     @Override

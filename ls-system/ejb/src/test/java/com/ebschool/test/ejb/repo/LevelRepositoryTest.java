@@ -42,7 +42,7 @@ public class LevelRepositoryTest extends AbstractArquillianRepositoryTest {
         Set<Level> levels = levelRepository.getAll();
         assertNotNull(levels);
         assertEquals(3, levels.size());
-        levelRepository.delete(levelRepository.getById(2L));
+        levelRepository.delete(levelRepository.getById(1L));
         levels = levelRepository.getAll();
         assertEquals(2, levels.size());
         levelRepository.deleteAll();

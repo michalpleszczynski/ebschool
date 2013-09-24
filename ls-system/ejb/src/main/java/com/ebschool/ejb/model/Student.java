@@ -31,7 +31,7 @@ public class Student extends User implements Serializable {
 
     // student has a level assigned but can be assigned to classes with different levels
     // it's not a bug it's a feature :)
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "level_id")
     private Level level;
 

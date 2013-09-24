@@ -188,10 +188,6 @@ public class DataBuilder {
         Student student = new Student();
         // always build new DetailedInfo
         student.setDetailedInfo(buildDetailedInfo());
-        if (lastCreatedLevel == null){
-            buildLevel();
-        }
-        student.setLevel(lastCreatedLevel);
         student.setActive(true);
         student.setEmail(email);
         student.setLogin(login);

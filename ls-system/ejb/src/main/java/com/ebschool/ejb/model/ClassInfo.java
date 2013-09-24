@@ -51,7 +51,8 @@ public class ClassInfo implements Identifiable, Serializable {
             inverseJoinColumns = @JoinColumn(name = "teacher_id"))
     private Set<Teacher> teachers;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "classInfo")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH},
+            mappedBy = "classInfo")
     private Set<StudentTask> studentTasks;
 
     public ClassInfo(){

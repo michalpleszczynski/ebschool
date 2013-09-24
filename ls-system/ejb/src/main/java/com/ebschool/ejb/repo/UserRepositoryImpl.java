@@ -29,6 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
     public <T extends User> T getById(Long id) {
         TypedQuery<User> query = entityManager.createNamedQuery(User.USER_BY_ID, User.class).setParameter("id", id);
         return (T)query.getSingleResult();
+//        return (T)entityManager.find(User.class, id);
     }
 
     @Override

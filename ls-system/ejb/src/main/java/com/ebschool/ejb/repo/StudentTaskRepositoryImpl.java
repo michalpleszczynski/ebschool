@@ -36,7 +36,6 @@ public class StudentTaskRepositoryImpl extends GenericRepositoryImpl<StudentTask
                 grade.setStudentTask(null);
             }
         }
-        entityManager.flush();
         for (StudentTask task : studentTasks){
             entityManager.remove(task);
         }

@@ -38,13 +38,14 @@ public abstract class User  implements Identifiable, Serializable {
     @Column(length = 25, nullable = false, unique = true)
     private String login;
 
+    // TODO: remove underscore and digits from pattern and change test data
     @Size(min = 2, max = 15)
-    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    @Pattern(regexp = "[A-Za-z0-9 _]*", message = "must contain only letters and spaces")
     @Column(name = "first_name", length = 15, nullable = false)
     private String firstName;
 
     @Size(min = 3, max = 20)
-    @Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+    @Pattern(regexp = "[A-Za-z0-9 _]*", message = "must contain only letters and spaces")
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 

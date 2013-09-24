@@ -1,7 +1,7 @@
 package com.ebschool.rest.core.resource;
 
-import com.ebschool.ejb.model.Test;
-import com.ebschool.ejb.service.TestService;
+import com.ebschool.ejb.model.StudentTask;
+import com.ebschool.ejb.service.StudentTaskService;
 import com.ebschool.rest.core.model.TestElement;
 import com.ebschool.rest.core.utils.RestHelper;
 import com.ebschool.rest.core.utils.transactions.TransactionRequired;
@@ -26,14 +26,14 @@ import javax.ws.rs.core.Response;
 public class TestResource {
 
     @EJB
-    TestService testService;
+    StudentTaskService studentTaskService;
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response getById(@PathParam("id") long id){
-        Test test = RestHelper.throw404IfNull(testService.getById(id));
-        TestElement testElement = new TestElement(test);
+        StudentTask studentTask = RestHelper.throw404IfNull(studentTaskService.getById(id));
+        TestElement testElement = new TestElement(studentTask);
         return Response.ok().entity(testElement).build();
     }
 

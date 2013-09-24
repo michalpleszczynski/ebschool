@@ -94,8 +94,8 @@ public class RestElementBuilderImpl implements RestElementBuilder{
         for (Student student : classInfo.getStudents()){
             studentIds.add(student.getId());
         }
-        for (Test test : classInfo.getTests()){
-            testIds.add(test.getId());
+        for (StudentTask studentTask : classInfo.getStudentTasks()){
+            testIds.add(studentTask.getId());
         }
         classInfoElement.setTeachers(teacherIds);
         classInfoElement.setStudents(studentIds);

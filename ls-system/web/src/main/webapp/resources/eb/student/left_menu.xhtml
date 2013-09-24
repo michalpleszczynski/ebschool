@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<cc:interface>
+    <cc:attribute name="currentSection" required="true"/>
+</cc:interface>
+<cc:implementation>
+
+    <h:outputStylesheet library="eb" name="student/left_menu.css" />
+
+    <!--wrap composite components in div, so then the client can give
+    the component id and reference the whole component by this id
+
+    for example:
+
+    <eb:left_menu id="lalala" />
+    <p:commandLink update="lalala" />
+    -->
+    <div id="#{cc.clientId}">
+
+        <ul class="links">
+            <li>
+                <h:link outcome="/auth/student/news" styleClass="#{cc.attrs.currentSection eq 'news' ? 'current_section_link' : ''}">
+                    News
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="/auth/student/schedule" styleClass="#{cc.attrs.currentSection eq 'schedule' ? 'current_section_link' : ''}">
+                    Schedule
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="/auth/student/grades" styleClass="#{cc.attrs.currentSection eq 'grades' ? 'current_section_link' : ''}">
+                    Grades
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="/auth/student/account" styleClass="#{cc.attrs.currentSection eq 'account' ? 'current_section_link' : ''}">
+                    My Account
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="/index">
+                    <f:param name="toNonSecure" value="true" />
+                    Logout
+                </h:link>
+            </li>
+        </ul>
+    </div>
+</cc:implementation>
+</html>

@@ -1,6 +1,6 @@
 package com.ebschool.rest.core.model;
 
-import com.ebschool.ejb.model.Test;
+import com.ebschool.ejb.model.StudentTask;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,11 +19,11 @@ public class TestElement {
 
     public TestElement() {}
 
-    public TestElement (Test test) {
-        setId(test.getId());
-        setDescription(test.getDescription());
-        setWhen(test.getWhen());
-        setClassInfo(new ClassInfoElement(test.getClassInfo()));
+    public TestElement (StudentTask studentTask) {
+        setId(studentTask.getId());
+        setDescription(studentTask.getDescription());
+        setWhen(studentTask.getWhen());
+        setClassInfo(new ClassInfoElement(studentTask.getClassInfo()));
     }
 
     public Long getId() {

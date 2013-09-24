@@ -6,24 +6,34 @@
     <cc:attribute name="secure" required="true"/>
 </cc:interface>
 <cc:implementation>
-    <h:panelGroup rendered="#{cc.attrs.secure == 'true'}" styleClass="navigation">
-        <p class="links">
-            <h:link outcome="/index" value="Home">
-                <f:param name="toNonSecure" value="true" />
-            </h:link>
-            <h:link outcome="/about" value="About Us">
-                <f:param name="toNonSecure" value="true" />
-            </h:link>
-        </p>
-    </h:panelGroup>
-    <h:panelGroup rendered="#{cc.attrs.secure == 'false'}" styleClass="navigation">
-        <p class="links">
-            <h:link outcome="/index">Home</h:link>
-            <h:link outcome="/about">About Us</h:link>
-            <h:link outcome="/auth/student/welcome">Student Area</h:link>
-            <h:link outcome="/auth/parent/welcome">Parent Area</h:link>
-            <h:link outcome="/auth/teacher/welcome">Teacher App</h:link>
-        </p>
-    </h:panelGroup>
+    <!--wrap composite components in div, so then the client can give
+    the component id and reference the whole component by this id
+
+    for example:
+
+    <eb:left_menu id="lalala" />
+    <p:commandLink update="lalala" />
+    -->
+    <div id="#{cc.clientId}">
+        <h:panelGroup rendered="#{cc.attrs.secure == 'true'}" styleClass="navigation">
+            <p class="links">
+                <h:link outcome="/index" value="Home">
+                    <f:param name="toNonSecure" value="true" />
+                </h:link>
+                <h:link outcome="/about" value="About Us">
+                    <f:param name="toNonSecure" value="true" />
+                </h:link>
+            </p>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{cc.attrs.secure == 'false'}" styleClass="navigation">
+            <p class="links">
+                <h:link outcome="/index">Home</h:link>
+                <h:link outcome="/about">About Us</h:link>
+                <h:link outcome="/auth/student/news">Student Area</h:link>
+                <h:link outcome="/auth/parent/welcome">Parent Area</h:link>
+                <h:link outcome="/auth/teacher/welcome">Teacher App</h:link>
+            </p>
+        </h:panelGroup>
+    </div>
 </cc:implementation>
 </html>

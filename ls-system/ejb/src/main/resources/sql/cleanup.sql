@@ -3,6 +3,10 @@
         drop 
         foreign key FK_6iati1u00txam28fl3551cop7;
 
+    alter table class_info 
+        drop 
+        foreign key FK_qjyp0wta6xtosu0gq8juu20xd;
+
     alter table class_student 
         drop 
         foreign key FK_bkb08ykubi3cqt7xpul6t5er8;
@@ -17,7 +21,7 @@
 
     alter table grade 
         drop 
-        foreign key FK_lgn2ackvagnnjumqxapkn0wld;
+        foreign key FK_g8qv5m0eqhrcixp25067aq55u;
 
     alter table parent 
         drop 
@@ -43,6 +47,10 @@
         drop 
         foreign key FK_m4oyvjystgi94h8yo4v8oijrr;
 
+    alter table student_task 
+        drop 
+        foreign key FK_o43m1xgtqh48lvwbbb6aw23uq;
+
     alter table teacher 
         drop 
         foreign key FK_towtpdaerkwtapdjff3t49iws;
@@ -58,10 +66,6 @@
     alter table teacher_class 
         drop 
         foreign key FK_1bu4s2rxs9uyamynbkouh1qaa;
-
-    alter table test 
-        drop 
-        foreign key FK_h319pge3w3e1u4u5qgjydrwnk;
 
     drop table if exists basic_user;
 
@@ -79,10 +83,12 @@
 
     drop table if exists parent_student;
 
+    drop table if exists semester;
+
     drop table if exists student;
+
+    drop table if exists student_task;
 
     drop table if exists teacher;
 
     drop table if exists teacher_class;
-
-    drop table if exists test;

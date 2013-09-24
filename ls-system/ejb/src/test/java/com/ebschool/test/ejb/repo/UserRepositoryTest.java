@@ -1,68 +1,36 @@
 package com.ebschool.test.ejb.repo;
 
 import com.ebschool.ejb.model.*;
-import com.ebschool.ejb.repo.ClassInfoRepository;
-import com.ebschool.ejb.repo.LevelRepository;
-import com.ebschool.ejb.repo.UserRepository;
-import com.ebschool.ejb.security.Roles;
-import com.ebschool.ejb.utils.Identifiable;
-import org.jboss.arquillian.container.test.api.Deployment;
+import com.ebschool.test.ejb.AbstractArquillianRepositoryTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ApplyScriptBefore;
 import org.jboss.arquillian.persistence.CleanupUsingScript;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.ebschool.test.ejb.utils.DataBuilder;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
+import static com.ebschool.ejb.utils.QueryParameter.with;
 import static org.junit.Assert.*;
-import static com.ebschool.ejb.utils.QueryParameter.*;
 /**
  * User: michau
  * Date: 4/16/13
  * Time: 9:24 PM
  */
 @RunWith(Arquillian.class)
-@CleanupUsingScript(value = "sql-scripts/cleanup.sql")
 @Transactional(manager = "java:jboss/UserTransaction")
-public class UserRepositoryTest {
-
-    @Inject
-    private UserRepository userRepository;
-
-    @Inject
-    private ClassInfoRepository classInfoRepository;
-
-    @Inject
-    private LevelRepository  levelRepository;
-
-    @Deployment
-    public static Archive<?> createDeploymentPackage() {
-
-        JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
-                .addPackage(Identifiable.class.getPackage())
-                .addPackage(User.class.getPackage())
-                .addPackage(UserRepository.class.getPackage())
-                .addPackage(Roles.class.getPackage())
-                .addPackage(DataBuilder.class.getPackage())
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsManifestResource("test-persistence.xml", "persistence.xml")
-                .addAsResource("test-hibernate.cfg.xml");
-
-        return ejb;
-    }
+public class UserRepositoryTest extends AbstractArquillianRepositoryTest {
 
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void getByIdTest() throws Exception {
+        User user3 = userRepository.getById(3L);
+        assertTrue(Parent.class.isAssignableFrom(user3.getClass()));
+        Parent parent = (Parent) user3;
+        assertNotNull(parent);
+        assertEquals("nameParent", parent.getFirstName());
+
         User user = userRepository.getById(1L);
         assertTrue(Student.class.isAssignableFrom(user.getClass()));
         Student student = (Student) user;
@@ -74,58 +42,49 @@ public class UserRepositoryTest {
         Teacher teacher = (Teacher) user2;
         assertNotNull(teacher);
         assertEquals("other_name", teacher.getFirstName());
-
-        User user3 = userRepository.getById(3L);
-        assertTrue(Parent.class.isAssignableFrom(user3.getClass()));
-        Parent parent = (Parent) user3;
-        assertNotNull(parent);
-        assertEquals("nameParent", parent.getFirstName());
     }
 
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void createTest() throws Exception {
-        Student student = DataBuilder.buildStudent();
+        Student student = dataBuilder.buildStudent();
         assertNotNull(student);
-        Student returnedStudent = (Student)userRepository.create(student);
+        Student returnedStudent = userRepository.create(student);
         assertEquals(returnedStudent, student);
 
-        Teacher teacher = DataBuilder.buildTeacher();
+        Teacher teacher = dataBuilder.buildTeacher();
         assertNotNull(teacher);
-        Teacher returnedTeacher = (Teacher)userRepository.create(teacher);
+        Teacher returnedTeacher = userRepository.create(teacher);
         assertEquals(returnedTeacher, teacher);
 
-        Parent parent = DataBuilder.buildParent();
+        Parent parent = dataBuilder.buildParent();
         assertNotNull(parent);
-        Parent returnedParent = (Parent)userRepository.create(parent);
+        Parent returnedParent = userRepository.create(parent);
         assertEquals(returnedParent, parent);
     }
 
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void deleteTest() throws Exception {
         Set<User> users = userRepository.getAll(User.class);
         assertNotNull(users);
-        assertEquals(4, users.size());
+        assertEquals(8, users.size());
         User user = userRepository.getById(2L);
         assertNotNull(user);
         userRepository.delete(user);
         users = userRepository.getAll(User.class);
         assertNotNull(users);
-        assertEquals(3, users.size());
+        assertEquals(7, users.size());
         User user2 = userRepository.getById(1L);
         User user3 = userRepository.getById(3L);
         userRepository.delete(user2, user3);
         users = userRepository.getAll(User.class);
         assertNotNull(users);
-        assertEquals(1, users.size());
+        assertEquals(5, users.size());
         userRepository.deleteAll(User.class);
         users = userRepository.getAll(User.class);
         assertTrue(users.isEmpty());
     }
 
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-big-dataset.sql"})
     public void testGetAndDeleteByClass() throws Exception {
         Set<Student> allStudents = userRepository.getAll(Student.class);
         Set<Teacher> allTeachers = userRepository.getAll(Teacher.class);
@@ -148,7 +107,6 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-big-dataset.sql"})
     public void testGetUserByCriteria() throws Exception {
         // get students by class
         ClassInfo classInfo = classInfoRepository.getById(1L);
@@ -206,7 +164,7 @@ public class UserRepositoryTest {
         List<User> user = userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN_AND_PASSWORD, with("login", "default_login2").parameters(), 1);
         assertNotNull(user);
         assertEquals(1, user.size());
-        assertEquals(4, user.get(0).getId());
+        assertEquals(new Long(4), user.get(0).getId());
     }
 
 }

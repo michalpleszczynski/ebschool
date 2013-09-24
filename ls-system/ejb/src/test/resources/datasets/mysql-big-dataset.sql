@@ -14,19 +14,19 @@ insert into basic_user(id, email, first_name, last_name, login, password_, phone
 
 insert into basic_user(id, email, first_name, last_name, login, password_, phone_number, active, type) values(8, 'random_guy@gmail.pl', 'Random', 'Guy', '4354333', '/xK72MkHrwZwcCEdh73wmL4XN1s=', '811812821', true, "TEACHER");
 
-insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(1, 'Virginia Rd', '13733', 'Oxford', 'USA', '345345345', '345345345', '123123123');
+insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(1, 'Virginia Rd', '13733', 'Oxford', 'USA', '2011-01-15', '1992-11-03', '123123123');
 
-insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(2, 'Lewis St', '13733', 'Bainbridge', 'USA', '345345345', '345345345', '3456546DC');
+insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(2, 'Lewis St', '13733', 'Bainbridge', 'USA', '2010-05-22', '1990-10-26', '3456546DC');
 
-insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(3, 'ObiOne Av', '23222', 'Tatooine', 'The Republic', '345345345', '345345345', 'r2d2c3po');
+insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(3, 'ObiOne Av', '23222', 'Tatooine', 'The Republic', '2012-12-12', '1963-03-01', 'r2d2c3po');
 
-insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(4, 'The street', '00-100', 'Quauhog', 'USA', '345345345', '345345345', '1231231hf');
+insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(4, 'The street', '00-100', 'Quauhog', 'USA', '2009-09-10', '1995-05-05', '1231231hf');
 
-insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(5, 'Maple 5 Av', '221357', 'Triangle', 'India', '345345345', '345345345', 'kjkndfg56');
+insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(5, 'Maple 5 Av', '221357', 'Triangle', 'India', '2011-02-14', '1991-10-11', 'kjkndfg56');
 
-insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(6, 'Goofrey Rd', '77007', 'Sidney', 'Australia', '345345345', '345345345', '333444555y');
+insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(6, 'Goofrey Rd', '77007', 'Sidney', 'Australia', '2012-10-10', '1988-03-08', '333444555y');
 
-insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(7, 'Emancypantek', '21-111', 'Ljubliana', 'Slovenia', '345345345', '345345345', 'ugabuga2');
+insert into detailed_info(id, street, zip_code, city, country, date_joined, date_of_birth, pin) values(7, 'Emancypantek', '21-111', 'Ljubliana', 'Slovenia', '2013-01-01', '1978-06-18', 'ugabuga2');
 
 insert into level(id, name_) values(1, "advanced");
 
@@ -34,19 +34,23 @@ insert into level(id, name_) values(2, "pre-intermediate");
 
 insert into level(id, name_) values(3, "elementary");
 
-insert into class_info(id, description, when_, where_, level_id) values(1, "this is a description", "45756757", "room 103", "1");
+insert into semester(id, name, begin_date, end_date) values(1, "first semester of 2011/2012", "2011-10-01", "2012-01-29");
 
-insert into class_info(id, description, when_, where_, level_id) values(2, "Ashlee smart class", "45756757", "room 666", "2");
+insert into semester(id, name, begin_date, end_date) values(2, "second semester of 2011/2012", "2012-02-15", "2012-06-30");
 
-insert into class_info(id, description, when_, where_, level_id) values(3, "Jeff is drawing foxes", "45756757", "under the stairs with harry", "3");
+insert into class_info(id, description, time, day, where_, level_id, semester_id) values(1, "this is a description", "15:30:00", "FRIDAY", "room 103", "1", "1");
 
-insert into test(id, description, when_, class_id) values(1, "this is a test", "456546456", "1");
+insert into class_info(id, description, time, day, where_, level_id, semester_id) values(2, "Ashlee smart class", "08:00:00", "MONDAY", "room 666", "2", "2");
 
-insert into test(id, description, when_, class_id) values(2, "triangle fox", "456546456", "3");
+insert into class_info(id, description, time, day, where_, level_id, semester_id) values(3, "Jeff is drawing foxes", "10:15:00", "SATURDAY", "under the stairs with harry", "3", "1");
 
-insert into test(id, description, when_, class_id) values(3, "nuclear test", "456546456", "2");
+insert into student_task(id, description, when_, class_id, type) values(1, "this is a test", "2012-02-27 11:30:00", "1", "ASSIGNMENT");
 
-insert into test(id, description, when_, class_id) values(4, "GALILEO", "456546456", "1");
+insert into student_task(id, description, when_, class_id, type) values(2, "triangle fox", "2011-11-07 08:00:00", "3", "TEST");
+
+insert into student_task(id, description, when_, class_id, type) values(3, "nuclear test", "2013-01-03 07:00:00", "2", "TEST");
+
+insert into student_task(id, description, when_, class_id, type) values(4, "GALILEO", "2013-03-01 16:15:00", "1", "ASSIGNMENT");
 
 insert into student(id, level_id, info_id) values("1", "1", "1");
 
@@ -64,17 +68,17 @@ insert into teacher(id, info_id, avatar) values ("8", "6", null);
 
 insert into parent(id) values("3");
 
-insert into grade(id, comment_, percentage, weight, student_id, test_id) values(1, "this is a comment", "76", "3", "1", "1");
+insert into grade(id, comment_, percentage, weight, student_id, student_task_id) values(1, "this is a comment", "76", "3", "1", "1");
 
-insert into grade(id, comment_, percentage, weight, student_id, test_id) values(2, "you suck at drawing eyes of foxes", "74", "10", "5", "2");
+insert into grade(id, comment_, percentage, weight, student_id, student_task_id) values(2, "you suck at drawing eyes of foxes", "74", "10", "5", "2");
 
-insert into grade(id, comment_, percentage, weight, student_id, test_id) values(3, "you good", "89", "10", "4", "2");
+insert into grade(id, comment_, percentage, weight, student_id, student_task_id) values(3, "you good", "89", "10", "4", "2");
 
-insert into grade(id, comment_, percentage, weight, student_id, test_id) values(4, "nice one harry", "94", "1", "4", "3");
+insert into grade(id, comment_, percentage, weight, student_id, student_task_id) values(4, "nice one harry", "94", "1", "4", "3");
 
-insert into grade(id, comment_, percentage, weight, student_id, test_id) values(5, "lasldlalal", "33", "3", "7", "4");
+insert into grade(id, comment_, percentage, weight, student_id, student_task_id) values(5, "lasldlalal", "33", "3", "7", "4");
 
-insert into grade(id, comment_, percentage, weight, student_id, test_id) values(6, "recourse kasia, recourse", "50", "7", "5", "3");
+insert into grade(id, comment_, percentage, weight, student_id, student_task_id) values(6, "recourse kasia, recourse", "50", "7", "5", "3");
 
 insert into class_student(student_id, class_id) values("1", "1");
 

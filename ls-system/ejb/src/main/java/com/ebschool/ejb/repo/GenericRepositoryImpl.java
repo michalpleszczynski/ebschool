@@ -26,7 +26,7 @@ import java.util.Set;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class GenericRepositoryImpl<T extends Identifiable, PK> implements GenericRepository<T, PK> {
 
-    @PersistenceContext(unitName = "dev")
+    @PersistenceContext
     protected EntityManager entityManager;
 
     private Class<T> clazz;
@@ -70,6 +70,7 @@ public class GenericRepositoryImpl<T extends Identifiable, PK> implements Generi
     public void deleteAll(){
         if ((Long)entityManager.createQuery("SELECT COUNT(e) FROM " + clazz.getSimpleName() + " e").getSingleResult() > 0){
             Set<T> entities = getAll();
+//            delete((T[])entities.toArray());
             for (T entity : entities){
                 delete(entity);
             }

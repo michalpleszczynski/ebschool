@@ -16,7 +16,7 @@ public interface ParentService {
 
     public Parent create(Parent parent);
 
-    public Parent addChildAccount(Student student, Parent parent);
-    public Parent removeChildAccount(Student student, Parent parent);
+    public Parent addChildrenAccounts(Parent parent, Student... students);
+    public Parent removeChildrenAccounts(Parent parent, Student... students);
 
 }

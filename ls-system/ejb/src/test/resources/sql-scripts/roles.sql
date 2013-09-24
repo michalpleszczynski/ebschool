@@ -1,4 +1,4 @@
-create table if not exists roles (
+create table roles (
     id bigint not null auto_increment,
     role varchar(45) not null,
     user_id bigint not null,

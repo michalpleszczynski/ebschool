@@ -14,17 +14,14 @@ import java.util.Set;
 @Table(name = "parent")
 public class Parent extends User implements Serializable {
 
-    private static final long serialVersionUID = 1006L;
-
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "parent_student",
+    @JoinTable(name = "parent_student",
             joinColumns = @JoinColumn(name = "parent_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> childrenAccounts;
 
     public Parent(){
-        childrenAccounts = new HashSet<Student>();
+        childrenAccounts = new HashSet();
     }
 
     public Set<Student> getChildrenAccounts(){

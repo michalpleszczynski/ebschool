@@ -20,8 +20,6 @@ import java.util.Set;
 })
 public class Student extends User implements Serializable {
 
-    private static final long serialVersionUID = 1007L;
-
     public static final String STUDENTS_BY_CLASS = "findStudentsByClass";
     public static final String STUDENTS_BY_TEACHER = "findStudentsByTeacher";
     public static final String STUDENTS_BY_PARENT = "findStudentsByParent";
@@ -34,7 +32,7 @@ public class Student extends User implements Serializable {
     // student has a level assigned but can be assigned to classes with different levels
     // it's not a bug it's a feature :)
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "level_id", nullable = false)
+    @JoinColumn(name = "level_id")
     private Level level;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
@@ -88,6 +86,14 @@ public class Student extends User implements Serializable {
 
     public void setClasses(Set<ClassInfo> classes) {
         this.classes = classes;
+    }
+
+    public Parent getParent() {
+        return parent;
+    }
+
+    public void setParent(Parent parent) {
+        this.parent = parent;
     }
 
     @Override

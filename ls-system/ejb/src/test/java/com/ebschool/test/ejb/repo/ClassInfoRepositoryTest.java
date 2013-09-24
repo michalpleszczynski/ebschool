@@ -1,25 +1,14 @@
 package com.ebschool.test.ejb.repo;
 
 import com.ebschool.ejb.model.ClassInfo;
-import com.ebschool.ejb.model.User;
-import com.ebschool.ejb.repo.ClassInfoRepository;
-import com.ebschool.ejb.repo.UserRepository;
-import com.ebschool.ejb.security.Roles;
-import com.ebschool.ejb.utils.Identifiable;
-import org.jboss.arquillian.container.test.api.Deployment;
+import com.ebschool.test.ejb.AbstractArquillianRepositoryTest;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ApplyScriptBefore;
 import org.jboss.arquillian.persistence.CleanupUsingScript;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.ebschool.test.ejb.utils.DataBuilder;
-
-import javax.inject.Inject;
 
 import java.util.Set;
 
@@ -31,31 +20,10 @@ import static org.junit.Assert.*;
  * Time: 2:58 PM
  */
 @RunWith(Arquillian.class)
-@CleanupUsingScript(value = "sql-scripts/cleanup.sql")
 @Transactional(manager = "java:jboss/UserTransaction")
-public class ClassInfoRepositoryTest {
-
-    @Inject
-    ClassInfoRepository classInfoRepository;
-
-    @Deployment
-    public static Archive<?> createDeploymentPackage() {
-
-        JavaArchive ejb = ShrinkWrap.create(JavaArchive.class, "test.jar")
-                .addPackage(Identifiable.class.getPackage())
-                .addPackage(User.class.getPackage())
-                .addPackage(Roles.class.getPackage())
-                .addPackage(UserRepository.class.getPackage())
-                .addPackage(DataBuilder.class.getPackage())
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsManifestResource("test-persistence.xml", "persistence.xml")
-                .addAsResource("test-hibernate.cfg.xml");
-
-        return ejb;
-    }
+public class ClassInfoRepositoryTest extends AbstractArquillianRepositoryTest {
 
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void getByIdTest() throws Exception {
         ClassInfo classInfo = classInfoRepository.getById(1L);
         assertNotNull(classInfo);
@@ -63,16 +31,14 @@ public class ClassInfoRepositoryTest {
     }
 
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-dataset.sql"})
     public void createTest() throws Exception {
-        ClassInfo classInfo = DataBuilder.buildClass();
+        ClassInfo classInfo = dataBuilder.buildClass();
         assertNotNull(classInfo);
         ClassInfo returnedClass = classInfoRepository.create(classInfo);
         assertEquals(returnedClass, classInfo);
     }
 
     @Test
-    @ApplyScriptBefore({"sql-scripts/cleanup.sql","sql-scripts/schema.sql","datasets/mysql-big-dataset.sql"})
     public void deleteTest() throws Exception {
         Set<ClassInfo> classes = classInfoRepository.getAll();
         assertNotNull(classes);

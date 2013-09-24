@@ -22,12 +22,13 @@ import java.util.Set;
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class UserRepositoryImpl implements UserRepository {
 
-    @PersistenceContext(unitName = "dev")
+    @PersistenceContext
     protected EntityManager entityManager;
 
     @Override
-    public <T extends User> T getById(long id) {
-        return (T)entityManager.find(User.class, id);
+    public <T extends User> T getById(Long id) {
+        TypedQuery<User> query = entityManager.createNamedQuery(User.USER_BY_ID, User.class).setParameter("id", id);
+        return (T)query.getSingleResult();
     }
 
     @Override

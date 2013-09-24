@@ -4,6 +4,7 @@ import com.ebschool.ejb.utils.Identifiable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * User: michau
@@ -17,22 +18,24 @@ import java.io.Serializable;
 })
 public class Level  implements Identifiable, Serializable {
 
-    private static final long serialVersionUID = 1004L;
-
     public static final String LEVEL_BY_NAME = "findLevelByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name_", unique = true)
     private String name;
 
-    public long getId() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "level", cascade = CascadeType.ALL, targetEntity = ClassInfo.class)
+    private Set<ClassInfo> classes;
+
+    @Override
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,6 +45,14 @@ public class Level  implements Identifiable, Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<ClassInfo> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Set<ClassInfo> classes) {
+        this.classes = classes;
     }
 
     @Override
@@ -61,6 +72,9 @@ public class Level  implements Identifiable, Serializable {
 
     @Override
     public int hashCode(){
-        return getName() != null ? getName().hashCode() : 0;
+        int result = 17;
+        result = result*37 + (getName() != null ? getName().hashCode() : 0);
+        return result;
     }
+
 }

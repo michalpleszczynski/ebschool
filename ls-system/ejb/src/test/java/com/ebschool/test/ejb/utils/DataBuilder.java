@@ -1,260 +1,355 @@
 package com.ebschool.test.ejb.utils;
 
 import com.ebschool.ejb.model.*;
+import com.ebschool.ejb.model.time.ClassTime;
+import com.ebschool.ejb.model.time.Semester;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
+
+import java.util.Collections;
 
 /**
  * User: michau
  * Date: 5/5/13
  * Time: 12:45 PM
  */
-// TODO: make it work...
 public class DataBuilder {
 
-    private static int pinCounter = 1;
-    private static int emailCounter = 1;
-    private static int loginCounter = 1;
+    private int pinCounter = 0;
+    private int emailCounter = 0;
+    private int loginCounter = 0;
+    private int levelCounter = 0;
 
     // DEFAULT VALUES
 
     // user
-    public static final String DEFAULT_PASSWORD = "/xK72MkHrwZwcCEdh73wmL4XN1s=";
-    public static final String DEFAULT_PHONE_NUMBER = "345123789";
-    public static final String DEFAULT_EMAIL_PREFIX = "default";
-    public static final String DEFAULT_EMAIL_SUFFIX = "email.com";
-    public static final String DEFAULT_LOGIN = "login";
+    private final String PASSWORD = "/xK72MkHrwZwcCEdh73wmL4XN1s=";
+    private final String PHONE_NUMBER = "345123789";
+    private final String EMAIL_PREFIX = "default";
+    private final String EMAIL_SUFFIX = "email.com";
+    private final String LOGIN = "login";
 
     // level
-    public static final String DEFAULT_LEVEL_NAME = "default_level";
+    private final String LEVEL_NAME = "level";
 
     // test
-    public static final long DEFAULT_TEST_DATE = 1367755677;
-    public static final String DEFAULT_TEST_DESC = "test description";
+    private final LocalDateTime TASK_DATE = new LocalDateTime(2012, DateTimeConstants.JANUARY, 26, 15, 30);
+    private final String TASK_DESC = "test description";
+    private final StudentTask.TaskType TASK_TYPE = StudentTask.TaskType.TEST;
 
     // grade
-    public static final String DEFAULT_GRADE_COMMENT = "grade_comment";
-    public static final byte DEFAULT_GRADE_PERCENTAGE = 75;
-    public static final byte DEFAULT_GRADE_WEIGHT = 4;
+    private final String GRADE_COMMENT = "grade_comment";
+    private final byte GRADE_PERCENTAGE = 75;
+    private final byte GRADE_WEIGHT = 4;
 
     // address
-    public static final String DEFAULT_STREET = "street";
-    public static final String DEFAULT_COUNTRY = "country";
-    public static final String DEFAULT_ZIP_CODE = "00-000";
-    public static final String DEFAULT_CITY = "city";
+    private final String STREET = "street";
+    private final String COUNTRY = "country";
+    private final String ZIP_CODE = "00-000";
+    private final String CITY = "city";
 
     // detailedInfo
-    public static final long DEFAULT_DATE_OF_BIRTH = 1367758677;
-    public static final long DEFAULT_DATE_JOINED = 1363058677;
-    public static final String DEFAULT_PIN = "457265345";
+    private final LocalDate DATE_OF_BIRTH = new LocalDate(1990, DateTimeConstants.JANUARY, 13);
+    private final LocalDate DATE_JOINED = new LocalDate(2011, DateTimeConstants.OCTOBER, 1);
+    private final String PIN = "457265345";
 
     // student
-    public static final String DEFAULT_STUDENT_F_NAME = "student fname";
-    public static final String DEFAULT_STUDENT_L_NAME = "student lname";
+    private final String STUDENT_F_NAME = "student fname";
+    private final String STUDENT_L_NAME = "student lname";
 
     // teacher
-    public static final String DEFAULT_TEACHER_L_NAME = "teacher lname";
-    public static final String DEFAULT_TEACHER_F_NAME = "teacher fname";
+    private final String TEACHER_L_NAME = "teacher lname";
+    private final String TEACHER_F_NAME = "teacher fname";
 
     // parent
-    public static final String DEFAULT_PARENT_F_NAME = "parent fname";
-    public static final String DEFAULT_PARENT_L_NAME = "parent lname";
+    private final String PARENT_F_NAME = "parent fname";
+    private final String PARENT_L_NAME = "parent lname";
 
     // class
-    public static final String DEFAULT_CLASS_NAME = "class_name";
-    public static final String DEFAULT_CLASS_DESC = "class description";
-    public static final long DEFAULT_CLASS_DATE = 1369758677;
-    public static final String DEFAULT_CLASS_WHERE = "class location";
+    private final String CLASS_DESC = "class description";
+    private final String CLASS_WHERE = "class location";
+    
+    // semester
+    private final String SEMESTER_NAME = "1st Semester of 2011";
+    private final LocalDate SEMESTER_BEGIN_DATE = new LocalDate(2011, DateTimeConstants.OCTOBER, 1);
+    private final LocalDate SEMESTER_END_DATE = new LocalDate(2012, DateTimeConstants.FEBRUARY, 15);
+    
+    // classTime
+    private final ClassTime.Day CLASS_TIME_DAY = ClassTime.Day.WEDNESDAY;
+    private final LocalTime CLASS_TIME_TIME = new LocalTime(14, 00);
 
 
-    // keep last created objects not to repeat creation
-    private static Level lastCreatedLevel;
-    private static ClassInfo lastCreatedClass;
-    private static Test lastCreatedTest;
-    private static Grade lastCreatedGrade;
-    private static Student lastCreatedStudent;
-    private static Teacher lastCreatedTeacher;
-    private static Parent lastCreatedParent;
-    private static Address lastCreatedAddress;
-    private static DetailedInfo lastCreatedDetailedInfo;
+    // keep last created for comparing purposes and such
+    private Level lastCreatedLevel;
+    private ClassInfo lastCreatedClass;
+    private StudentTask lastCreatedStudentTask;
+    private Grade lastCreatedGrade;
+    private Student lastCreatedStudent;
+    private Teacher lastCreatedTeacher;
+    private Parent lastCreatedParent;
+    private Address lastCreatedAddress;
+    private Semester lastCreatedSemester;
+    private ClassTime lastCreatedClassTime;
 
-    public static Test buildTest(){
-        Test test = new Test();
-        test.setDescription(DEFAULT_TEST_DESC);
-        test.setWhen(DEFAULT_TEST_DATE);
-        lastCreatedTest = test;
-        return test;
+    public Level buildLevel(){
+        return buildLevel(getNextLevelName());
     }
-
-    public static Grade buildGrade(){
-        Grade grade = new Grade();
-        grade.setComment(DEFAULT_GRADE_COMMENT);
-        grade.setPercentage(DEFAULT_GRADE_PERCENTAGE);
-        grade.setWeight(DEFAULT_GRADE_WEIGHT);
-        lastCreatedGrade = grade;
-        return grade;
-    }
-
-    public static ClassInfo buildClass(){
-        ClassInfo classInfo = new ClassInfo();
-        classInfo.setDescription(DEFAULT_CLASS_DESC);
-        classInfo.setLevel(getLastCreatedEntity(Level.class));
-        classInfo.setWhen(DEFAULT_CLASS_DATE);
-        classInfo.setWhere(DEFAULT_CLASS_WHERE);
-        lastCreatedClass = classInfo;
-        return classInfo;
-    }
-
-    public static Level buildLevel(){
+    
+    public Level buildLevel(String name){
         Level level = new Level();
-        level.setName(DEFAULT_LEVEL_NAME);
+        level.setName(name);
         lastCreatedLevel = level;
-        return level;
+        return lastCreatedLevel;
     }
 
-    public static Student buildStudent(){
+    public StudentTask buildStudentTask(){
+        return buildStudentTask(TASK_DESC, TASK_TYPE);
+    }
+
+    public StudentTask buildStudentTask(String description, StudentTask.TaskType type){
+        StudentTask studentTask = new StudentTask();
+        studentTask.setDescription(description);
+        studentTask.setWhen(TASK_DATE.plusDays(1));
+        studentTask.setType(type);
+        lastCreatedStudentTask = studentTask;
+        return lastCreatedStudentTask;
+    }
+
+    public Grade buildGrade(){
+        return buildGrade(GRADE_COMMENT);
+    }
+
+    public Grade buildGrade(String comment){
+        Grade grade = new Grade();
+        grade.setComment(comment);
+        grade.setPercentage(GRADE_PERCENTAGE);
+        grade.setWeight(GRADE_WEIGHT);
+        lastCreatedGrade = grade;
+        return lastCreatedGrade;
+    }
+
+    public ClassInfo buildClass(){
+        return buildClass(CLASS_DESC);
+    }
+
+    public ClassInfo buildClass(String description){
+        ClassInfo classInfo = new ClassInfo();
+        classInfo.setDescription(description);
+        if (lastCreatedLevel == null){
+            buildLevel();
+        }
+        if (lastCreatedClassTime == null){
+            buildClassTime();
+        }
+        if (lastCreatedSemester == null){
+            buildSemester();
+        }
+        classInfo.setSemester(lastCreatedSemester);
+        classInfo.setLevel(lastCreatedLevel);
+        lastCreatedLevel.setClasses(Collections.singleton(classInfo));
+        classInfo.setWhen(lastCreatedClassTime);
+        classInfo.setWhere(CLASS_WHERE);
+        lastCreatedClass = classInfo;
+        return lastCreatedClass;
+    }
+
+    public Semester buildSemester(){
+        return buildSemester(SEMESTER_BEGIN_DATE, SEMESTER_END_DATE, SEMESTER_NAME);
+    }
+
+    public Semester buildSemester(LocalDate beginDate, LocalDate endDate, String name){
+        Semester semester = new Semester();
+        semester.setBeginDate(beginDate);
+        semester.setEndDate(endDate);
+        semester.setName(name);
+        lastCreatedSemester = semester;
+        return lastCreatedSemester;
+    }
+
+    public ClassTime buildClassTime(){
+        return buildClassTime(CLASS_TIME_DAY, CLASS_TIME_TIME);
+    }
+
+    public ClassTime buildClassTime(ClassTime.Day day, LocalTime time){
+        ClassTime classTime = new ClassTime();
+        classTime.setDay(day);
+        classTime.setTime(time);
+        lastCreatedClassTime = classTime;
+        return lastCreatedClassTime;
+    }
+
+    public Student buildStudent(){
+        return buildStudent(getNextEmail(), getNextLogin());
+    }
+
+    public Student buildStudent(String email, String login){
         Student student = new Student();
-        student.setDetailedInfo(getLastCreatedEntity(DetailedInfo.class));
-        student.setLevel(getLastCreatedEntity(Level.class));
+        // always build new DetailedInfo
+        student.setDetailedInfo(buildDetailedInfo());
+        if (lastCreatedLevel == null){
+            buildLevel();
+        }
+        student.setLevel(lastCreatedLevel);
         student.setActive(true);
-        student.setEmail(getNextEmail());
-        student.setLogin(getNextLogin());
-        student.setPassword(DEFAULT_PASSWORD);
-        student.setPhoneNumber(DEFAULT_PHONE_NUMBER);
-        student.setFirstName(DEFAULT_STUDENT_F_NAME);
-        student.setLastName(DEFAULT_STUDENT_L_NAME);
+        student.setEmail(email);
+        student.setLogin(login);
+        student.setPassword(PASSWORD);
+        student.setPhoneNumber(PHONE_NUMBER);
+        student.setFirstName(STUDENT_F_NAME);
+        student.setLastName(STUDENT_L_NAME);
         student.setType(User.UserType.STUDENT);
         lastCreatedStudent = student;
-        return student;
+        return lastCreatedStudent;
     }
 
-    public static Teacher buildTeacher(){
+    public Teacher buildTeacher(){
+        return buildTeacher(getNextEmail(), getNextLogin());
+    }
+
+    public Teacher buildTeacher(String email, String login){
         Teacher teacher = new Teacher();
-        teacher.setDetailedInfo(getLastCreatedEntity(DetailedInfo.class));
-        teacher.setEmail(getNextEmail());
-        teacher.setLogin(getNextLogin());
-        teacher.setPassword(DEFAULT_PASSWORD);
-        teacher.setPhoneNumber(DEFAULT_PHONE_NUMBER);
-        teacher.setFirstName(DEFAULT_TEACHER_F_NAME);
-        teacher.setLastName(DEFAULT_TEACHER_L_NAME);
+        // always build new DetailedInfo
+        teacher.setDetailedInfo(buildDetailedInfo());
+        teacher.setEmail(email);
+        teacher.setLogin(login);
+        teacher.setPassword(PASSWORD);
+        teacher.setPhoneNumber(PHONE_NUMBER);
+        teacher.setFirstName(TEACHER_F_NAME);
+        teacher.setLastName(TEACHER_L_NAME);
         teacher.setType(User.UserType.TEACHER);
         lastCreatedTeacher = teacher;
-        return teacher;
+        return lastCreatedTeacher;
     }
 
-    public static Parent buildParent(){
+    public Parent buildParent(){
+        return buildParent(getNextEmail(), getNextLogin());
+    }
+
+    public Parent buildParent(String email, String login){
         Parent parent = new Parent();
-        parent.setFirstName(DEFAULT_PARENT_F_NAME);
-        parent.setLastName(DEFAULT_PARENT_L_NAME);
+        parent.setFirstName(PARENT_F_NAME);
+        parent.setLastName(PARENT_L_NAME);
         parent.setActive(true);
-        parent.setEmail(getNextEmail());
-        parent.setLogin(getNextLogin());
-        parent.setPassword(DEFAULT_PASSWORD);
-        parent.setPhoneNumber(DEFAULT_PHONE_NUMBER);
+        parent.setEmail(email);
+        parent.setLogin(login);
+        parent.setPassword(PASSWORD);
+        parent.setPhoneNumber(PHONE_NUMBER);
         parent.setType(User.UserType.PARENT);
         lastCreatedParent = parent;
-        return parent;
+        return lastCreatedParent;
     }
 
-    public static DetailedInfo buildDetailedInfo(){
+    public DetailedInfo buildDetailedInfo(){
         DetailedInfo detailedInfo = new DetailedInfo();
-        detailedInfo.setDateJoined(DEFAULT_DATE_JOINED);
-        detailedInfo.setDateOfBirth(DEFAULT_DATE_OF_BIRTH);
+        detailedInfo.setDateJoined(DATE_JOINED);
+        detailedInfo.setDateOfBirth(DATE_OF_BIRTH);
         detailedInfo.setIdentificationNumber(getNextPin());
-        detailedInfo.setAddress(getLastCreatedEntity(Address.class));
-        lastCreatedDetailedInfo = detailedInfo;
+        if (lastCreatedAddress == null){
+            buildAddress();
+        }
+        detailedInfo.setAddress(lastCreatedAddress);
         return detailedInfo;
     }
 
-    public static Address buildAddress(){
+    public Address buildAddress(){
+        return buildAddress(STREET, CITY, ZIP_CODE, COUNTRY);
+    }
+
+    public Address buildAddress(String street, String city, String zipCode, String country){
         Address address = new Address();
-        address.setCity(DEFAULT_CITY);
-        address.setCountry(DEFAULT_COUNTRY);
-        address.setStreet(DEFAULT_STREET);
-        address.setZipCode(DEFAULT_ZIP_CODE);
+        address.setCity(city);
+        address.setCountry(country);
+        address.setStreet(street);
+        address.setZipCode(zipCode);
         lastCreatedAddress = address;
-        return address;
+        return lastCreatedAddress;
     }
 
-    private static <T> T getLastCreatedEntity(Class<T> entityClass){
-        if (entityClass.isAssignableFrom(Address.class)){
-            if (lastCreatedAddress == null){
-                return (T)buildAddress();
-            }
-            return (T)lastCreatedAddress;
-        }
-        else if (entityClass.isAssignableFrom(Level.class)){
-            if (lastCreatedLevel == null){
-                return (T)buildLevel();
-            }
-            return (T)lastCreatedLevel;
-        }
-        else if (entityClass.isAssignableFrom(ClassInfo.class)){
-            if (lastCreatedClass == null){
-                return (T)buildClass();
-            }
-            return (T)lastCreatedClass;
-        }
-        else if (entityClass.isAssignableFrom(Test.class)){
-            if (lastCreatedTest == null){
-                return (T)buildTest();
-            }
-            return (T) lastCreatedTest;
-        }
-        else if (entityClass.isAssignableFrom(DetailedInfo.class)){
-            return (T)buildDetailedInfo();
-        }
-        else if (entityClass.isAssignableFrom(Grade.class)){
-            if (lastCreatedGrade == null){
-                return (T)buildGrade();
-            }
-            return (T)lastCreatedGrade;
-        }
-        else if (entityClass.isAssignableFrom(Teacher.class)){
-            if (lastCreatedTeacher == null){
-                return (T)buildTeacher();
-            }
-            return (T)lastCreatedTeacher;
-        }
-        else if (entityClass.isAssignableFrom(Student.class)){
-            if (lastCreatedStudent == null){
-                return (T)buildStudent();
-            }
-            return (T)lastCreatedStudent;
-        }
-        else if (entityClass.isAssignableFrom(Parent.class)){
-            if (lastCreatedParent == null){
-                return (T)buildParent();
-            }
-            return (T)lastCreatedParent;
-        }
-        return null;
-    }
-
-    private static String getNextPin(){
-        Long nextPin = Long.valueOf(DEFAULT_PIN) + pinCounter++;
+    // helper methods
+    
+    private String getNextPin(){
+        Long nextPin = Long.valueOf(PIN) + pinCounter++;
         return nextPin.toString();
     }
 
-    private static String getNextEmail(){
+    private String getNextEmail(){
         StringBuilder sb = new StringBuilder();
-        sb.append(DEFAULT_EMAIL_PREFIX);
+        sb.append(EMAIL_PREFIX);
         sb.append(emailCounter++);
         sb.append("@");
-        sb.append(DEFAULT_EMAIL_SUFFIX);
+        sb.append(EMAIL_SUFFIX);
         return sb.toString();
     }
 
-    private static String getNextLogin(){
+    private String getNextLogin(){
         StringBuilder sb = new StringBuilder();
-        sb.append(DEFAULT_LOGIN);
+        sb.append(LOGIN);
         sb.append(loginCounter++);
         return sb.toString();
     }
 
-    public static String getLastLogin(){
+    private String getNextLevelName(){
         StringBuilder sb = new StringBuilder();
-        sb.append(DEFAULT_LOGIN);
-        sb.append(loginCounter-1);
+        sb.append(LEVEL_NAME);
+        sb.append(levelCounter);
         return sb.toString();
     }
 
+    public void clear(){
+        lastCreatedAddress = null;
+        lastCreatedStudentTask = null;
+        lastCreatedStudent = null;
+        lastCreatedLevel = null;
+        lastCreatedSemester = null;
+        lastCreatedClassTime = null;
+        lastCreatedClass = null;
+        lastCreatedGrade = null;
+        lastCreatedParent = null;
+        lastCreatedTeacher = null;
+    }
+
+    // getters
+
+
+    public Level getLastCreatedLevel() {
+        return lastCreatedLevel;
+    }
+
+    public ClassInfo getLastCreatedClass() {
+        return lastCreatedClass;
+    }
+
+    public StudentTask getLastCreatedStudentTask() {
+        return lastCreatedStudentTask;
+    }
+
+    public Grade getLastCreatedGrade() {
+        return lastCreatedGrade;
+    }
+
+    public Student getLastCreatedStudent() {
+        return lastCreatedStudent;
+    }
+
+    public Teacher getLastCreatedTeacher() {
+        return lastCreatedTeacher;
+    }
+
+    public Parent getLastCreatedParent() {
+        return lastCreatedParent;
+    }
+
+    public Address getLastCreatedAddress() {
+        return lastCreatedAddress;
+    }
+
+    public Semester getLastCreatedSemester() {
+        return lastCreatedSemester;
+    }
+
+    public ClassTime getLastCreatedClassTime() {
+        return lastCreatedClassTime;
+    }
 }

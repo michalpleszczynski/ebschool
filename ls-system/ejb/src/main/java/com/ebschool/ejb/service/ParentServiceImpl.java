@@ -6,6 +6,8 @@ import com.ebschool.ejb.repo.UserRepository;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -36,16 +38,23 @@ public class ParentServiceImpl implements ParentService {
     }
 
     @Override
-    public Parent addChildAccount(Student student, Parent parent) {
+    public Parent addChildrenAccounts(Parent parent, Student... students) {
         Parent p = userRepository.getParentById(parent.getId());
-        p.getChildrenAccounts().add(student);
+        if (p.getChildrenAccounts() == null){
+            p.setChildrenAccounts(new HashSet(Arrays.asList(students)));
+        } else {
+            p.getChildrenAccounts().addAll(Arrays.asList(students));
+        }
         return userRepository.update(p);
     }
 
     @Override
-    public Parent removeChildAccount(Student student, Parent parent) {
+    public Parent removeChildrenAccounts(Parent parent, Student... students) {
         Parent p = userRepository.getParentById(parent.getId());
-        p.getChildrenAccounts().remove(student);
+        if (p.getChildrenAccounts() == null){
+            return p;
+        }
+        p.getChildrenAccounts().removeAll(Arrays.asList(students));
         return userRepository.update(p);
     }
 }

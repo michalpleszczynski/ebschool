@@ -1,6 +1,6 @@
 package com.ebschool.ejb.repo;
 
-import com.ebschool.ejb.model.Test;
+import com.ebschool.ejb.model.time.Semester;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -9,15 +9,15 @@ import javax.ejb.TransactionAttributeType;
 
 /**
  * User: michau
- * Date: 4/14/13
- * Time: 5:29 PM
+ * Date: 9/20/13
  */
 @Stateless
 @LocalBean
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class TestRepositoryImpl extends GenericRepositoryImpl<Test, Long> implements TestRepository{
+public class SemesterRepositoryImpl extends GenericRepositoryImpl<Semester, Long> implements SemesterRepository {
 
-    public TestRepositoryImpl() {
-        super(Test.class);
+    public SemesterRepositoryImpl(){
+        super(Semester.class);
     }
+
 }

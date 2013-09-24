@@ -58,7 +58,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.9</version>
+            <version>5.1.25</version>
         </dependency>
 
 
@@ -67,17 +67,25 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <!--this must go before arquillian bom-->
         <dependency>
-            <groupId>org.jboss.arquillian</groupId>
-            <artifactId>arquillian-bom</artifactId>
-            <version>1.0.3.Final</version>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-bom</artifactId>
+            <version>2.0.0</version>
             <scope>test</scope>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
-            <artifactId>shrinkwrap-resolver-bom</artifactId>
-            <version>${version.shrinkwrap.resolver}</version>
+            <artifactId>shrinkwrap-resolver-depchain</artifactId>
+            <version>2.0.0</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian</groupId>
+            <artifactId>arquillian-bom</artifactId>
+            <version>1.0.3.Final</version>
             <scope>test</scope>
             <type>pom</type>
         </dependency>
@@ -98,6 +106,12 @@
                     <artifactId>slf4j-jdk14</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.1.6</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Code helpers and utils -->
@@ -121,6 +135,13 @@
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-ext-api</artifactId>
+        </dependency>
+
+        <!--persist joda time objects-->
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.jodatime</artifactId>
+            <version>2.0.1</version>
         </dependency>
     </dependencies>
 
@@ -157,8 +178,6 @@
         </profile>
 
         <profile>
-            <!--TODO-->
-            <!--executing sql scripts in arquillian does not work, half of the queries from sql file (basic_user) are ignored or merged with each other-->
             <id>arq-test</id>
             <dependencies>
                 <dependency>

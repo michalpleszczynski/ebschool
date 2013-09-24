@@ -1,10 +1,13 @@
 package com.ebschool.ejb.model;
 
 import com.ebschool.ejb.utils.Identifiable;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * User: michau
@@ -15,17 +18,17 @@ import java.io.Serializable;
 @Table(name = "detailed_info", uniqueConstraints = @UniqueConstraint(columnNames = "pin"))
 public class DetailedInfo implements Identifiable, Serializable {
 
-    private static final long serialVersionUID = 1002L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "date_of_birth", nullable = false)
-    private long dateOfBirth;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    private LocalDate dateOfBirth;
 
     @Column(name = "date_joined", nullable = false)
-    private long dateJoined;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    private LocalDate dateJoined;
 
     @Embedded
     private Address address;
@@ -34,27 +37,28 @@ public class DetailedInfo implements Identifiable, Serializable {
     @Pattern(regexp = "[A-Z0-9]*", message = "must contain only digits and capital letters")
     private String identificationNumber;
 
-    public long getId(){
+    @Override
+    public Long getId(){
         return this.id;
     }
 
-    public void setId(long id){
+    public void setId(Long id){
         this.id = id;
     }
 
-    public long getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(long dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public long getDateJoined() {
+    public LocalDate getDateJoined() {
         return dateJoined;
     }
 
-    public void setDateJoined(long dateJoined) {
+    public void setDateJoined(LocalDate dateJoined) {
         this.dateJoined = dateJoined;
     }
 
@@ -86,11 +90,13 @@ public class DetailedInfo implements Identifiable, Serializable {
         }
 
         final DetailedInfo detailedInfo = (DetailedInfo) object;
-        return getIdentificationNumber() != null ? getIdentificationNumber().equals(detailedInfo.getIdentificationNumber()) : false;
+        return Objects.equals(getIdentificationNumber(), detailedInfo.getIdentificationNumber());
     }
 
     @Override
     public int hashCode(){
-        return getIdentificationNumber() != null ? getIdentificationNumber().hashCode() : 0;
+        int result = 17;
+        result = result*37 + (getIdentificationNumber() != null ? getIdentificationNumber().hashCode() : 0);
+        return result;
     }
 }

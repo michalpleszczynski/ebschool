@@ -17,8 +17,6 @@ import java.util.Set;
 })
 public class Teacher extends User implements Serializable {
 
-    private static final long serialVersionUID = 1008L;
-
     public static final String TEACHERS_BY_CLASS = "findTeachersByClass";
 
     @Lob

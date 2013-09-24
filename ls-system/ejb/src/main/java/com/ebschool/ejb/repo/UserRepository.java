@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public interface UserRepository {
 
-    public <T extends User> T getById(long id);
+    public <T extends User> T getById(Long id);
     public <T extends User> T create(T object);
     public <T extends User> T update(T object);
     public <T extends User> void delete(T... objects);

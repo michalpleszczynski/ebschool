@@ -21,7 +21,7 @@ import javax.persistence.Query;
 // TODO: maybe solve it in some better way
 public class RoleRepositoryImpl implements RoleRepository{
 
-    @PersistenceContext(unitName = "dev")
+    @PersistenceContext
     EntityManager em;
 
     @Override
@@ -34,7 +34,7 @@ public class RoleRepositoryImpl implements RoleRepository{
 
     @Override
     public void unassignRole(User user, Roles.Role role) {
-        Query q = em.createNativeQuery("DELETE FROM roles WHERE user_id = :id AND role = :roles")
+        Query q = em.createNativeQuery("DELETE FROM roles WHERE user_id = :id AND role = :role")
                 .setParameter("id", user.getId())
                 .setParameter("role", role.name().toLowerCase());
         q.executeUpdate();

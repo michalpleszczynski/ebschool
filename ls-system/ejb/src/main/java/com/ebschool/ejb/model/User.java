@@ -10,12 +10,15 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "login"}))
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-        @NamedQuery(name = "findUserByLoginAndPassword", query = "SELECT u FROM User as u WHERE u.login = :login")
+        @NamedQuery(name = "findUserByLoginAndPassword", query = "SELECT u FROM User as u WHERE u.login = :login"),
+        // entity.find(User.class, id) in case of a Parent joined students (children) to the result returning multiple results for 1 id
+        @NamedQuery(name = "findUserById", query = "SELECT u FROM User u WHERE u.id = :id")
 })
 public abstract class User  implements Identifiable, Serializable {
 
@@ -23,16 +26,15 @@ public abstract class User  implements Identifiable, Serializable {
         ADMIN, STUDENT, TEACHER, PARENT
     }
 
-    private static final long serialVersionUID = 1010L;
-
     public static final String USER_BY_LOGIN_AND_PASSWORD = "findUserByLoginAndPassword";
+    public static final String USER_BY_ID = "findUserById";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Size(min = 3, max = 25)
-    @Pattern(regexp = "[A-Za-z0-9]*", message = "must contain only letters and digits")
+    @Pattern(regexp = "[A-Za-z0-9_]*", message = "must contain only letters, digits and underscores")
     @Column(length = 25, nullable = false, unique = true)
     private String login;
 
@@ -66,11 +68,12 @@ public abstract class User  implements Identifiable, Serializable {
     @Column(nullable = false)
     private UserType type;
 
-    public long getId() {
+    @Override
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -150,14 +153,22 @@ public abstract class User  implements Identifiable, Serializable {
         }
 
         final User user = (User) object;
-        return (getFirstName() != null ? getFirstName().equals(user.getFirstName()) : user.getFirstName() == null) &&
-                (getLastName() != null ? getLastName().equals(user.getLastName()) : user.getLastName() == null) &&
-                (getLogin() != null ? getLogin().equals(user.getLogin()) : user.getLogin() == null) &&
-                (getEmail() != null ? getEmail().equals(user.getEmail()) : user.getEmail() ==null);
+        if (!Objects.equals(getFirstName(), user.getFirstName()))
+            return false;
+        if (!Objects.equals(getLastName(), user.getLastName()))
+            return false;
+        if (!Objects.equals(getLogin(), user.getLogin()))
+            return false;
+        if (!Objects.equals(getEmail(), user.getEmail()))
+            return false;
+        return true;
     }
 
     @Override
     public int hashCode(){
-        return getLogin() != null ? getLogin().hashCode() : 0;
+        int result = 17;
+        result = result*37 + (getLogin() != null ? getLogin().hashCode() : 0);
+        result = result*37 + (getEmail() != null ? getEmail().hashCode() : 0);
+        return result;
     }
 }

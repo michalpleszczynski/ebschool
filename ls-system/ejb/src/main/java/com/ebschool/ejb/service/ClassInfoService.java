@@ -2,6 +2,7 @@ package com.ebschool.ejb.service;
 
 import com.ebschool.ejb.model.ClassInfo;
 import com.ebschool.ejb.model.Student;
+import com.ebschool.ejb.model.StudentTask;
 import com.ebschool.ejb.model.Teacher;
 
 import java.util.Collection;
@@ -21,9 +22,12 @@ public interface ClassInfoService {
     public Set<ClassInfo> getAll();
     public Set<ClassInfo> getByIds(Collection<Long> ids);
 
-    public ClassInfo addStudent(Student student, ClassInfo classInfo);
-    public ClassInfo removeStudent(Student student, ClassInfo classInfo);
-    public ClassInfo addTeacher(Teacher teacher, ClassInfo classInfo);
-    public ClassInfo removeTeacher(Teacher teacher, ClassInfo classInfo);
+    public ClassInfo addStudents(ClassInfo classInfo, Student... students);
+    public ClassInfo removeStudents(ClassInfo classInfo, Student... students);
+    public ClassInfo addTeachers(ClassInfo classInfo, Teacher... teachers);
+    public ClassInfo removeTeachers(ClassInfo classInfo, Teacher... teachers);
+
+    public ClassInfo addStudentTasks(ClassInfo classInfo, StudentTask... tasks);
+    public ClassInfo removeStudentTasks(ClassInfo classInfo, StudentTask... tasks);
 
 }

@@ -18,12 +18,13 @@ function cleanTestDB() {
   mysql -u testit_user --password=testit ebuisness_test_database -e "drop schema ebuisness_test_database; create schema ebuisness_test_database;";
   echo "Creating db schema...";
   mysql -u testit_user --password=testit ebuisness_test_database < ls-system/ejb/src/main/resources/sql/schema.sql;
+  mysql -u testit_user --password=testit ebuisness_test_database < ls-system/ejb/src/main/resources/sql/roles.sql;
   echo "Done.";
 }
 
 function recreateDB() {
   echo "Cleaning up the db...";
-  mysql -u testit_user --password=testit ebuisness_database < ls-system/ejb/src/main/resources/sql/cleanup.sql;
+  mysql -u testit_user --password=testit ebuisness_database -e "drop schema ebuisness_database; create schema ebuisness_database";
   echo "Creating db schema...";
   mysql -u testit_user --password=testit ebuisness_database < ls-system/ejb/src/main/resources/sql/schema.sql;
   mysql -u testit_user --password=testit ebuisness_database < ls-system/ejb/src/main/resources/sql/roles.sql;

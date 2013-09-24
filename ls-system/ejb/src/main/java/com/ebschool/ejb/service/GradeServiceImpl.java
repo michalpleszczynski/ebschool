@@ -2,11 +2,13 @@ package com.ebschool.ejb.service;
 
 import com.ebschool.ejb.model.Grade;
 import com.ebschool.ejb.model.Student;
+import com.ebschool.ejb.model.StudentTask;
 import com.ebschool.ejb.repo.GradeRepository;
 import com.ebschool.ejb.repo.UserRepository;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

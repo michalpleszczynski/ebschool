@@ -7,6 +7,6 @@ package com.ebschool.ejb.utils;
  */
 public interface Identifiable {
 
-    public long getId();
+    public Long getId();
 
 }

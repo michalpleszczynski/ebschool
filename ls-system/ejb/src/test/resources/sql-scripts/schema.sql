@@ -15,9 +15,11 @@
     create table class_info (
         id bigint not null auto_increment,
         description varchar(255),
-        when_ bigint,
+        day varchar(255) not null,
+        time time not null,
         where_ varchar(255),
         level_id bigint not null,
+        semester_id bigint not null,
         primary key (id)
     );
 
@@ -33,8 +35,8 @@
         country varchar(40) not null,
         street varchar(40) not null,
         zip_code varchar(6) not null,
-        date_joined bigint not null,
-        date_of_birth bigint not null,
+        date_joined date not null,
+        date_of_birth date not null,
         pin varchar(255),
         primary key (id)
     );
@@ -45,7 +47,7 @@
         percentage tinyint not null,
         weight tinyint not null,
         student_id bigint not null,
-        test_id bigint,
+        student_task_id bigint,
         primary key (id)
     );
 
@@ -66,10 +68,27 @@
         primary key (parent_id, student_id)
     );
 
+    create table semester (
+        id bigint not null auto_increment,
+        begin_date date not null,
+        end_date date not null,
+        name varchar(255) not null,
+        primary key (id)
+    );
+
     create table student (
         id bigint not null,
         info_id bigint not null,
-        level_id bigint not null,
+        level_id bigint,
+        primary key (id)
+    );
+
+    create table student_task (
+        id bigint not null auto_increment,
+        description varchar(255),
+        type varchar(255) not null,
+        when_ datetime not null,
+        class_id bigint,
         primary key (id)
     );
 
@@ -86,14 +105,6 @@
         primary key (class_id, teacher_id)
     );
 
-    create table test (
-        id bigint not null auto_increment,
-        description varchar(255),
-        when_ bigint not null,
-        class_id bigint,
-        primary key (id)
-    );
-
     alter table basic_user 
         add constraint UK_3v1wbn30ju5bxbrnpyidmu79u unique (email, login);
 
@@ -105,6 +116,12 @@
         add constraint FK_6iati1u00txam28fl3551cop7 
         foreign key (level_id) 
         references level (id);
+
+    alter table class_info 
+        add index FK_qjyp0wta6xtosu0gq8juu20xd (semester_id), 
+        add constraint FK_qjyp0wta6xtosu0gq8juu20xd 
+        foreign key (semester_id) 
+        references semester (id);
 
     alter table class_student 
         add index FK_bkb08ykubi3cqt7xpul6t5er8 (class_id), 
@@ -128,10 +145,10 @@
         references student (id);
 
     alter table grade 
-        add index FK_lgn2ackvagnnjumqxapkn0wld (test_id), 
-        add constraint FK_lgn2ackvagnnjumqxapkn0wld 
-        foreign key (test_id) 
-        references test (id);
+        add index FK_g8qv5m0eqhrcixp25067aq55u (student_task_id), 
+        add constraint FK_g8qv5m0eqhrcixp25067aq55u 
+        foreign key (student_task_id) 
+        references student_task (id);
 
     alter table level 
         add constraint UK_jr9r4hutcrxfdcyq0ck0lns2d unique (name_);
@@ -157,6 +174,9 @@
         foreign key (student_id) 
         references student (id);
 
+    alter table semester 
+        add constraint UK_i2h7dsgrb3fkhvq8oxbquhkiq unique (name);
+
     alter table student 
         add constraint UK_r7rhq7flnhuad3dqbcjj5cb6g unique (info_id);
 
@@ -177,6 +197,12 @@
         add constraint FK_m4oyvjystgi94h8yo4v8oijrr 
         foreign key (id) 
         references basic_user (id);
+
+    alter table student_task 
+        add index FK_o43m1xgtqh48lvwbbb6aw23uq (class_id), 
+        add constraint FK_o43m1xgtqh48lvwbbb6aw23uq 
+        foreign key (class_id) 
+        references class_info (id);
 
     alter table teacher 
         add constraint UK_towtpdaerkwtapdjff3t49iws unique (info_id);
@@ -204,9 +230,3 @@
         add constraint FK_1bu4s2rxs9uyamynbkouh1qaa 
         foreign key (teacher_id) 
         references teacher (id);
-
-    alter table test 
-        add index FK_h319pge3w3e1u4u5qgjydrwnk (class_id), 
-        add constraint FK_h319pge3w3e1u4u5qgjydrwnk 
-        foreign key (class_id) 
-        references class_info (id);

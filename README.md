@@ -1,4 +1,4 @@
 ebschool
 ========
 
-Administration platform for a language school, personal project for educational purposes.
+Former class project, now a Java playground of mine.

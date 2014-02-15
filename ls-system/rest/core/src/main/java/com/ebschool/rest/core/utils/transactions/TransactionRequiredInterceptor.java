@@ -11,7 +11,7 @@ import java.io.Serializable;
  * User: michau
  * Date: 6/1/13
  */
-// add transactions to a jersey resource (plain cdi bean)
+// add transactions to beans
 @TransactionRequired
 @Interceptor
 public class TransactionRequiredInterceptor implements Serializable {

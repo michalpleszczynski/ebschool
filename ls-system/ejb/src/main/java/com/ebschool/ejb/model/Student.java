@@ -2,8 +2,7 @@ package com.ebschool.ejb.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: michau
@@ -13,17 +12,73 @@ import java.util.Set;
 @Entity
 @Table(name = "student")
 @NamedQueries({
-        @NamedQuery(name = "findStudentsByClass", query = "SELECT s FROM Student AS s WHERE :classInfo MEMBER OF s.classes"),
-        @NamedQuery(name = "findStudentsByTeacher", query = "SELECT s FROM Student AS s INNER JOIN s.classes AS c WHERE :teacher MEMBER OF c.teachers"),
-        @NamedQuery(name = "findStudentsByParent", query = "SELECT s FROM Student AS s, Parent AS p WHERE p = :parent AND s MEMBER OF p.childrenAccounts"),
-        @NamedQuery(name = "findStudentsByLevel", query = "SELECT s FROM Student AS s WHERE s.level = :level")
+        @NamedQuery(
+                name = "findStudentByLoginWithInfo",
+                query = "SELECT s FROM Student AS s LEFT JOIN FETCH s.detailedInfo WHERE s.login = :login"
+        ),
+        @NamedQuery(
+                name = "findStudentByLoginWithLevel",
+                query = "SELECT s FROM Student AS s LEFT JOIN FETCH s.level WHERE s.login = :login"
+        ),
+        @NamedQuery(
+                name = "findStudentByLoginWithInfoAndLevel",
+                query = "SELECT s FROM Student AS s LEFT JOIN FETCH s.detailedInfo LEFT JOIN FETCH s.level WHERE s.login = :login"
+        ),
+        @NamedQuery(
+                name = "findStudentsByClass", query = "SELECT s FROM Student AS s WHERE :classInfo MEMBER OF s.classes"
+        ),
+        @NamedQuery(
+                name = "findStudentsByTeacher",
+                query = "SELECT s FROM Student AS s INNER JOIN s.classes AS c WHERE :teacher MEMBER OF c.teachers"
+        ),
+        @NamedQuery(
+                name = "findStudentsByParent",
+                query = "SELECT s FROM Student AS s, Parent AS p WHERE p = :parent AND s MEMBER OF p.childrenAccounts"
+        ),
+        @NamedQuery(
+                name = "findStudentsByLevel", query = "SELECT s FROM Student AS s WHERE s.level = :level"
+        )
 })
 public class Student extends User implements Serializable {
 
+    public static final String STUDENT_BY_LOGIN_WITH_INFO = "findStudentByLoginWithInfo";
+    public static final String STUDENT_BY_LOGIN_WITH_LEVEL = "findStudentByLoginWithLevel";
+    public static final String STUDENT_BY_LOGIN_WITH_INFO_AND_LEVEL = "findStudentByLoginWithInfoAndLevel";
     public static final String STUDENTS_BY_CLASS = "findStudentsByClass";
     public static final String STUDENTS_BY_TEACHER = "findStudentsByTeacher";
     public static final String STUDENTS_BY_PARENT = "findStudentsByParent";
     public static final String STUDENTS_BY_LEVEL = "findStudentsByLevel";
+
+    public enum Related {
+        DETAILED_INFO("detailedInfo"),
+        PARENT("parent"),
+        LEVEL("level");
+
+        private final String name;
+
+        private Related(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+    }
+
+    // a bit complicated, but allows to call studentService.getByLogin(login, <array of enums>)
+    public static final Map<Set<Related>, String> queriesWithRelated;
+    static {
+        Map<Set<Related>, String> byLoginMap = new HashMap<>();
+        Set<Related> infoSet = EnumSet.of(Related.DETAILED_INFO);
+        Set<Related> levelSet = EnumSet.of(Related.LEVEL);
+        Set<Related> infoAndLevelSet = EnumSet.of(Related.DETAILED_INFO, Related.LEVEL);
+        byLoginMap.put(infoSet, STUDENT_BY_LOGIN_WITH_INFO);
+        byLoginMap.put(levelSet, STUDENT_BY_LOGIN_WITH_LEVEL);
+        byLoginMap.put(infoAndLevelSet, STUDENT_BY_LOGIN_WITH_INFO_AND_LEVEL);
+        queriesWithRelated = Collections.unmodifiableMap(byLoginMap);
+    }
 
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "info_id", nullable = false, unique = true)
@@ -31,7 +86,7 @@ public class Student extends User implements Serializable {
 
     // student has a level assigned but can be assigned to classes with different levels
     // it's not a bug it's a feature :)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "level_id")
     private Level level;
 
@@ -51,7 +106,7 @@ public class Student extends User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "parent_id"))
     private Parent parent;
 
-    public Student(){
+    public Student() {
         classes = new HashSet<ClassInfo>();
         grades = new HashSet<Grade>();
     }
@@ -97,7 +152,7 @@ public class Student extends User implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object){
+    public boolean equals(Object object) {
         if (this == object) {
             return true;
         }
@@ -108,11 +163,11 @@ public class Student extends User implements Serializable {
         }
 
         final Student student = (Student) object;
-        return getDetailedInfo() !=null ? getDetailedInfo().equals(student.getDetailedInfo()) : false;
+        return getDetailedInfo() != null ? getDetailedInfo().equals(student.getDetailedInfo()) : false;
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return getDetailedInfo() != null ? getDetailedInfo().hashCode() : 0;
     }
 }

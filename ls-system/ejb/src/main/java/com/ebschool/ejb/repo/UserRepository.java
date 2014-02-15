@@ -18,13 +18,13 @@ public interface UserRepository {
     public <T extends User> T update(T object);
     public <T extends User> void delete(T... objects);
     public <T extends User> void deleteAll(Class<T> type);
-    public <T extends User> Set<T> getAll(Class<T> type);
+    public <T extends User> Set<T> getAll(Class<T> type, Student.Related... related);
 
-    public <T extends User> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters);
+    public <T extends User> List<T> findWithNamedQuery(Class T, String namedQuery, Map<String, Object> parameters);
 
-    public <T extends User> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters, int resultLimit);
+    public <T extends User> List<T> findWithNamedQuery(Class T, String namedQuery, Map<String, Object> parameters, int resultLimit);
 
-    public Student getStudentById(Long id);
+    public Student getStudentById(Long id, Student.Related... related);
 
     public Teacher getTeacherById(Long id);
 

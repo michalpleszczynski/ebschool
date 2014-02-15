@@ -12,15 +12,15 @@ import java.util.Set;
  */
 public interface StudentService {
 
-    public Student getStudentById(Long id);
-    public Set<Student> getAll();
+    public Student getById(Long id, Student.Related... related);
+    public Student getByLogin(String login, Student.Related... related);
+    public Set<Student> getAll(Student.Related... related);
 
     public Student create(Student student);
 
-    public List<Student> getStudentsByClass(ClassInfo classInfo);
-    public List<Student> getStudentsByTeacher(Teacher teacher);
-    public List<Student> getStudentsByParent(Parent parent);
-    public List<Student> getStudentsByLevel(Level level);
-
+    public List<Student> getByClass(ClassInfo classInfo);
+    public List<Student> getByTeacher(Teacher teacher);
+    public List<Student> getByParent(Parent parent);
+    public List<Student> getByLevel(Level level);
 
 }

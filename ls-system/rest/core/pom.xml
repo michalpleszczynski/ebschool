@@ -32,6 +32,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--Transaction API-->
+        <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Import the CDI API, we use provided scope as the API is included
            in JBoss AS 7 -->
         <dependency>
@@ -77,6 +84,11 @@
             <groupId>org.picketbox</groupId>
             <artifactId>picketbox</artifactId>
             <version>4.0.18.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
         </dependency>
 
     </dependencies>

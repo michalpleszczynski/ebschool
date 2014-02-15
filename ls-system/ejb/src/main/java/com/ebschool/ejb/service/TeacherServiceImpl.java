@@ -24,7 +24,7 @@ public class TeacherServiceImpl implements TeacherService {
     UserRepository userRepository;
 
     @Override
-    public Teacher getTeacherById(Long id) {
+    public Teacher getById(Long id) {
         return userRepository.getTeacherById(id);
     }
 
@@ -39,7 +39,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> getTeachersByClass(ClassInfo classInfo) {
+    public List<Teacher> getByClass(ClassInfo classInfo) {
         return userRepository.findWithNamedQuery(Teacher.class, Teacher.TEACHERS_BY_CLASS, with("classInfo", classInfo).parameters());
     }
 

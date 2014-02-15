@@ -35,8 +35,18 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
+    public Grade getByIdWithRelated(Long id, Grade.Related... related) {
+        return gradeRepository.getByIdWithRelated(id, related);
+    }
+
+    @Override
     public Set<Grade> getAll() {
         return gradeRepository.getAll();
+    }
+
+    @Override
+    public Set<Grade> getAllWithRelated(Grade.Related... related) {
+        return gradeRepository.getAllWithRelated(related);
     }
 
     @Override

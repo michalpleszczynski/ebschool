@@ -10,7 +10,22 @@
         <ui:define name="left">
             <eb:left_menu currentSection="grades" />
         </ui:define>
-        <ui:define name="content">Grades!</ui:define>
+        <ui:define name="content">
+            <h:dataTable value="#{gradeManager.currentStudentGrades}" var="grade">
+                <h:column>
+                    #{grade.percentage}
+                </h:column>
+
+                <h:column>
+                    #{grade.weight}
+                </h:column>
+
+                <h:column>
+                    #{grade.comment}
+                </h:column>
+
+            </h:dataTable>
+        </ui:define>
         <ui:define name="bottom">Copyright.</ui:define>
     </ui:composition>
 </h:body>

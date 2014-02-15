@@ -5,6 +5,8 @@ import com.ebschool.ejb.repo.UserRepository;
 
 import javax.ejb.*;
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,13 +25,27 @@ public class StudentServiceImpl implements StudentService {
     UserRepository userRepository;
 
     @Override
-    public Student getStudentById(Long id) {
-        return userRepository.getStudentById(id);
+    public Student getById(Long id, Student.Related... related) {
+        return userRepository.getStudentById(id, related);
     }
 
     @Override
-    public Set<Student> getAll() {
-        return userRepository.getAll(Student.class);
+    public Student getByLogin(String login, Student.Related... related) {
+        String query = Student.USER_BY_LOGIN;
+        if (related.length == 0){
+            List<Student> student = userRepository.findWithNamedQuery(User.class, query, with("login", login).parameters(), 1);
+            return student.isEmpty() ? null : student.get(0);
+        } else {
+            List<Student.Related> enumList = Arrays.asList(related);
+            query = Student.queriesWithRelated.get(EnumSet.of(enumList.get(0), enumList.subList(1, enumList.size()).toArray(new Student.Related[0])));
+        }
+        List<Student> student = userRepository.findWithNamedQuery(Student.class, query, with("login", login).parameters(), 1);
+        return student.isEmpty() ? null : student.get(0);
+    }
+
+    @Override
+    public Set<Student> getAll(Student.Related... related) {
+        return userRepository.getAll(Student.class, related);
     }
 
     @Override
@@ -38,22 +54,22 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentsByClass(ClassInfo classInfo) {
+    public List<Student> getByClass(ClassInfo classInfo) {
         return userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_CLASS, with("classInfo", classInfo).parameters());
     }
 
     @Override
-    public List<Student> getStudentsByTeacher(Teacher teacher) {
+    public List<Student> getByTeacher(Teacher teacher) {
         return userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_TEACHER, with("teacher", teacher).parameters());
     }
 
     @Override
-    public List<Student> getStudentsByParent(Parent parent) {
+    public List<Student> getByParent(Parent parent) {
         return userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_PARENT, with("parent", parent).parameters());
     }
 
     @Override
-    public List<Student> getStudentsByLevel(Level level) {
+    public List<Student> getByLevel(Level level) {
         return userRepository.findWithNamedQuery(Student.class, Student.STUDENTS_BY_LEVEL, with("level", level).parameters());
     }
 

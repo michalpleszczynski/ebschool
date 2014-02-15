@@ -10,7 +10,9 @@
         <ui:define name="left">
             <eb:left_menu currentSection="account" />
         </ui:define>
-        <ui:define name="content">This is your account.</ui:define>
+        <ui:define name="content">
+            #{studentManager.currentStudent.login}, #{studentManager.currentStudent.detailedInfo.identificationNumber}
+        </ui:define>
         <ui:define name="bottom">Copyright.</ui:define>
     </ui:composition>
 </h:body>

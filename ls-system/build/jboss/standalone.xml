@@ -275,6 +275,9 @@
                             <module-option name="rolesProperties" value="${jboss.server.config.dir}/application-roles.properties"/>
                             <module-option name="realm" value="ApplicationRealm"/>
                             <module-option name="password-stacking" value="useFirstPass"/>
+                            <!--don't log incorrect password as error-->
+                            <module-option name="unauthenticatedIdentity" value="guest"/>
+                            <module-option name="allowEmptyPasswords" value="false"/>
                         </login-module>
                     </authentication>
                 </security-domain>

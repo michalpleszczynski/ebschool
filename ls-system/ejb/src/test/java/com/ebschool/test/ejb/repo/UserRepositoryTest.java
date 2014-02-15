@@ -3,8 +3,6 @@ package com.ebschool.test.ejb.repo;
 import com.ebschool.ejb.model.*;
 import com.ebschool.test.ejb.AbstractArquillianRepositoryTest;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.persistence.ApplyScriptBefore;
-import org.jboss.arquillian.persistence.CleanupUsingScript;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -161,7 +159,7 @@ public class UserRepositoryTest extends AbstractArquillianRepositoryTest {
         assertTrue(studentsOfLevel1.contains(studentOfLevel1_1) && studentsOfLevel1.contains(studentOfLevel1_2));
 
         // get user by login
-        List<User> user = userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN_AND_PASSWORD, with("login", "default_login2").parameters(), 1);
+        List<User> user = userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN, with("login", "default_login2").parameters(), 1);
         assertNotNull(user);
         assertEquals(1, user.size());
         assertEquals(new Long(4), user.get(0).getId());

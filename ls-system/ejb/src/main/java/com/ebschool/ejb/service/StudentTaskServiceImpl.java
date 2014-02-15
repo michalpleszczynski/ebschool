@@ -31,8 +31,18 @@ public class StudentTaskServiceImpl implements StudentTaskService {
     }
 
     @Override
+    public StudentTask getByIdWithRelated(Long id, StudentTask.Related... related) {
+        return studentTaskRepository.getByIdWithRelated(id, related);
+    }
+
+    @Override
     public Set<StudentTask> getAll() {
         return studentTaskRepository.getAll();
+    }
+
+    @Override
+    public Set<StudentTask> getAllWithRelated(StudentTask.Related... related) {
+        return studentTaskRepository.getAllWithRelated(related);
     }
 
     @Override

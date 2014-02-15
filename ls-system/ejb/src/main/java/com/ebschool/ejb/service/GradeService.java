@@ -16,7 +16,9 @@ public interface GradeService {
     public Grade create(Grade grade);
 
     public Grade getById(Long id);
+    public Grade getByIdWithRelated(Long id, Grade.Related... related);
     public Set<Grade> getAll();
+    public Set<Grade> getAllWithRelated(Grade.Related... related);
 
     public List<Grade> getGradesByStudent(Student student);
 

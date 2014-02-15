@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByLogin(String login) {
-        List<User> user =  userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN_AND_PASSWORD, with("login", login).parameters(), 1);
+        List<User> user =  userRepository.findWithNamedQuery(User.class, User.USER_BY_LOGIN, with("login", login).parameters(), 1);
         return user.isEmpty() ? null : user.get(0);
     }
 

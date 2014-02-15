@@ -13,7 +13,9 @@ import java.util.Set;
 public interface StudentTaskService {
 
     public StudentTask getById(Long id);
+    public StudentTask getByIdWithRelated(Long id, StudentTask.Related... related);
     public Set<StudentTask> getAll();
+    public Set<StudentTask> getAllWithRelated(StudentTask.Related... related);
     public List<StudentTask> getTestsByClass(ClassInfo classInfo);
 
     public StudentTask create(StudentTask studentTask);

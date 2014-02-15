@@ -6,8 +6,6 @@ import com.ebschool.ejb.model.Level;
 import com.ebschool.ejb.model.Student;
 import com.ebschool.test.ejb.AbstractArquillianServiceDataTest;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.persistence.ApplyScriptBefore;
-import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,7 +60,7 @@ public class StudentIServiceTest extends AbstractArquillianServiceDataTest {
         assertEquals(1, savedClasses.size());
         assertEquals(new Long(1L), savedClasses.iterator().next().getId());
 
-        List<Student> studentsOfClass = studentService.getStudentsByClass(classInfoService.getById(1L));
+        List<Student> studentsOfClass = studentService.getByClass(classInfoService.getById(1L));
         assertNotNull(studentsOfClass);
         assertTrue(studentsOfClass.contains(savedStudent));
 
@@ -94,7 +92,7 @@ public class StudentIServiceTest extends AbstractArquillianServiceDataTest {
         assertNull(gradeService.getById(grade1.getId()));
         assertNull(gradeService.getById(grade2.getId()));
 
-        studentsOfClass = studentService.getStudentsByClass(classInfoService.getById(1L));
+        studentsOfClass = studentService.getByClass(classInfoService.getById(1L));
         assertNotNull(studentsOfClass);
         assertFalse(studentsOfClass.contains(savedStudent));
     }

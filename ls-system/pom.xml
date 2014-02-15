@@ -86,6 +86,14 @@
                 <scope>import</scope>
             </dependency>
 
+            <!--Transaction api-->
+            <dependency>
+                <groupId>org.jboss.spec.javax.transaction</groupId>
+                <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                <version>1.0.1.Final</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!-- JSR-303 (Bean Validation) Implementation -->
             <!-- Provides portable constraints such as @Email -->
             <!-- Hibernate Validator is shipped in JBoss AS 7 -->
@@ -186,6 +194,8 @@
                     <configuration>
                         <source>1.7</source>
                         <target>1.7</target>
+                        <!--this is probably not needed since it's 1.7, and apparently automatic processing in only in 1.6-->
+                        <compilerArgument>-proc:none</compilerArgument>
                     </configuration>
                 </plugin>
                 <!-- The JBoss AS plugin deploys your ear to a local JBoss AS

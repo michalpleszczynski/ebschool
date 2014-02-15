@@ -12,11 +12,11 @@ import java.util.Set;
  */
 public interface TeacherService {
 
-    public Teacher getTeacherById(Long id);
+    public Teacher getById(Long id);
     public Set<Teacher> getAll();
 
     public Teacher create(Teacher teacher);
 
-    public List<Teacher> getTeachersByClass(ClassInfo classInfo);
+    public List<Teacher> getByClass(ClassInfo classInfo);
 
 }

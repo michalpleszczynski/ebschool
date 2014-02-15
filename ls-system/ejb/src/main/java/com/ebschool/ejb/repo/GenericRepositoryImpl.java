@@ -10,6 +10,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,22 @@ public class GenericRepositoryImpl<T extends Identifiable, PK> implements Generi
     @Override
     public T getById(PK id) {
         return entityManager.find(clazz, id);
+    }
+
+    // yes, yes, it's Long instead of PK and non type safe root.get("id")
+    // but it only can be as generic
+    public T getByIdWithRelated(Long id, Enum... related){
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(clazz);
+        Root<T> root = query.from(clazz);
+        for (Enum relation : related){
+            root.fetch(relation.toString(), JoinType.LEFT);
+        }
+        ParameterExpression<Long> p = builder.parameter(Long.class);
+        query.select(root).where(builder.equal(root.get("id"), p));
+        TypedQuery<T> q = entityManager.createQuery(query);
+        q.setParameter(p, id);
+        return q.getSingleResult();
     }
 
     @Override
@@ -83,6 +100,18 @@ public class GenericRepositoryImpl<T extends Identifiable, PK> implements Generi
         return new HashSet<T>(entityManager.createQuery("From " + clazz.getSimpleName() + " c").getResultList());
     }
 
+    public Set<T> getAllWithRelated(Enum... related){
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(clazz);
+        Root<T> root = query.from(clazz);
+        for (Enum relation : related){
+            root.fetch(relation.toString(), JoinType.LEFT);
+        }
+        query.select(root);
+        TypedQuery<T> q = entityManager.createQuery(query);
+        return new HashSet(q.getResultList());
+    }
+
     @Override
     public <T> List<T> findWithNamedQuery(Class T, String namedQueryName, Map<String, Object> parameters){
         return findWithNamedQuery(T, namedQueryName, parameters, 0);
@@ -99,4 +128,5 @@ public class GenericRepositoryImpl<T extends Identifiable, PK> implements Generi
         }
         return query.getResultList();
     }
+
 }

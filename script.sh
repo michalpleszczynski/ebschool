@@ -47,4 +47,5 @@ function start() {
   cd $start_dir;
 }
 
+export JBOSS_HOME=/home/michau/jboss/jboss-as-7.1.1.Final
 $@

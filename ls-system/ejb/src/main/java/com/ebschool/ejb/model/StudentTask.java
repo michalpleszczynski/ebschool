@@ -27,6 +27,21 @@ public class StudentTask implements Identifiable, Serializable {
         ASSIGNMENT
     }
 
+    public enum Related {
+        CLASS_INFO ("studentTask");
+
+        private final String name;
+
+        private Related(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString(){
+            return name;
+        }
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

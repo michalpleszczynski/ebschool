@@ -22,6 +22,22 @@ public class Grade  implements Identifiable, Serializable {
     public static final String GRADES_BY_STUDENT = "findGradesByStudent";
     public static final String GRADES_BY_STUDENT_TASK = "findGradesByStudentTask";
 
+    public enum Related {
+        STUDENT_TASK ("studentTask"),
+        STUDENT ("student");
+
+        private final String name;
+
+        private Related(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString(){
+            return name;
+        }
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

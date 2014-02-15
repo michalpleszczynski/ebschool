@@ -10,13 +10,13 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "basic_user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "login"}))
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-        @NamedQuery(name = "findUserByLoginAndPassword", query = "SELECT u FROM User as u WHERE u.login = :login"),
+        @NamedQuery(name = "findUserByLogin", query = "SELECT u FROM User as u WHERE u.login = :login"),
         // entity.find(User.class, id) in case of a Parent joined students (children) to the result returning multiple results for 1 id
         @NamedQuery(name = "findUserById", query = "SELECT u FROM User u WHERE u.id = :id")
 })
@@ -26,7 +26,7 @@ public abstract class User  implements Identifiable, Serializable {
         ADMIN, STUDENT, TEACHER, PARENT
     }
 
-    public static final String USER_BY_LOGIN_AND_PASSWORD = "findUserByLoginAndPassword";
+    public static final String USER_BY_LOGIN = "findUserByLogin";
     public static final String USER_BY_ID = "findUserById";
 
     @Id
@@ -171,5 +171,10 @@ public abstract class User  implements Identifiable, Serializable {
         result = result*37 + (getLogin() != null ? getLogin().hashCode() : 0);
         result = result*37 + (getEmail() != null ? getEmail().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString(){
+        return getFirstName() + " " + getLastName() + ": " + getLogin();
     }
 }

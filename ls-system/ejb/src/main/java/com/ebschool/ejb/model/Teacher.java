@@ -19,6 +19,21 @@ public class Teacher extends User implements Serializable {
 
     public static final String TEACHERS_BY_CLASS = "findTeachersByClass";
 
+    public enum Related {
+        DETAILED_INFO ("detailedInfo");
+
+        private final String name;
+
+        private Related(String name){
+            this.name = name;
+        }
+
+        @Override
+        public String toString(){
+            return name;
+        }
+    }
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] avatar;
